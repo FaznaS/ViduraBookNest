@@ -130,7 +130,7 @@
                     <br>
                     <div style="display: flex; justify-content:space-between">
                         <span class="error"><?php echo $passwordErr; ?></span>
-                        <a href="forgotPassword.php">Forgot Password?</a>
+                        <a href="forgotPassword.php">Forgot? </a>
                     </div>
                 </div>
                 <br>
