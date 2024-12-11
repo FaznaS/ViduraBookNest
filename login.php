@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vidura College BookNest</title>
     <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
             font-size: large;
@@ -51,6 +53,8 @@
             font-weight: bold;
             padding: 8px;
             border-radius: 0.8em;
+            margin-bottom: 8px;
+            cursor: pointer;
         }
         .error {
             color: #FF0000;
@@ -64,6 +68,12 @@
             justify-content: flex-end;
             padding: 8px;
         }
+        .fa {
+            position: absolute; 
+            right: 10px; 
+            top: 50%;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -71,6 +81,7 @@
         // Setting up the connection
         $conn = mysqli_connect("localhost", "root", "fazna11aa99zz@Sheriffdeen", "booknest_db");
 
+        // Checking if the connection was successful
         if (!$conn) {
             die("Connection Unsuccessful: " . mysqli_connect_error());
         }
@@ -126,14 +137,15 @@
                 <div class="user-input-container">
                     <label for="password">Password</label>
                     <br>
-                    <input type="password" id="password" name="password" value="<?php echo $password; ?>" >
-                    <br>
-                    <div style="display: flex; justify-content:space-between">
+                    <div style="position: relative; height: 20px;">
+                        <input type="password" id="password" name="password" value="<?php echo $password; ?>" placeholder="Password">
+                        <i id="icon-eye" class="fa fa-eye" aria-hidden="true" onclick="togglePassword()"></i>
+                    </div>
+                    <div style="display: flex; justify-content:space-between; margin-top: 10px">
                         <span class="error"><?php echo $passwordErr; ?></span>
-                        <a href="forgotPassword.php">Forgot? </a>
+                        <a href="forgotPassword.php">Forgot?</a>
                     </div>
                 </div>
-                <br>
                 <input type="submit" id="login" name="login" value="LOGIN" class="submit-btn" style="background-color: #AA9595;">
             </form>
         </div>

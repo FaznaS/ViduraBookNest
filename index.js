@@ -1,3 +1,15 @@
+function togglePassword() {
+    var icon = document.getElementById('icon-eye');
+    var password = document.getElementById('password');
+    if(icon.className == "fa fa-eye") {
+        password.type = "text";
+        icon.className = "fa fa-eye-slash";
+    } else {
+        password.type = "password";
+        icon.className = "fa fa-eye";
+    }
+}
+
 function showViewProfile() {
     var user_profile_options = document.getElementById('view-profile-option');
     var user_profile_icon = document.getElementById('user-profile-icon');
