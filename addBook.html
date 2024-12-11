@@ -62,7 +62,7 @@
     <div class="content-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <img src="./Assets/logo.jpg" alt="logo" style="height: 100px; padding-top: 10px;">
         <h2>Add New Book</h2>
-        <form id="form-container" method="POST">
+        <form id="form-container" action="manageBookRecords.php" method="POST">
             <table align="center" cellpadding="3px" style="text-align: left;">
                 <tr>
                     <td><label for="acc_no">ACC.No</label></td>
@@ -81,6 +81,9 @@
                     <td>
                         <select name="category" style="width: 100%;">
                             <option value="select">Select</option>
+                            <option value="Englidh Fiction">English Fiction</option>
+                            <option value="English Literature">English Literature</option>
+                            <option value="General Knowledge">General Knowledge</option>
                         </select>
                     </td>
                 </tr>
@@ -117,7 +120,7 @@
                 <tr>
                     <td><label for="class_no">Class No</label></td>
                     <td>
-                        <input type="number" id="class_no" name="class_no">
+                        <input type="text" id="class_no" name="class_no">
                     </td>
                 </tr>
                 <tr>
@@ -129,13 +132,17 @@
                 <tr>
                     <td><label for="status">Status</label></td>
                     <td>
-                        <input type="text" id="status" name="status">
+                        <select name="status" style="width: 100%;">
+                            <option value="select">Select</option>
+                            <option value="Old">Old</option>
+                            <option value="New">New</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="comment">Comment</label></td>
                     <td>
-                        <textarea style="height: 70px;"></textarea>
+                        <textarea id="comment" name="comment" style="height: 70px;"></textarea>
                     </td>
                 </tr>
             </table>

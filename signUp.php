@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vidura College BookNest</title>
     <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
             font-size: large;
@@ -51,6 +53,14 @@
             font-weight: bold;
             padding: 8px;
             border-radius: 0.8em;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .fa {
+            position: absolute;
+            right: 10px; 
+            top: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -155,9 +165,11 @@
             if(empty($password)) {
                 $passwordErr = "Password is required";
                 $valid = false;
-            } else if(strlen($password) > 15) { 
-                // Check password length
-                $passwordErr = "Password cannot be more than 15 characters";
+            } 
+
+            // To ensure that the password is strong enough
+            if (!preg_match("#^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$#", $password)) {
+                $passwordErr = "Password must contain at least 1 uppercase <br> letter, 1 lowercase letter, 1 digit, and be at <br> least 8 characters long";
                 $valid = false;
             }
 
@@ -233,9 +245,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="password">Password</label></td>
+                        <td style="vertical-align: top;"><label for="password">Password</label></td>
                         <td>
-                            <input type="password" id="password" name="password" value="<?php echo $password; ?>">
+                            <div style="position: relative; height: 15px;">
+                                <input type="password" id="password" name="password" value="<?php echo $password; ?>">
+                                <i id="icon-eye" class="fa fa-eye" aria-hidden="true" onclick="togglePassword()"></i>
+                            </div>
                             <br>
                             <span class="error"><?php echo $passwordErr; ?></span>
                         </td>
