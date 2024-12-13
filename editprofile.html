@@ -56,10 +56,21 @@
             margin-bottom: 8px;
             cursor: pointer;
         }
-        .fa {
+        #icon-eye {
             position: absolute;
             right: 10px; 
             top: 5px;
+            cursor: pointer;
+        }
+
+        .submit1{
+            width: 150px;
+            height: 40px;
+            font-size: small;
+            font-weight: bold;
+            padding: 8px;
+            border-radius: 0.8em;
+            margin-bottom: 8px;
             cursor: pointer;
         }
     </style>
@@ -71,6 +82,11 @@
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>
                 <table align="center" cellpadding="3px" style="text-align: left;">
                     <tr>
+                        <td> <i class="fa fa-user" aria-hidden="true" style="font-size:40px;"> </i> </td>
+                        <td>  <input type="submit" id="add" name="add" value="Choose Image" class="submit1" style="background-color: #AA9595;">    </td>
+                    </tr>
+                    
+                        <tr>
                         <td><label for="student_name">Name</label></td>
                         <td>
                             <input type="text" id="student_name" name="student_name"  value="John" readonly>
@@ -136,6 +152,8 @@
                 <br>
                 <input type="submit" id="add" name="add" value="Edit Profile" class="submit-btn" style="background-color: #AA9595;">
             </form>
+
+            
         </div>
     </div>
 </body>
