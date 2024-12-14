@@ -7,9 +7,111 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="index.js"></script>
+    <script src="home.js"></script>
     <style>
         ul {
             list-style: none;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            width: fit-content;
+        }
+        .search-bar input {
+            border: none;
+            background-color: #E5C2BB;
+            padding: 10px 40px;
+            border-radius: 25px;
+            height: 25px;
+            width: 400px;
+        }
+        .fa-filter {
+            position: relative;
+            font-size: large;
+            left: 30px;
+        }
+        .fa-search {
+            position: relative;
+            font-size: large;
+            right: 30px;
+        }
+        #filter-options {
+            background-color: #E5DAD8;
+            width: 420px;
+            padding: 10px;
+            padding-bottom: 20px;
+            position: absolute;
+            z-index: 1;
+        }
+        .btn-genre, .btn-author {
+            padding: 5px 20px;
+            font-weight: bold;
+        }
+        .book_category_container {
+            margin-left: 40px;
+            margin-right: 40px;
+            justify-content: center;
+        }
+        h2 {
+            background-color: #D9D9D9;
+            border-radius: 20px;
+            width: fit-content;
+            height: fit-content;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+        #book_list_container {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        .book_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            height: fit-content;
+            margin-right: 10px;
+            padding: 8px;
+            margin: 10px;
+        }
+        #book_img {
+            height: 250px;
+            width: 170px;
+        }
+        #book_title {
+            background-color: #D9D9D9;
+            padding: 3px;
+            border-radius: 20px;
+            width: 200px;
+            text-align: center;
+            height: fit-content;
+        }
+        .view-more-btn {
+            width: 120px;
+            height: 40px;
+            font-size: large;
+            padding: 5px;
+            border: 1px solid white;
+            border-radius: 0.8em;
+            margin-left: 40px;
+            color: #0029FF;
+        }
+        #page-container {
+            background-color: rgba(204, 195, 195, 0.3);
+        }
+        .no-books-message {
+            background-color: #D9D9D9;
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+            font-size: 20px;
+            padding: 5px;
         }
     </style>
 </head>
@@ -77,6 +179,112 @@
                     <a href="welcome.html" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
                 </button>
             </div>
+
+            <!-------------------------------Search Bar------------------------------->
+            <div style="display: flex; justify-content: center;">
+                <div class="search-bar">
+                    <i class="fa fa-filter" aria-hidden="true" onclick="showFilterOptions()"></i>
+                    <input type="text" placeholder="Search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+            </div>
+
+            <!-------------------------------Filter Options------------------------------->
+            <div id="filter-options-container" style="display: none; justify-content: center;">
+                <div id="filter-options">
+                    <h4>Genre</h4>
+                    <div style="padding: 5px;">
+                        <button type="button" class="btn-genre">Fiction</button>
+                        <button type="button" class="btn-genre">Non-Fiction</button>
+                        <button type="button" class="btn-genre">Science</button>
+                        <button type="button" class="btn-genre">History</button>
+                    </div>
+                    <div style="padding: 5px;">
+                        <button type="button" class="btn-genre">Language</button>
+                        <button type="button" class="btn-genre">Literature</button>
+                        <button type="button" class="btn-genre">Technology</button>
+                    </div>
+                    <h4>Author</h4>
+                    <input type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;">
+                </div>
+            </div>
+
+            <!-------------------------------Book Collection------------------------------->
+            <?php 
+                include "config.php";
+                
+                $category = "";
+
+                function displayBookByCategory($conn, $category) {
+                    $search = "SELECT * FROM books WHERE category = '$category'";
+                    $result = mysqli_query($conn,$search);
+
+                    if(mysqli_num_rows($result) > 0) {
+                        while($fetch_book = mysqli_fetch_assoc($result)) {
+                            echo '<div class="book_container">
+                                    <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
+                                    <h3 id="book_title">' . $fetch_book["title"] . '</h3>
+                                </div>';
+                        }
+                                            
+                        echo '<input type="button" value="More" name="view-more" class="view-more-btn">';
+
+                    } else {
+                        echo '<p class="no-books-message"> 
+                                No books available in this category 
+                            </p>';
+                    }
+                }
+            ?>
+
+            <section class="book_category_container">
+                <h2>Fiction</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'English Fiction') ?>
+                </div>
+            </section>
+            
+            <section class="book_category_container">
+                <h2>Non Fiction</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'Non Fiction') ?>
+                </div>
+            </section>
+            
+            <section class="book_category_container">
+                <h2>Science</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'Science') ?>
+                </div>
+            </section>  
+
+            <section class="book_category_container">
+                <h2>History</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'History') ?>
+                </div>
+            </section>
+
+            <section class="book_category_container">
+                <h2>Language</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'Language') ?>
+                </div>
+            </section>
+
+            <section class="book_category_container">
+                <h2>Literature</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'Literature') ?>
+                </div>
+            </section>
+            
+            <section class="book_category_container">
+                <h2>Technology</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'Technology') ?>
+                </div>
+            </section>
         </div>
         
         <!-------------------------------Footer------------------------------->
