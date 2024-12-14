@@ -67,11 +67,7 @@
 <body>
     <?php
         // Setting up the connection
-        $conn = mysqli_connect("localhost", "root", "fazna11aa99zz@Sheriffdeen", "booknest_db");
-
-        if (!$conn) {
-            die("Connection Unsuccessful: " . mysqli_connect_error());
-        }
+        include "config.php";
 
         // Initializing variables
         $nameErr = $emailErr = $contactNoErr = $gradeClassErr = $admissionNoErr = $passwordErr = "";
