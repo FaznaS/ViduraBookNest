@@ -1,10 +1,6 @@
 <?php 
     // Setting up the connection
-    $conn = mysqli_connect("localhost", "root", "", "booknest_db");
-
-    if (!$conn) {
-        die("Connection Unsuccessful: " . mysqli_connect_error());
-    }
+    include "config.php";
 
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["insert"])) {
         $acc_no = $_POST["acc_no"] ?? "";
