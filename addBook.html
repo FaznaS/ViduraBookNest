@@ -62,7 +62,7 @@
     <div class="content-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <img src="./Assets/logo.jpg" alt="logo" style="height: 100px; padding-top: 10px;">
         <h2>Add New Book</h2>
-        <form id="form-container" action="manageBookRecords.php" method="POST">
+        <form id="form-container" action="manageBookRecords.php" method="POST" enctype="multipart/form-data">
             <table align="center" cellpadding="3px" style="text-align: left;">
                 <tr>
                     <td><label for="acc_no">ACC.No</label></td>
@@ -77,11 +77,17 @@
                     </td>
                 </tr>
                 <tr>
+                    <td><label for="book_image">Book Cover Page</label></td>
+                    <td>
+                        <input type="file" id="book_image" name="book_image" accept="image/jpg, image/jpeg, image/png" style="padding-left: 0%;" required>
+                    </td>
+                </tr>
+                <tr>
                     <td><label for="category">Category</label></td>
                     <td>
                         <select name="category" style="width: 100%;">
                             <option value="select">Select</option>
-                            <option value="Englidh Fiction">English Fiction</option>
+                            <option value="English Fiction">English Fiction</option>
                             <option value="English Literature">English Literature</option>
                             <option value="General Knowledge">General Knowledge</option>
                         </select>
