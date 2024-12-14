@@ -82,7 +82,7 @@
         session_start();
 
         // Setting up the connection
-        $conn = mysqli_connect("localhost", "root", "***REMOVED***", "booknest_db");
+        include "config.php";
 
         // Checking if the connection was successful
         if (!$conn) {
