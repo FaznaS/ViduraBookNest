@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS `books`;
 CREATE TABLE IF NOT EXISTS `books` (
   `acc_no` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
+  `image` varchar(500) NOT NULL,
   `category` varchar(50) NOT NULL,
   `author` varchar(255) NOT NULL,
   `copies` int NOT NULL,
@@ -14,22 +15,23 @@ CREATE TABLE IF NOT EXISTS `books` (
   `comment` varchar(255) NOT NULL,
   PRIMARY KEY (`acc_no`),
   UNIQUE KEY `isbn` (`isbn`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
-INSERT INTO `books` (`acc_no`, `title`, `category`, `author`, `copies`, `publisher`, `isbn`, `copyright_year`, `class_no`, `price`, `status`, `comment`) VALUES
-(1, 'Modoldoova', 'English Fiction', 'Martin Wickramiasingha', 2, 'mw', '4125-956', 2019, 'EF', 750, 'old', ''),
-(2, 'Alice in Wonderland', 'Englidh Fiction', 'Caroll Lewis', 1, 'Ladybird', '0-7124-1654-3', 2015, 'CAR-F', 1100, 'New', '');
+INSERT INTO `books` (`acc_no`, `title`, `image`, `category`, `author`, `copies`, `publisher`, `isbn`, `copyright_year`, `class_no`, `price`, `status`, `comment`) VALUES
+(1, 'River sing me home', 'River Sing Me Home.jpeg', 'English Fiction', 'Elanor Shearer', 3, 'LBClassics', '14582-546584', 2015, 'CAR-F', 1450, 'Old', ''),
+(2, 'Princess Freedom', 'Princess Freedom.jpeg', 'English Fiction', 'Griggri Archembalo', 1, 'GAClassics', '785659-8569-4523', 2016, 'CAR-F', 1500, 'New', 'Donated by a student'),
+(3, 'A court for Ravens', 'A court for ravens.jpg', 'English Fiction', 'Layla Blue', 1, 'LBClassics', '7854-8569-965', 2019, 'CAR-F', 1500, 'New', '');
 
 DROP TABLE IF EXISTS `members`;
 CREATE TABLE IF NOT EXISTS `members` (
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` text NOT NULL,
   `email` varchar(50) NOT NULL,
   `contact_no` char(10) NOT NULL,
   `grade_class` varchar(3) NOT NULL,
   `user_id` varchar(10) NOT NULL,
-  `password` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(15) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 INSERT INTO `members` (`name`, `email`, `contact_no`, `grade_class`, `user_id`, `password`) VALUES
 ('Fazna Sheriffdeen', 'gfsheriffdeen@gmail.com', '0758528524', '11B', '4526', 'Qwerty@123'),
