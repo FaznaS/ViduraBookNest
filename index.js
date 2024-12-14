@@ -1,3 +1,4 @@
+// Belongs to login page
 function togglePassword() {
     var icon = document.getElementById('icon-eye');
     var password = document.getElementById('password');
@@ -10,6 +11,7 @@ function togglePassword() {
     }
 }
 
+// Belongs to all pages after login
 function showViewProfile() {
     var user_profile_options = document.getElementById('view-profile-option');
     var user_profile_icon = document.getElementById('user-profile-icon');
