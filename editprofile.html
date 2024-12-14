@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidura College BookNest</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-size: large;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content-container {
+            background-color: #E5DAD8;
+            border-radius: 15px;
+            height: 75%;
+            width: 600px;
+            padding: 50px;
+            margin: 40px;
+            text-align: center;
+        }
+        #form-container {
+            background-color: #D09594;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10%;
+            margin-bottom: 40px;
+            height: 70%;
+            width: fit-content;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 300px; 
+            height: 15px; 
+            border-radius: 5px;
+            border-color: #D09594;
+            padding: 5px;
+        }
+        .error {
+            color: #FF0000;
+            font-size: 1.0em;
+        }
+        .submit-btn {
+            width: 120px;
+            height: 40px;
+            font-size: large;
+            font-weight: bold;
+            padding: 8px;
+            border-radius: 0.8em;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        #icon-eye {
+            position: absolute;
+            right: 10px; 
+            top: 5px;
+            cursor: pointer;
+        }
+
+        .submit1{
+            width: 150px;
+            height: 40px;
+            font-size: small;
+            font-weight: bold;
+            padding: 8px;
+            border-radius: 0.8em;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <img src="./Assets/logo.jpg" alt="logo" id="logo">
+        <div id="form-container">
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>
+                <table align="center" cellpadding="3px" style="text-align: left;">
+                    <tr>
+                        <td> <i class="fa fa-user" aria-hidden="true" style="font-size:40px;"> </i> </td>
+                        <td>  <input type="submit" id="add" name="add" value="Choose Image" class="submit1" style="background-color: #AA9595;">    </td>
+                    </tr>
+                    
+                        <tr>
+                        <td><label for="student_name">Name</label></td>
+                        <td>
+                            <input type="text" id="student_name" name="student_name"  value="John" readonly>
+                            <br>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email</label></td>
+                        <td>
+                            <input type="email" id="email" name="email" value="John@gmail.com" readonly>
+                            <br>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="contactNo">Contact No</label></td>
+                        <td>
+                            <input type="tel" id="contact_no" name="contact_no">
+                            <br>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="gradeClass">Grade/Class</label></td>
+                        <td>
+                            <input type="text" id="grade_class" name="grade_class">
+                            <br>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="admissionNo">Admission Number</label></td>
+                        
+                        <td>
+                            <input type="number" id="admission_no" name="admission_no" value="4516" readonly>
+                            <br>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"><label for="password">Password</label></td>
+                        <td>
+                            <div style="position: relative; height: 15px;">
+                                <input type="password" id="password" name="password" value="password">
+                                <i id="icon-eye" class="fa fa-eye" aria-hidden="true" onclick="togglePassword()"></i>
+                            </div>
+                            <br>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="confirmpassword">Confirm Password</label></td>
+                        <td>
+                            <div style="position: relative; height: 15px;">
+                                <input type="password" id="password" name="password" value="password">
+                                <i id="icon-eye" class="fa fa-eye" aria-hidden="true" onclick="togglePassword()"></i>
+                            </div>
+                            <br>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <input type="submit" id="add" name="add" value="Edit Profile" class="submit-btn" style="background-color: #AA9595;">
+            </form>
+
+            
+        </div>
+    </div>
+</body>
+</html>

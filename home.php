@@ -92,20 +92,26 @@
     </style>
 </head>
 <body>
-    <!--Header Design-->
+
+    <!--To display student name-->
+    <?php 
+        include "index.php"
+    ?>
+    
+    <!-------------------------------Header Design------------------------------->
     <nav>
         <img src="./Assets/logo.jpg" alt="logo" style="width: 200px; padding: 10px;">
         <ul style="display: flex;">
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-home" aria-hidden="true"></i>
-                    <a href="home.html" class="header-links">Home</a>
+                    <a href="home.php" class="header-links">Home</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-book" aria-hidden="true"></i>
-                    <a href="books.html" class="header-links">Books</a>
+                    <a href="books.php" class="header-links">Books</a>
                 </div>
             </li>
             <li>
@@ -125,11 +131,11 @@
 
     <div id="page-container">
         <div id="content-wrap">
-            <!--User Profile-->
+            <!-------------------------------User Profile------------------------------->
             <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
-                        <p>Student Full Name</p>
+                        <p><?php echo htmlspecialchars($student_name); ?></p>
                         <a href="viewProfile.html" style="text-decoration: none;">View Profile</a>
                     </div>
                 </div>
@@ -150,7 +156,7 @@
                 </button>
             </div>
 
-            <!--Search Bar-->
+            <!-------------------------------Search Bar------------------------------->
             <div style="display: flex; justify-content: center;">
                 <div class="search-bar">
                     <i class="fa fa-filter" aria-hidden="true" onclick="showFilterOptions()"></i>
@@ -159,7 +165,7 @@
                 </div>
             </div>
 
-            <!--Filter Options-->
+            <!-------------------------------Filter Options------------------------------->
             <div id="filter-options-container" style="display: none; justify-content: center;">
                 <div id="filter-options">
                     <h4>Genre</h4>
@@ -179,9 +185,9 @@
                 </div>
             </div>      
 
-            <!--About Section-->
+            <!-------------------------------About Section------------------------------->
             <section id="about-section">
-                <!--Picture Gallery-->
+                <!-------------------------------Picture Gallery------------------------------->
                 <div id="gallerybox">  
                     <div class="imagegallery"> 
                         <div class="slide">
@@ -239,7 +245,7 @@
                     </script>
                 </div>
 
-                <!--Details-->
+                <!-------------------------------Details------------------------------->
                 <div class="about-content">
                     <h1 style="font-family: cursive;">About Us</h1>
                     <h3>Our Mission</h3>
@@ -257,7 +263,8 @@
                 </div>
             </section>
         </div>
-        <!--Footer-->
+        
+        <!-------------------------------Footer------------------------------->
         <footer>
             <div id="footer-link-container">
                 <ul>
