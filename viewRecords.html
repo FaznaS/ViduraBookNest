@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidura College BookNest</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <script type="text/javascript">
+        function bookDetails() {
+            window.location.href="bookDetials.html";
+        }
+        function memberDetails() {
+            window.location.href="memberDetails.html";
+        }
+        function borrowedBookrDetails() {
+            window.location.href="borrowedBookrDetails.html";
+        }
+        function returnedBookDetails() {
+            window.location.href="returnedBookDetails.html";
+        }
+    </script>
+    <div class="content-container">
+        <img src="./Assets/logo.jpg" alt="logo" style="height: 100px;">
+        <div class="detils-container">
+            <h1>View Records</h1>
+            <button type="button" class="details-btn" onclick="bookDetails()">View Book Details</button>
+            <button type="button" class="details-btn" onclick="memberDetails()">View Member Details</button>
+            <button type="button" class="details-btn" onclick="borrowedBookrDetails()">View Borrowed Book Details</button>
+            <button type="button" class="details-btn" onclick="returnedBookDetails()">View Returned Book Details</button>
+        </div >
+    </div>
+</body>
+</html>
