@@ -77,9 +77,12 @@
     </style>
 </head>
 <body>
-<?php
+    <?php
+        // Starting the session
+        session_start();
+
         // Setting up the connection
-        $conn = mysqli_connect("localhost", "root", "***REMOVED***", "booknest_db");
+        include "config.php";
 
         // Checking if the connection was successful
         if (!$conn) {
@@ -96,19 +99,22 @@
 
             if(!(empty($username) || empty($password))) {
                 // check if the user already exists
-                $search_id = "SELECT * FROM student WHERE admission_no = '$_POST[username]'";
+                $search_id = "SELECT * FROM members WHERE user_id = '$_POST[username]'";
                 $result = mysqli_query($conn,$search_id);
 
                 if ($result->num_rows == 1) {
                     // Get user data
                     $row = mysqli_fetch_assoc($result);
-                    $stored_password = $row['student_password'];
+                    $stored_password = $row['password'];
 
                     if($password == $stored_password) {
-                        echo 
-                        "<script type=\"text/javascript\">
-                            window.location.href = 'home.html';
-                        </script>";
+                        // Storing user details to get in home.php
+                        $_SESSION['username'] = $row['user_id'];
+                        $_SESSION['name'] = $row['name'];
+                        
+                        header('Location: home.php');
+                        exit();
+                
                     } else {
                         $passwordErr = "Incorrect Password";
                     }

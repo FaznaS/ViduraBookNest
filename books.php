@@ -6,8 +6,8 @@
     <title>Vidura College BookNest</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="home.js"></script>
     <script src="index.js"></script>
+    <script src="home.js"></script>
     <style>
         ul {
             list-style: none;
@@ -48,64 +48,94 @@
             padding: 5px 20px;
             font-weight: bold;
         }
-        #about-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-            margin-left: 30px;
-            margin-right: 30px;
-            padding: 10px;
+        .book_category_container {
+            margin-left: 40px;
+            margin-right: 40px;
+            justify-content: center;
+        }
+        h2 {
+            background-color: #D9D9D9;
+            border-radius: 20px;
             width: fit-content;
-            background-color: rgba(229, 194, 187, 0.9);
-            border-radius: 25px;
+            height: fit-content;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 25px;
+            padding-right: 25px;
         }
-        #gallerybox {
+        #book_list_container {
             display: flex;
-            justify-content: center;
-            margin: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
         }
-        .imagegallery, .mySlides{
-            width: 44.375em;
-            height: 35em;
-        }
-        .btn-left{
-            font-size: xx-large;
-            top: 380px;
-            margin-left: 20px;
-            position: absolute;
-        }
-        .btn-right{
-            font-size: xx-large;
-            position: absolute;
-            top: 380px;
-            margin-left: 670px;
-        }
-        .about-content {
+        .book_container {
             display: flex;
-            justify-content: center;
             flex-direction: column;
-            padding: 20px;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            height: fit-content;
+            margin-right: 10px;
+            padding: 8px;
+            margin: 10px;
         }
-        footer {
-            position: relative;
+        #book_img {
+            height: 250px;
+            width: 170px;
+        }
+        #book_title {
+            background-color: #D9D9D9;
+            padding: 3px;
+            border-radius: 20px;
+            width: 200px;
+            text-align: center;
+            height: fit-content;
+        }
+        .view-more-btn {
+            width: 120px;
+            height: 40px;
+            font-size: large;
+            padding: 5px;
+            border: 1px solid white;
+            border-radius: 0.8em;
+            margin-left: 40px;
+            color: #0029FF;
+        }
+        #page-container {
+            background-color: rgba(204, 195, 195, 0.3);
+        }
+        .no-books-message {
+            background-color: #D9D9D9;
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+            font-size: 20px;
+            padding: 5px;
         }
     </style>
 </head>
 <body>
-    <!--Header Design-->
+
+    <!--To display student name-->
+    <?php 
+        include "index.php"
+    ?>
+
+    <!-------------------------------Header Design------------------------------->
     <nav>
         <img src="./Assets/logo.jpg" alt="logo" style="width: 200px; padding: 10px;">
         <ul style="display: flex;">
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-home" aria-hidden="true"></i>
-                    <a href="home.html" class="header-links">Home</a>
+                    <a href="home.php" class="header-links">Home</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-book" aria-hidden="true"></i>
-                    <a href="books.html" class="header-links">Books</a>
+                    <a href="books.php" class="header-links">Books</a>
                 </div>
             </li>
             <li>
@@ -129,7 +159,7 @@
             <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
-                        <p>Student Full Name</p>
+                        <p><?php echo htmlspecialchars($student_name); ?></p>
                         <a href="viewProfile.html" style="text-decoration: none;">View Profile</a>
                     </div>
                 </div>
@@ -150,7 +180,7 @@
                 </button>
             </div>
 
-            <!--Search Bar-->
+            <!-------------------------------Search Bar------------------------------->
             <div style="display: flex; justify-content: center;">
                 <div class="search-bar">
                     <i class="fa fa-filter" aria-hidden="true" onclick="showFilterOptions()"></i>
@@ -159,7 +189,7 @@
                 </div>
             </div>
 
-            <!--Filter Options-->
+            <!-------------------------------Filter Options------------------------------->
             <div id="filter-options-container" style="display: none; justify-content: center;">
                 <div id="filter-options">
                     <h4>Genre</h4>
@@ -177,87 +207,87 @@
                     <h4>Author</h4>
                     <input type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;">
                 </div>
-            </div>      
+            </div>
 
-            <!--About Section-->
-            <section id="about-section">
-                <!--Picture Gallery-->
-                <div id="gallerybox">  
-                    <div class="imagegallery"> 
-                        <div class="slide">
-                            <img class="mySlides" src="Assets/A court for ravens.jpg">
-                            <img class="mySlides" src="Assets/City of Orange.jpeg">
-                            <img class="mySlides" src="Assets/Princess Freedom.jpeg">
-                            <img class="mySlides" src="Assets/River Sing Me Home.jpeg">
-                            <img class="mySlides" src="Assets/The Harry Potter.jpg">
-                            <img class="mySlides" src="Assets/Twisted.jpg">
-                            
-                            <i class="fa fa-angle-right btn-right" aria-hidden="true" onclick="plusDivs(-1)"></i>
-                            <i class="fa fa-angle-left btn-left" aria-hidden="true" onclick="plusDivs(1)"></i>
-                        </div>
-                    </div>
-            
-                    <script>
-                        var slideIndex = 1;
-                        showDivs(slideIndex);
+            <!-------------------------------Book Collection------------------------------->
+            <?php 
+                include "config.php";
+                
+                $category = "";
 
-                        function plusDivs(n) {
-                        showDivs(slideIndex += n);
+                function displayBookByCategory($conn, $category) {
+                    $search = "SELECT * FROM books WHERE category = '$category'";
+                    $result = mysqli_query($conn,$search);
+
+                    if(mysqli_num_rows($result) > 0) {
+                        while($fetch_book = mysqli_fetch_assoc($result)) {
+                            echo '<div class="book_container">
+                                    <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
+                                    <h3 id="book_title">' . $fetch_book["title"] . '</h3>
+                                </div>';
                         }
+                                            
+                        echo '<input type="button" value="More" name="view-more" class="view-more-btn">';
 
-                        function showDivs(n) {
-                            var i;
-                            var x = document.getElementsByClassName("mySlides");
-                            if (n > x.length) {
-                                slideIndex = 1
-                            }    
-                            if (n < 1) {
-                                slideIndex = x.length
-                            }
-                            for (i = 0; i < x.length; i++) {
-                                x[i].style.display = "none";  
-                            }
-                            x[slideIndex-1].style.display = "block";  
-                        }
+                    } else {
+                        echo '<p class="no-books-message"> 
+                                No books available in this category 
+                            </p>';
+                    }
+                }
+            ?>
 
-                        var slideIndex = 0;
-                        carousel();
-
-                        function carousel() {
-                            var i;
-                            var x = document.getElementsByClassName("mySlides");
-                            for (i = 0; i < x.length; i++) {
-                            x[i].style.display = "none"; 
-                            }
-                            slideIndex++;
-                            if (slideIndex > x.length) {
-                                slideIndex = 1
-                            } 
-                            x[slideIndex-1].style.display = "block"; 
-                            setTimeout(carousel, 4000); 
-                        }
-                    </script>
+            <section class="book_category_container">
+                <h2>Fiction</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'English Fiction') ?>
                 </div>
+            </section>
+            
+            <section class="book_category_container">
+                <h2>Non Fiction</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'Non Fiction') ?>
+                </div>
+            </section>
+            
+            <section class="book_category_container">
+                <h2>Science</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'Science') ?>
+                </div>
+            </section>  
 
-                <!--Details-->
-                <div class="about-content">
-                    <h1 style="font-family: cursive;">About Us</h1>
-                    <h3>Our Mission</h3>
-                    <p style="font-size: larger; line-height: 1.5em;">
-                        At BookNest, our mission is to streamline and enhance the library experience for both patrons and 
-                        librarians. We aim to provide a user-friendly platform that simplifies book borrowing, 
-                        catalog management, and information accessibility.
-                    </p>
-                    <h3>Our Vision</h3>
-                    <p style="font-size: larger; line-height: 1.5em;">
-                        At BookNest, we envision a future where every library is a vibrant hub of knowledge and community engagement.
-                        By harnessing the power of technology, we aim to transform the library experience, making it more accessible, 
-                        efficient, and enjoyable for everyone.
-                    </p>
+            <section class="book_category_container">
+                <h2>History</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'History') ?>
+                </div>
+            </section>
+
+            <section class="book_category_container">
+                <h2>Language</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'Language') ?>
+                </div>
+            </section>
+
+            <section class="book_category_container">
+                <h2>Literature</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'Literature') ?>
+                </div>
+            </section>
+            
+            <section class="book_category_container">
+                <h2>Technology</h2>
+                <div id="book_list_container">
+                    <?php displayBookByCategory($conn, 'Technology') ?>
                 </div>
             </section>
         </div>
-        <!--Footer-->
+        
+        <!-------------------------------Footer------------------------------->
         <footer>
             <div id="footer-link-container">
                 <ul>
