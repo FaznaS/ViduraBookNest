@@ -1,3 +1,4 @@
+// Belongs to login page
 function togglePassword() {
     var icon = document.getElementById('icon-eye');
     var password = document.getElementById('password');
@@ -9,6 +10,7 @@ function togglePassword() {
         icon.className = "fa fa-eye";
     }
 }
+
 function toggleConfirmPassword() {
     var icon = document.getElementById('confirm-icon-eye');
     var confirm_password = document.getElementById('confirm_password');
@@ -20,6 +22,10 @@ function toggleConfirmPassword() {
         icon.className = "fa fa-eye";
     }
 }
+
+
+// Belongs to all pages after login
+
 function showViewProfile() {
     var user_profile_options = document.getElementById('view-profile-option');
     var user_profile_icon = document.getElementById('user-profile-icon');
