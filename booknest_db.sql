@@ -39,3 +39,15 @@ INSERT INTO `members` (`name`, `email`, `contact_no`, `grade_class`, `user_id`, 
 ('Chamaylee', 'chamaylee@gmail.com', '0758528524', '11B', '4785', 'qazwsx123'),
 ('rithosha', 'rithosha@gmail.com', '2178523698', '11D', '7850', 'qwerty123'),
 ('Sampath Perera', 'sampath@gmail.com', '0756985236', '', 'AAAA', 'admin@123');
+
+DROP TABLE IF EXISTS borrowed_book_details;
+CREATE TABLE IF NOT EXISTS borrowed_book_details (
+  borrow_id INT AUTO_INCREMENT NOT NULL,
+  book_id INT NOT NULL,
+  user_id varchar(10) NOT NULL,
+  borrowed_date date NOT NULL,
+  return_date date NOT NULL,
+  status varchar(20) NOT NULL,
+  KEY (borrow_id,user_id),
+  CONSTRAINT user_id_fk FOREIGN KEY(user_id) REFERENCES members(user_id),
+  CONSTRAINT book_id_fk FOREIGN KEY(book_id) REFERENCES books(acc_no));
