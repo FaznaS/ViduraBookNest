@@ -187,7 +187,7 @@
             <div style="display: flex; justify-content: center;">
                 <div class="search-bar">
                     <i class="fa fa-filter" aria-hidden="true" onclick="showFilterOptions()"></i>
-                    <input id="search-bar" type="text" placeholder="Search" oninput="searchBook(this.value)">
+                    <input type="text" placeholder="Search">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div>
             </div>
@@ -197,7 +197,7 @@
                 <div id="filter-options">
                     <h4>Genre</h4>
                     <div style="padding: 5px;">
-                        <button type="button" class="btn-genre" onclick="filterBooks('English Fiction')">Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Fiction')">Fiction</button>
                         <button type="button" class="btn-genre" onclick="filterBooks('Non Fiction')">Non-Fiction</button>
                         <button type="button" class="btn-genre" onclick="filterBooks('Science')">Science</button>
                         <button type="button" class="btn-genre" onclick="filterBooks('History')">History</button>
@@ -208,7 +208,7 @@
                         <button type="button" class="btn-genre" onclick="filterBooks('Technology')">Technology</button>
                     </div>
                     <h4>Author</h4>
-                    <input id="author-filter" type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;" oninput="filterBooksByAuthor(this.value)">
+                    <input type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;">
                 </div>
             </div>
 
@@ -219,23 +219,14 @@
                     <?php 
                         include "config.php";
                         
-                        $title = $_GET["title"] ?? '';
                         $category = $_GET["genre"] ?? '';
-                        $author = $_GET["author"] ?? '';
 
-                        // Search books by title, category (genre) or author
-                        $search_books = "SELECT * FROM books WHERE 1"; // Default query
+                        if($category) {
+                            $search_books = "SELECT * FROM books WHERE category = '$category'";
+                        } else {
+                            $search_books = "SELECT * FROM books";
+                        }
 
-                        if ($title) {
-                            $search_books .= " AND title LIKE '%$title%'";
-                        }
-                        if ($category) {
-                            $search_books .= " AND category = '$category'";
-                        }
-                        if ($author) {
-                            $search_books .= " AND author LIKE '%$author%'";
-                        }
-                        
                         $result_query = mysqli_query($conn,$search_books);
 
                         if(mysqli_num_rows($result_query) > 0) {
@@ -249,9 +240,7 @@
 
                                 echo '<div class="book_container">
                                         <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
-                                        <a href="book_details.php?id=' . $fetch_book["acc_no"] . '" style="text-decoration:none; color: black;">
-                                            <h3 id="book_title">' . $fetch_book["title"] . '</h3>
-                                        </a>
+                                        <h3 id="book_title">' . $fetch_book["title"] . '</h3>
                                     </div>';
 
                                 // $displayed_books++;
