@@ -78,17 +78,8 @@
 </head>
 <body>
     <?php
-        // Starting the session
-        session_start();
-
-        // Setting up the connection
-        $conn = mysqli_connect("localhost", "root", "***REMOVED***", "booknest_db");
-
-        // Checking if the connection was successful
-        if (!$conn) {
-            die("Connection Unsuccessful: " . mysqli_connect_error());
-        }
-
+        include 'config.php';
+       session_start();
         // Initializing variables
         $usernameErr = $passwordErr = "";
         $username = $password = "";
