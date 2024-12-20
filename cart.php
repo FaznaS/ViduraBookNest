@@ -56,7 +56,7 @@
             align-items: center;
             justify-content: flex-start;
             width: 75%;
-            height: 230px;
+            height: 260px;
         }
         #book_img {
             height: 200px;
