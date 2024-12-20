@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="index.js"></script>
     <script src="home.js"></script>
+    <script src="books.js"></script>
     <style>
         ul {
             list-style: none;
@@ -54,6 +55,7 @@
             justify-content: center;
         }
         h2 {
+            display: block;
             background-color: #D9D9D9;
             border-radius: 20px;
             width: fit-content;
@@ -68,6 +70,7 @@
             align-items: center;
             flex-wrap: wrap;
             width: 100%;
+            height: fit-content;
         }
         .book_container {
             display: flex;
@@ -194,15 +197,15 @@
                 <div id="filter-options">
                     <h4>Genre</h4>
                     <div style="padding: 5px;">
-                        <button type="button" class="btn-genre">Fiction</button>
-                        <button type="button" class="btn-genre">Non-Fiction</button>
-                        <button type="button" class="btn-genre">Science</button>
-                        <button type="button" class="btn-genre">History</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Fiction')">Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Non Fiction')">Non-Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Science')">Science</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('History')">History</button>
                     </div>
                     <div style="padding: 5px;">
-                        <button type="button" class="btn-genre">Language</button>
-                        <button type="button" class="btn-genre">Literature</button>
-                        <button type="button" class="btn-genre">Technology</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Language')">Language</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('English Literature')">Literature</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Technology')">Technology</button>
                     </div>
                     <h4>Author</h4>
                     <input type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;">
@@ -210,81 +213,50 @@
             </div>
 
             <!-------------------------------Book Collection------------------------------->
-            <?php 
-                include "config.php";
-                
-                $category = "";
+            <section class="book_category_container">
+                <h2 id="search_heading">Top Recommendations</h2>
+                <div id="book_list_container">
+                    <?php 
+                        include "config.php";
+                        
+                        $category = $_GET["genre"] ?? '';
 
-                function displayBookByCategory($conn, $category) {
-                    $search = "SELECT * FROM books WHERE category = '$category'";
-                    $result = mysqli_query($conn,$search);
-
-                    if(mysqli_num_rows($result) > 0) {
-                        while($fetch_book = mysqli_fetch_assoc($result)) {
-                            echo '<div class="book_container">
-                                    <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
-                                    <h3 id="book_title">' . $fetch_book["title"] . '</h3>
-                                </div>';
+                        if($category) {
+                            $search_books = "SELECT * FROM books WHERE category = '$category'";
+                        } else {
+                            $search_books = "SELECT * FROM books";
                         }
-                                            
-                        echo '<input type="button" value="More" name="view-more" class="view-more-btn">';
 
-                    } else {
-                        echo '<p class="no-books-message"> 
-                                No books available in this category 
-                            </p>';
-                    }
-                }
-            ?>
+                        $result_query = mysqli_query($conn,$search_books);
 
-            <section class="book_category_container">
-                <h2>Fiction</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'English Fiction') ?>
-                </div>
-            </section>
-            
-            <section class="book_category_container">
-                <h2>Non Fiction</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'Non Fiction') ?>
-                </div>
-            </section>
-            
-            <section class="book_category_container">
-                <h2>Science</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'Science') ?>
-                </div>
-            </section>  
+                        if(mysqli_num_rows($result_query) > 0) {
+                            // $book_count = 2;
+                            // $displayed_books = 0;
 
-            <section class="book_category_container">
-                <h2>History</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'History') ?>
+                            while($fetch_book = mysqli_fetch_assoc($result_query)) {
+                                // if ($displayed_books >= $book_count) {
+                                //     break; // To stop displaying books
+                                // }
+
+                                echo '<div class="book_container">
+                                        <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
+                                        <h3 id="book_title">' . $fetch_book["title"] . '</h3>
+                                    </div>';
+
+                                // $displayed_books++;
+                            }
+                                                
+                            echo '<input type="button" value="More" name="view-more" class="view-more-btn">';
+
+                        } else {
+                            echo '<p class="no-books-message"> 
+                                    No books available in this category 
+                                </p>';
+                        }
+                    ?>
                 </div>
             </section>
 
-            <section class="book_category_container">
-                <h2>Language</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'Language') ?>
-                </div>
-            </section>
-
-            <section class="book_category_container">
-                <h2>Literature</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'Literature') ?>
-                </div>
-            </section>
-            
-            <section class="book_category_container">
-                <h2>Technology</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'Technology') ?>
-                </div>
-            </section>
         </div>
         
         <!-------------------------------Footer------------------------------->
