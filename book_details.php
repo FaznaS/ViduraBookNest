@@ -1,27 +1,19 @@
 <?php
+    // To connect to the database
     include "config.php";
+
+    // To display student name
     include "index.php";
 
-    if(isset($_POST['book_id'])) {
-        $book_id = $_POST['book_id'];
+    if(isset($_GET['id'])) {
+        $book_id = $_GET['id'];
+        $search_query = "SELECT * FROM books WHERE acc_no = $book_id";
+        $result_query = mysqli_query($conn,$search_query);
 
-        // Calculate the return date (7 days later from borrowed date)
-        $borrowed_date = date('Y-m-d'); // Current date
-        $return_date = date('Y-m-d', strtotime('+7 days')); // Current date + 7 days
-
-        $insert_query = "INSERT INTO borrowed_book_details(user_id, book_id, borrowed_date, return_date, status) VALUES
-        ($username,$book_id,'$borrowed_date','$return_date','Pending')";
-
-        if(mysqli_query($conn, $insert_query)) {
-            echo "<script>
-                    alert('Book added to cart successfully')
-                </script>";
-        } else {
-            echo "<script>
-                    alert('Sorry! Something went wrong')
-                </script>";
-        }
-    }
+        if(mysqli_num_rows($result_query) > 0) {
+            $book = mysqli_fetch_assoc($result_query);
+        } 
+    } 
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +25,8 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="index.js"></script>
+    <script src="home.js"></script>
+    <script src="books.js"></script>
     <style>
         ul {
             list-style: none;
@@ -40,49 +34,38 @@
         #page-container {
             background-color: rgba(204, 195, 195, 0.3);
         }
-        #cart_card {
+        #book_details_container {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 55%;
-            height: fit-content;
-            background-color: rgba(226, 117, 117, 0.7);
-            border-radius: 20px;
-            margin: 20px;
-        }
-        #borrow_details_container {
-            display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            width: 75%;
-            height: 260px;
+            padding-top: 20px;
         }
         #book_img {
-            height: 200px;
-            width: 130px;
-        }
-        #book_title, #borrow_details {
-            background-color: #FFEEEE;
-            width: 80%;
-            padding: 8px;
-            border-radius: 10px;
+            height: 300px;
+            width: 220px;
+            margin-top: 10px;
         }
         #book_title {
-            text-align: center;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        #borrow_details {
-            padding-left: 20px;
-        }
-        .no-books-message {
+            display: block;
             background-color: #D9D9D9;
-            width: 100%;
-            justify-content: center;
-            text-align: center;
-            font-size: 20px;
-            padding: 5px;
+            border-radius: 20px;
+            width: fit-content;
+            height: fit-content;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+        .add-cart-btn {
+            width: 120px;
+            height: 40px;
+            font-size: large;
+            padding: 8px;
+            border-color: #D9D9D9;
+            border-radius: 0.8em;
+            margin-top: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -106,7 +89,7 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.php" class="header-links">Cart</a>
+                    <a href="cart.html" class="header-links">Cart</a>
                 </div>
             </li>
             <li>
@@ -120,12 +103,12 @@
 
     <div id="page-container">
         <div id="content-wrap">
-            <!-------------------------------User Profile------------------------------->
+            <!--User Profile-->
             <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <p><?php echo htmlspecialchars($student_name); ?></p>
-                        <a href="viewProfile.html" style="text-decoration: none;">View Profile</a>
+                        <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
@@ -134,7 +117,7 @@
             </div>
 
             <div id="more-options">
-                <a href="editprofile.php" class="more-options-links">Edit Profile</a>
+                <a href="editProfile.html" class="more-options-links">Edit Profile</a>
                 <a href="help.html" class="more-options-links">Help and Support</a>
                 <a href="settings.html" class="more-options-links">Settings</a>
                 <br>
@@ -145,38 +128,15 @@
                 </button>
             </div>
 
-            <section style="padding: 40px;">
-                <?php
-                    $search_books = " SELECT b.title, b.image, bb.borrow_id, bb.borrowed_date, bb.return_date, bb.status 
-                                        FROM borrowed_book_details bb
-                                        JOIN books b ON bb.book_id = b.acc_no
-                                        WHERE bb.user_id = $username
-                                        ORDER BY bb.borrow_id DESC";
-
-                    $result_query = mysqli_query($conn,$search_books);
-
-                    if(mysqli_num_rows($result_query) > 0) {
-                        while($fetch_book = mysqli_fetch_assoc($result_query)) {
-                            echo '<div id="cart_card">
-                                    <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
-                                    <div id="borrow_details_container">
-                                        <h3 id="book_title">' . $fetch_book["title"] . '</h3>
-                                        <div id="borrow_details">
-                                            <p>Borrowed Date: ' . $fetch_book["borrowed_date"] . '</p>
-                                            <p>Return Date: ' . $fetch_book["return_date"] . '</p>
-                                            <p>Status: ' . $fetch_book["status"] . '</p>
-                                        </div>
-                                    </div>
-                                </div>';
-                        }
-                    } else {
-                            echo '<p class="no-books-message"> 
-                                    No books available in the cart 
-                            </p>';
-                        }
-                ?>
-            </section>
-            
+            <!-------------------------------Book Details------------------------------->
+            <div id="book_details_container">
+                <h2 id="book_title"><?php echo htmlspecialchars($book['title']); ?></h2>
+                <img id="book_img" src="Assets/uploaded_images/<?php echo htmlspecialchars($book['image']); ?>">
+                <form action="cart.php" method="post">
+                    <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($book['acc_no']); ?>">
+                    <input class="add-cart-btn" type="submit" name="addCart" value="Add to Cart">
+                </form>
+            </div>
         </div>
         
         <!-------------------------------Footer------------------------------->

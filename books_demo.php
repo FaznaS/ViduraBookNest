@@ -6,8 +6,9 @@
     <title>Vidura College BookNest</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="home.js"></script>
     <script src="index.js"></script>
+    <script src="home.js"></script>
+    <script src="books.js"></script>
     <style>
         ul {
             list-style: none;
@@ -48,46 +49,72 @@
             padding: 5px 20px;
             font-weight: bold;
         }
-        #about-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-            margin-left: 30px;
-            margin-right: 30px;
-            padding: 10px;
+        .book_category_container {
+            margin-left: 40px;
+            margin-right: 40px;
+            justify-content: center;
+        }
+        h2 {
+            display: block;
+            background-color: #D9D9D9;
+            border-radius: 20px;
             width: fit-content;
-            background-color: rgba(229, 194, 187, 0.9);
-            border-radius: 25px;
+            height: fit-content;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 25px;
+            padding-right: 25px;
         }
-        #gallerybox {
+        #book_list_container {
             display: flex;
-            justify-content: center;
-            margin: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
         }
-        .imagegallery, .mySlides{
-            width: 44.375em;
-            height: 35em;
-        }
-        .btn-left{
-            font-size: xx-large;
-            top: 380px;
-            margin-left: 20px;
-            position: absolute;
-        }
-        .btn-right{
-            font-size: xx-large;
-            position: absolute;
-            top: 380px;
-            margin-left: 670px;
-        }
-        .about-content {
+        .book_container {
             display: flex;
-            justify-content: center;
             flex-direction: column;
-            padding: 20px;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            height: fit-content;
+            margin-right: 10px;
+            padding: 8px;
+            margin: 10px;
         }
-        footer {
-            position: relative;
+        #book_img {
+            height: 250px;
+            width: 170px;
+        }
+        #book_title {
+            background-color: #D9D9D9;
+            padding: 3px;
+            border-radius: 20px;
+            width: 200px;
+            text-align: center;
+            height: fit-content;
+        }
+        .view-more-btn {
+            width: 120px;
+            height: 40px;
+            font-size: large;
+            padding: 5px;
+            border: 1px solid white;
+            border-radius: 0.8em;
+            margin-left: 40px;
+            color: #0029FF;
+        }
+        #page-container {
+            background-color: rgba(204, 195, 195, 0.3);
+        }
+        .no-books-message {
+            background-color: #D9D9D9;
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+            font-size: 20px;
+            padding: 5px;
         }
     </style>
 </head>
@@ -97,7 +124,7 @@
     <?php 
         include "index.php"
     ?>
-    
+
     <!-------------------------------Header Design------------------------------->
     <nav>
         <img src="./Assets/logo.jpg" alt="logo" style="width: 200px; padding: 10px;">
@@ -117,7 +144,7 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.php" class="header-links">Cart</a>
+                    <a href="cart.html" class="header-links">Cart</a>
                 </div>
             </li>
             <li>
@@ -131,7 +158,7 @@
 
     <div id="page-container">
         <div id="content-wrap">
-            <!-------------------------------User Profile------------------------------->
+            <!--User Profile-->
             <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
@@ -145,7 +172,7 @@
             </div>
 
             <div id="more-options">
-                <a href="editprofile.php" class="more-options-links">Edit Profile</a>
+                <a href="editProfile.html" class="more-options-links">Edit Profile</a>
                 <a href="help.html" class="more-options-links">Help and Support</a>
                 <a href="settings.html" class="more-options-links">Settings</a>
                 <br>
@@ -170,98 +197,66 @@
                 <div id="filter-options">
                     <h4>Genre</h4>
                     <div style="padding: 5px;">
-                        <button type="button" class="btn-genre">Fiction</button>
-                        <button type="button" class="btn-genre">Non-Fiction</button>
-                        <button type="button" class="btn-genre">Science</button>
-                        <button type="button" class="btn-genre">History</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Fiction')">Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Non Fiction')">Non-Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Science')">Science</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('History')">History</button>
                     </div>
                     <div style="padding: 5px;">
-                        <button type="button" class="btn-genre">Language</button>
-                        <button type="button" class="btn-genre">Literature</button>
-                        <button type="button" class="btn-genre">Technology</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Language')">Language</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('English Literature')">Literature</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Technology')">Technology</button>
                     </div>
                     <h4>Author</h4>
                     <input type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;">
                 </div>
-            </div>      
+            </div>
 
-            <!-------------------------------About Section------------------------------->
-            <section id="about-section">
-                <!-------------------------------Picture Gallery------------------------------->
-                <div id="gallerybox">  
-                    <div class="imagegallery"> 
-                        <div class="slide">
-                            <img class="mySlides" src="Assets/A court for ravens.jpg">
-                            <img class="mySlides" src="Assets/City of Orange.jpeg">
-                            <img class="mySlides" src="Assets/Princess Freedom.jpeg">
-                            <img class="mySlides" src="Assets/River Sing Me Home.jpeg">
-                            <img class="mySlides" src="Assets/The Harry Potter.jpg">
-                            <img class="mySlides" src="Assets/Twisted.jpg">
-                            
-                            <i class="fa fa-angle-right btn-right" aria-hidden="true" onclick="plusDivs(-1)"></i>
-                            <i class="fa fa-angle-left btn-left" aria-hidden="true" onclick="plusDivs(1)"></i>
-                        </div>
-                    </div>
-            
-                    <script>
-                        var slideIndex = 1;
-                        showDivs(slideIndex);
+            <!-------------------------------Book Collection------------------------------->
+            <section class="book_category_container">
+                <h2 id="search_heading">Top Recommendations</h2>
+                <div id="book_list_container">
+                    <?php 
+                        include "config.php";
+                        
+                        $category = $_GET["genre"] ?? '';
 
-                        function plusDivs(n) {
-                        showDivs(slideIndex += n);
+                        if($category) {
+                            $search_books = "SELECT * FROM books WHERE category = '$category'";
+                        } else {
+                            $search_books = "SELECT * FROM books";
                         }
 
-                        function showDivs(n) {
-                            var i;
-                            var x = document.getElementsByClassName("mySlides");
-                            if (n > x.length) {
-                                slideIndex = 1
-                            }    
-                            if (n < 1) {
-                                slideIndex = x.length
+                        $result_query = mysqli_query($conn,$search_books);
+
+                        if(mysqli_num_rows($result_query) > 0) {
+                            // $book_count = 2;
+                            // $displayed_books = 0;
+
+                            while($fetch_book = mysqli_fetch_assoc($result_query)) {
+                                // if ($displayed_books >= $book_count) {
+                                //     break; // To stop displaying books
+                                // }
+
+                                echo '<div class="book_container">
+                                        <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
+                                        <h3 id="book_title">' . $fetch_book["title"] . '</h3>
+                                    </div>';
+
+                                // $displayed_books++;
                             }
-                            for (i = 0; i < x.length; i++) {
-                                x[i].style.display = "none";  
-                            }
-                            x[slideIndex-1].style.display = "block";  
+                                                
+                            echo '<input type="button" value="More" name="view-more" class="view-more-btn">';
+
+                        } else {
+                            echo '<p class="no-books-message"> 
+                                    No books available in this category 
+                                </p>';
                         }
-
-                        var slideIndex = 0;
-                        carousel();
-
-                        function carousel() {
-                            var i;
-                            var x = document.getElementsByClassName("mySlides");
-                            for (i = 0; i < x.length; i++) {
-                            x[i].style.display = "none"; 
-                            }
-                            slideIndex++;
-                            if (slideIndex > x.length) {
-                                slideIndex = 1
-                            } 
-                            x[slideIndex-1].style.display = "block"; 
-                            setTimeout(carousel, 4000); 
-                        }
-                    </script>
-                </div>
-
-                <!-------------------------------Details------------------------------->
-                <div class="about-content">
-                    <h1 style="font-family: cursive;">About Us</h1>
-                    <h3>Our Mission</h3>
-                    <p style="font-size: larger; line-height: 1.5em;">
-                        At BookNest, our mission is to streamline and enhance the library experience for both patrons and 
-                        librarians. We aim to provide a user-friendly platform that simplifies book borrowing, 
-                        catalog management, and information accessibility.
-                    </p>
-                    <h3>Our Vision</h3>
-                    <p style="font-size: larger; line-height: 1.5em;">
-                        At BookNest, we envision a future where every library is a vibrant hub of knowledge and community engagement.
-                        By harnessing the power of technology, we aim to transform the library experience, making it more accessible, 
-                        efficient, and enjoyable for everyone.
-                    </p>
+                    ?>
                 </div>
             </section>
+
         </div>
         
         <!-------------------------------Footer------------------------------->
