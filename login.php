@@ -78,15 +78,11 @@
 </head>
 <body>
     <?php
-
-        include 'config.php';
-       session_start();
-
-        // Starting the session
-        session_start();
-
         // Setting up the connection
         include "config.php";
+        
+        // Starting the session
+        include "index.php";
 
         // Checking if the connection was successful
         if (!$conn) {
