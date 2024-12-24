@@ -117,7 +117,7 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.html" class="header-links">Cart</a>
+                    <a href="cart.php" class="header-links">Cart</a>
                 </div>
             </li>
             <li>

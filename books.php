@@ -144,7 +144,7 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.html" class="header-links">Cart</a>
+                    <a href="cart.php" class="header-links">Cart</a>
                 </div>
             </li>
             <li>
@@ -172,7 +172,7 @@
             </div>
 
             <div id="more-options">
-                <a href="editProfile.html" class="more-options-links">Edit Profile</a>
+                <a href="editprofile.php" class="more-options-links">Edit Profile</a>
                 <a href="help.html" class="more-options-links">Help and Support</a>
                 <a href="settings.html" class="more-options-links">Settings</a>
                 <br>
