@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS borrowed_book_details;
 DROP TABLE IF EXISTS `books`;
 CREATE TABLE IF NOT EXISTS `books` (
   `acc_no` int NOT NULL AUTO_INCREMENT,
@@ -44,7 +45,6 @@ INSERT INTO `members` (`name`, `email`, `contact_no`, `grade_class`, `user_id`, 
 ('rithosha', 'rithosha@gmail.com', '2178523698', '11D', '7850', 'qwerty123'),
 ('Sampath Perera', 'sampath@gmail.com', '0756985236', '', 'AAAA', 'admin@123');
 
-DROP TABLE IF EXISTS borrowed_book_details;
 CREATE TABLE IF NOT EXISTS borrowed_book_details (
   borrow_id INT AUTO_INCREMENT NOT NULL,
   book_id INT NOT NULL,
