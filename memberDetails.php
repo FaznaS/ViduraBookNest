@@ -15,36 +15,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $result = mysqli_query($conn, $sql);
 
-        echo "<table class='table table-bordered table-hover'>";
-        echo "<tr style='background-color: white;'>";
-        echo "<th>User ID</th>";
-        echo "<th>Name</th>";
-        echo "<th>Email</th>";
-        echo "<th>Contact Number</th>";
-        echo "<th>Class</th>";
-        echo "<th>Actions</th>";
-        echo "</tr>";
-
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>";
-            echo "<td>{$row['user_id']}</td>";
-            echo "<td>{$row['name']}</td>";
-            echo "<td>{$row['email']}</td>";
-            echo "<td>{$row['contact_no']}</td>";
-            echo "<td>{$row['grade_class']}</td>";
-            echo "<td>";
-            echo "<button class='update-btn' 
+        if (mysqli_num_rows($result) > 0) {
+            echo "<table class='table table-bordered table-hover'>";
+            echo "<tr style='background-color: white;'>";
+            echo "<th>User ID</th>";
+            echo "<th>Name</th>";
+            echo "<th>Email</th>";
+            echo "<th>Contact Number</th>";
+            echo "<th>Class</th>";
+            echo "<th>Actions</th>";
+            echo "</tr>";
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>{$row['user_id']}</td>";
+                echo "<td>{$row['name']}</td>";
+                echo "<td>{$row['email']}</td>";
+                echo "<td>{$row['contact_no']}</td>";
+                echo "<td>{$row['grade_class']}</td>";
+                echo "<td>";
+                echo "<button class='update-btn' 
                     data-id='{$row['user_id']}' 
                     data-name='{$row['name']}' 
                     data-email='{$row['email']}' 
                     data-contact='{$row['contact_no']}' 
                     data-class='{$row['grade_class']}'>Update</button>";
-            echo "<button class='delete-btn' data-id='{$row['user_id']}'>Delete</button>";
-            echo "</td>";
-            echo "</tr>";
-        }
+                echo "<button class='delete-btn' data-id='{$row['user_id']}'>Delete</button>";
+                echo "</td>";
+                echo "</tr>";
+            }
 
-        echo "</table>";
+            echo "</table>";
+        } else {
+            echo "<div class='no-results'>No records found for the search.</div>";
+        }
     }
 
     // Delete member
