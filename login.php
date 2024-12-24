@@ -78,12 +78,8 @@
 </head>
 <body>
     <?php
-
-        include 'config.php';
-       session_start();
-
         // Starting the session
-        include "index.php";
+        session_start();
 
         // Setting up the connection
         include "config.php";
