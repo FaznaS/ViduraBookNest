@@ -78,6 +78,10 @@
 </head>
 <body>
     <?php
+
+        include 'config.php';
+       session_start();
+
         // Starting the session
         include "index.php";
 
@@ -88,6 +92,7 @@
         if (!$conn) {
             die("Connection Unsuccessful: " . mysqli_connect_error());
         }
+
 
         // Initializing variables
         $usernameErr = $passwordErr = "";
