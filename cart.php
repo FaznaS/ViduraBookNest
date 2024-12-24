@@ -4,36 +4,48 @@
 
     if(isset($_POST['book_id'])) {
         $book_id = $_POST['book_id'];
+        $user_id = $_SESSION['username'];
 
         // Checking if the book is already available in the cart 
-        $check_query = "SELECT * FROM borrowed_book_details WHERE book_id = $book_id";
+        $check_query = "SELECT * FROM borrowed_book_details WHERE user_id = '$user_id' AND book_id = $book_id";
+        $check_query_result = mysqli_query($conn, $check_query);
 
-        if(mysqli_query($conn, $check_query)) {
-            echo "<script>
-                    alert('This Book is already available in your cart')
-                </script>";
-        } else {
-            // Calculate the return date (7 days later from borrowed date)
-            $borrowed_date = date('Y-m-d'); // Current date
-            $return_date = date('Y-m-d', strtotime('+7 days')); // Current date + 7 days
+        // Checking if there are book copies
+        $check_book_availability = "SELECT * FROM books WHERE acc_no = $book_id AND copies > 0";
+        $books_available = mysqli_query($conn, $check_book_availability);
 
-            // Inserting the book to the cart
-            $insert_query = "INSERT INTO borrowed_book_details(user_id, book_id, borrowed_date, return_date, status) VALUES
-            ($username,$book_id,'$borrowed_date','$return_date','Pending')";
-
-            if(mysqli_query($conn, $insert_query)) {
+        if(mysqli_num_rows($books_available) > 0) {
+            if(mysqli_num_rows($check_query_result) > 0) {
                 echo "<script>
-                        alert('Book added to cart successfully')
+                        alert('This Book is already available in your cart')
                     </script>";
-                
-                // Number of copies is deducted by 1
-                $update_query = "UPDATE books SET copies = copies - 1 WHERE acc_no = $book_id";
-                mysqli_query($conn, $update_query);
             } else {
-                echo "<script>
-                        alert('Sorry! Something went wrong')
-                    </script>";
+                // Calculate the return date (7 days later from borrowed date)
+                $borrowed_date = date('Y-m-d'); // Current date
+                $return_date = date('Y-m-d', strtotime('+7 days')); // Current date + 7 days
+    
+                // Inserting the book to the cart
+                $insert_query = "INSERT INTO borrowed_book_details(user_id, book_id, borrowed_date, return_date, status) VALUES
+                ($username,$book_id,'$borrowed_date','$return_date','Pending')";
+    
+                if(mysqli_query($conn, $insert_query)) {
+                    echo "<script>
+                            alert('Book added to cart successfully')
+                        </script>";
+                    
+                    // Number of copies is deducted by 1
+                    $update_query = "UPDATE books SET copies = copies - 1 WHERE acc_no = $book_id";
+                    mysqli_query($conn, $update_query);
+                } else {
+                    echo "<script>
+                            alert('Sorry! Something went wrong')
+                        </script>";
+                }
             }
+        } else {
+            echo "<script>
+                    alert('Sorry! All copies have been borrowed')
+                </script>";
         }
     }
 ?>
@@ -198,9 +210,9 @@
         <footer>
             <div id="footer-link-container">
                 <ul>
-                    <li><a href="home.html" class="footer-links">Home</a></li>
-                    <li><a href="books.html" class="footer-links">Books</a></li>
-                    <li><a href="cart.html" class="footer-links">Cart</a></li>
+                    <li><a href="home.php" class="footer-links">Home</a></li>
+                    <li><a href="books.php" class="footer-links">Books</a></li>
+                    <li><a href="cart.php" class="footer-links">Cart</a></li>
                     <li><a href="payment.html" class="footer-links">Payment</a></li>
                 </ul>
             </div>
