@@ -79,7 +79,7 @@
 <body>
     <?php
         // Starting the session
-        session_start();
+        include "index.php";
 
         // Setting up the connection
         include "config.php";
