@@ -268,9 +268,9 @@
         <footer>
             <div id="footer-link-container">
                 <ul>
-                    <li><a href="home.html" class="footer-links">Home</a></li>
-                    <li><a href="books.html" class="footer-links">Books</a></li>
-                    <li><a href="cart.html" class="footer-links">Cart</a></li>
+                    <li><a href="home.php" class="footer-links">Home</a></li>
+                    <li><a href="books.php" class="footer-links">Books</a></li>
+                    <li><a href="cart.php" class="footer-links">Cart</a></li>
                     <li><a href="payment.html" class="footer-links">Payment</a></li>
                 </ul>
             </div>
