@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS borrowed_book_details;
 DROP TABLE IF EXISTS `books`;
 CREATE TABLE IF NOT EXISTS `books` (
   `acc_no` int NOT NULL AUTO_INCREMENT,
@@ -44,7 +45,6 @@ INSERT INTO `members` (`name`, `email`, `contact_no`, `grade_class`, `user_id`, 
 ('rithosha', 'rithosha@gmail.com', '2178523698', '11D', '7850', 'qwerty123'),
 ('Sampath Perera', 'sampath@gmail.com', '0756985236', '', 'AAAA', 'admin@123');
 
-DROP TABLE IF EXISTS borrowed_book_details;
 CREATE TABLE IF NOT EXISTS borrowed_book_details (
   borrow_id INT AUTO_INCREMENT NOT NULL,
   book_id INT NOT NULL,
@@ -54,7 +54,9 @@ CREATE TABLE IF NOT EXISTS borrowed_book_details (
   status varchar(20) NOT NULL,
   KEY (borrow_id,user_id),
   CONSTRAINT user_id_fk FOREIGN KEY(user_id) REFERENCES members(user_id),
-  CONSTRAINT book_id_fk FOREIGN KEY(book_id) REFERENCES books(acc_no));
+  CONSTRAINT book_id_fk FOREIGN KEY(book_id) REFERENCES books(acc_no),
+  CONSTRAINT book_user_unique UNIQUE(book_id, user_id)
+);
 
 INSERT INTO `borrowed_book_details` (`borrow_id`, `book_id`, `user_id`, `borrowed_date`, `return_date`, `status`) VALUES
 (1, 1, '4526', '2024-12-18', '2024-12-25', 'Pending'),
