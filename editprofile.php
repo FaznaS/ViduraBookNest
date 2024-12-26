@@ -112,6 +112,7 @@
             border-radius: 0.8em;
             margin-bottom: 8px;
             cursor: pointer;
+            border: 1px solid black;
         }
         #icon-eye,#confirm-icon-eye {
             position: absolute;
@@ -128,6 +129,7 @@
             border-radius: 0.8em;
             margin-bottom: 8px;
             cursor: pointer;
+            border: 1px solid black;
         }
     </style>
 </head>
