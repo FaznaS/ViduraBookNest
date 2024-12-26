@@ -89,6 +89,7 @@
             die("Connection Unsuccessful: " . mysqli_connect_error());
         }
 
+
         // Initializing variables
         $usernameErr = $passwordErr = "";
         $username = $password = "";
