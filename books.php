@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="index.js"></script>
     <script src="home.js"></script>
+
+    <script src="books.js"></script>
+  
     <style>
         ul {
             list-style: none;
@@ -54,6 +57,7 @@
             justify-content: center;
         }
         h2 {
+            display: block;
             background-color: #D9D9D9;
             border-radius: 20px;
             width: fit-content;
@@ -68,6 +72,7 @@
             align-items: center;
             flex-wrap: wrap;
             width: 100%;
+            height: fit-content;
         }
         .book_container {
             display: flex;
@@ -141,7 +146,7 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.html" class="header-links">Cart</a>
+                    <a href="cart.php" class="header-links">Cart</a>
                 </div>
             </li>
             <li>
@@ -169,7 +174,7 @@
             </div>
 
             <div id="more-options">
-                <a href="editProfile.html" class="more-options-links">Edit Profile</a>
+                <a href="editprofile.php" class="more-options-links">Edit Profile</a>
                 <a href="help.html" class="more-options-links">Help and Support</a>
                 <a href="settings.html" class="more-options-links">Settings</a>
                 <br>
@@ -185,6 +190,7 @@
                 <div class="search-bar">
                     <i class="fa fa-filter" aria-hidden="true" onclick="showFilterOptions()"></i>
                     <input type="text" placeholder="Search">
+                    <input id="search-bar" type="text" placeholder="Search" oninput="searchBook(this.value)">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div>
             </div>
@@ -206,6 +212,19 @@
                     </div>
                     <h4>Author</h4>
                     <input type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;">
+                        <button type="button" class="btn-genre" onclick="filterBooks('English Fiction')">Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Non Fiction')">Non-Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Science')">Science</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('History')">History</button>
+                    </div>
+                    <div style="padding: 5px;">
+                        <button type="button" class="btn-genre" onclick="filterBooks('Language')">Language</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('English Literature')">Literature</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Technology')">Technology</button>
+                    </div>
+                    <h4>Author</h4>
+                    <input id="author-filter" type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;" oninput="filterBooksByAuthor(this.value)">
+
                 </div>
             </div>
 
@@ -285,6 +304,61 @@
                     <?php displayBookByCategory($conn, 'Technology') ?>
                 </div>
             </section>
+            <section class="book_category_container">
+                <h2 id="search_heading">Top Recommendations</h2>
+                <div id="book_list_container">
+                    <?php 
+                        include "config.php";
+                        
+                        $title = $_GET["title"] ?? '';
+                        $category = $_GET["genre"] ?? '';
+                        $author = $_GET["author"] ?? '';
+
+                        // Search books by title, category (genre) or author
+                        $search_books = "SELECT * FROM books WHERE 1"; // Default query
+
+                        if ($title) {
+                            $search_books .= " AND title LIKE '%$title%'";
+                        }
+                        if ($category) {
+                            $search_books .= " AND category = '$category'";
+                        }
+                        if ($author) {
+                            $search_books .= " AND author LIKE '%$author%'";
+                        }
+                        
+                        $result_query = mysqli_query($conn,$search_books);
+
+                        if(mysqli_num_rows($result_query) > 0) {
+                            // $book_count = 2;
+                            // $displayed_books = 0;
+
+                            while($fetch_book = mysqli_fetch_assoc($result_query)) {
+                                // if ($displayed_books >= $book_count) {
+                                //     break; // To stop displaying books
+                                // }
+
+                                echo '<div class="book_container">
+                                        <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
+                                        <a href="book_details.php?id=' . $fetch_book["acc_no"] . '" style="text-decoration:none; color: black;">
+                                            <h3 id="book_title">' . $fetch_book["title"] . '</h3>
+                                        </a>
+                                    </div>';
+
+                                // $displayed_books++;
+                            }
+                                                
+                            echo '<input type="button" value="More" name="view-more" class="view-more-btn">';
+
+                        } else {
+                            echo '<p class="no-books-message"> 
+                                    No books available in this category 
+                                </p>';
+                        }
+                    ?>
+                </div>
+            </section>
+
         </div>
         
         <!-------------------------------Footer------------------------------->
