@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidura College BookNest</title>
+    <link rel="stylesheet" href="viewRecordsStyles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="view-results">
+        <h1>Lost Books Details</h1>
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search Lost Book Details Here...">
+            <button id="searchBtn">Search</button>
+        </div>
+
+        <!-- Table to Display Results -->
+        <div id="resultsTable"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            displayLostBooks(); 
+
+            // Search Lost Books
+            $("#searchBtn").on("click", function () {
+                const query = $("#searchInput").val();
+                displayLostBooks(query);
+            });
+
+            // Search Lost Books by pressing Enter key
+            $("#searchInput").on("keypress", function (e) {
+                if (e.key === "Enter") { 
+                    const query = $(this).val();
+                    displayLostBooks(query);
+                    e.preventDefault(); 
+                }
+            });
+
+            // Function to display lost books
+            function displayLostBooks(query = "") {
+                $.ajax({
+                    url: "lostBookDetails.php",
+                    type: "POST",
+                    data: { action: "fetch", query: query },
+                    success: function (response) {
+                        $("#resultsTable").html(response);
+                    },
+                });
+            }
+        });
+    </script>
+</body>
+</html>
