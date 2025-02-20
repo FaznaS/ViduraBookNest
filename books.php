@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="index.js"></script>
     <script src="home.js"></script>
-
     <script src="books.js"></script>
-  
     <style>
         ul {
             list-style: none;
@@ -70,6 +68,14 @@
         #book_list_container {
             display: flex;
             align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
+        }
+        #book_display_container {
+            display: flex;
+            align-items: center;
             flex-wrap: wrap;
             width: 100%;
             height: fit-content;
@@ -104,7 +110,7 @@
             padding: 5px;
             border: 1px solid white;
             border-radius: 0.8em;
-            margin-left: 40px;
+            margin: 20px;
             color: #0029FF;
         }
         #page-container {
@@ -152,7 +158,7 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
-                    <a href="payment.html" class="header-links">Payment</a>
+                    <a href="payment.php" class="header-links">Payment</a>
                 </div>
             </li>
         </ul>
@@ -165,7 +171,7 @@
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <p><?php echo htmlspecialchars($student_name); ?></p>
-                        <a href="viewProfile.html" style="text-decoration: none;">View Profile</a>
+                        <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
@@ -189,7 +195,6 @@
             <div style="display: flex; justify-content: center;">
                 <div class="search-bar">
                     <i class="fa fa-filter" aria-hidden="true" onclick="showFilterOptions()"></i>
-                    <input type="text" placeholder="Search">
                     <input id="search-bar" type="text" placeholder="Search" oninput="searchBook(this.value)">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div>
@@ -200,18 +205,6 @@
                 <div id="filter-options">
                     <h4>Genre</h4>
                     <div style="padding: 5px;">
-                        <button type="button" class="btn-genre">Fiction</button>
-                        <button type="button" class="btn-genre">Non-Fiction</button>
-                        <button type="button" class="btn-genre">Science</button>
-                        <button type="button" class="btn-genre">History</button>
-                    </div>
-                    <div style="padding: 5px;">
-                        <button type="button" class="btn-genre">Language</button>
-                        <button type="button" class="btn-genre">Literature</button>
-                        <button type="button" class="btn-genre">Technology</button>
-                    </div>
-                    <h4>Author</h4>
-                    <input type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;">
                         <button type="button" class="btn-genre" onclick="filterBooks('English Fiction')">Fiction</button>
                         <button type="button" class="btn-genre" onclick="filterBooks('Non Fiction')">Non-Fiction</button>
                         <button type="button" class="btn-genre" onclick="filterBooks('Science')">Science</button>
@@ -224,86 +217,10 @@
                     </div>
                     <h4>Author</h4>
                     <input id="author-filter" type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;" oninput="filterBooksByAuthor(this.value)">
-
                 </div>
             </div>
 
             <!-------------------------------Book Collection------------------------------->
-            <?php 
-                include "config.php";
-                
-                $category = "";
-
-                function displayBookByCategory($conn, $category) {
-                    $search = "SELECT * FROM books WHERE category = '$category'";
-                    $result = mysqli_query($conn,$search);
-
-                    if(mysqli_num_rows($result) > 0) {
-                        while($fetch_book = mysqli_fetch_assoc($result)) {
-                            echo '<div class="book_container">
-                                    <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
-                                    <h3 id="book_title">' . $fetch_book["title"] . '</h3>
-                                </div>';
-                        }
-                                            
-                        echo '<input type="button" value="More" name="view-more" class="view-more-btn">';
-
-                    } else {
-                        echo '<p class="no-books-message"> 
-                                No books available in this category 
-                            </p>';
-                    }
-                }
-            ?>
-
-            <section class="book_category_container">
-                <h2>Fiction</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'English Fiction') ?>
-                </div>
-            </section>
-            
-            <section class="book_category_container">
-                <h2>Non Fiction</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'Non Fiction') ?>
-                </div>
-            </section>
-            
-            <section class="book_category_container">
-                <h2>Science</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'Science') ?>
-                </div>
-            </section>  
-
-            <section class="book_category_container">
-                <h2>History</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'History') ?>
-                </div>
-            </section>
-
-            <section class="book_category_container">
-                <h2>Language</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'Language') ?>
-                </div>
-            </section>
-
-            <section class="book_category_container">
-                <h2>Literature</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'Literature') ?>
-                </div>
-            </section>
-            
-            <section class="book_category_container">
-                <h2>Technology</h2>
-                <div id="book_list_container">
-                    <?php displayBookByCategory($conn, 'Technology') ?>
-                </div>
-            </section>
             <section class="book_category_container">
                 <h2 id="search_heading">Top Recommendations</h2>
                 <div id="book_list_container">
@@ -315,7 +232,10 @@
                         $author = $_GET["author"] ?? '';
 
                         // Search books by title, category (genre) or author
-                        $search_books = "SELECT * FROM books WHERE 1"; // Default query
+                        $search_books = "SELECT b.*, COUNT(br.book_id) AS borrow_count 
+                                        FROM books b
+                                        LEFT JOIN borrowed_book_details br ON b.acc_no = br.book_id
+                                        WHERE 1";
 
                         if ($title) {
                             $search_books .= " AND title LIKE '%$title%'";
@@ -326,49 +246,101 @@
                         if ($author) {
                             $search_books .= " AND author LIKE '%$author%'";
                         }
-                        
+
+                        // Group results by book and order by most borrowed
+                        $search_books .= " GROUP BY b.acc_no 
+                                        ORDER BY borrow_count DESC 
+                                        LIMIT 5"; 
+
                         $result_query = mysqli_query($conn,$search_books);
 
+                        // Counts the number of displayed books
+                        $count = 0;
+
                         if(mysqli_num_rows($result_query) > 0) {
-                            // $book_count = 2;
-                            // $displayed_books = 0;
-
+                            echo '<div id="book_display_container">';
+                        
                             while($fetch_book = mysqli_fetch_assoc($result_query)) {
-                                // if ($displayed_books >= $book_count) {
-                                //     break; // To stop displaying books
-                                // }
-
                                 echo '<div class="book_container">
                                         <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
                                         <a href="book_details.php?id=' . $fetch_book["acc_no"] . '" style="text-decoration:none; color: black;">
                                             <h3 id="book_title">' . $fetch_book["title"] . '</h3>
                                         </a>
-                                    </div>';
-
-                                // $displayed_books++;
+                                    </div>'; 
+                                
+                                $count++;
                             }
-                                                
-                            echo '<input type="button" value="More" name="view-more" class="view-more-btn">';
+                        
+                            echo '</div>';
+
+                            // Check if there are more books to show before displaying the "View More" button
+                            $check_more_books = "SELECT COUNT(*) AS total FROM books";
+                        
+                            $result_more_books = mysqli_query($conn, $check_more_books);
+                            $row_more_books = mysqli_fetch_assoc($result_more_books);
+                        
+                            $totalBooks = $row_more_books["total"] ?? 0;
+
+                            // Check if the total displayed books match the total available books
+                            if ($count < $totalBooks) {
+                                echo '<input type="button" value="More" name="view-more" id="view-more-btn" class="view-more-btn">';
+                            } else {
+                                echo '<style>#view-more-btn { display: none; }</style>';
+                            }
 
                         } else {
-                            echo '<p class="no-books-message"> 
-                                    No books available in this category 
-                                </p>';
-                        }
+                            echo '<p class="no-books-message"> No books available in this category </p>';
+                        }  
                     ?>
                 </div>
             </section>
 
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    let limit = 2; // Number of books per request
+
+                    $("#view-more-btn").click(function () {
+                        // Get the current offset by counting the number of displayed book containers
+                        const offset = $("#book_display_container .book_container").length;
+                        
+                        let title = "<?php echo $title; ?>";
+                        let author = "<?php echo $author; ?>";
+                        let category = "<?php echo $category; ?>";
+
+                        $.ajax({
+                            url: "fetchMoreBooks.php",
+                            type: "POST",
+                            data: { title, author, category, offset, limit },
+                            success: function (response) {
+                                if (response.trim() === "") {
+                                    $("#view-more-btn").hide(); // Hide button if no more books
+                                } else {
+                                    $("#book_display_container").append(response);
+                                    
+                                    // Check if the displayed books are equal to or greater than the totalBooks
+                                    const displayedBooks = $("#book_display_container .book_container").length;
+                                    const totalBooks = <?php echo $totalBooks; ?>;
+
+                                    if (displayedBooks >= totalBooks) {
+                                        $("#view-more-btn").hide();
+                                    }
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
         </div>
         
         <!-------------------------------Footer------------------------------->
         <footer>
             <div id="footer-link-container">
                 <ul>
-                    <li><a href="home.html" class="footer-links">Home</a></li>
-                    <li><a href="books.html" class="footer-links">Books</a></li>
-                    <li><a href="cart.html" class="footer-links">Cart</a></li>
-                    <li><a href="payment.html" class="footer-links">Payment</a></li>
+                    <li><a href="home.php" class="footer-links">Home</a></li>
+                    <li><a href="books.php" class="footer-links">Books</a></li>
+                    <li><a href="cart.php" class="footer-links">Cart</a></li>
+                    <li><a href="payment.php" class="footer-links">Payment</a></li>
                 </ul>
             </div>
             <div id="contact-container">
