@@ -71,7 +71,7 @@
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <p><?php echo htmlspecialchars($student_name); ?></p>
-                        <a href="viewprofile.html" style="text-decoration: none;">View Profile</a>
+                        <a href="viewprofile.php" style="text-decoration: none;">View Profile</a>
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
