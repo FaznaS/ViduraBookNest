@@ -68,6 +68,14 @@
         #book_list_container {
             display: flex;
             align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
+        }
+        #book_display_container {
+            display: flex;
+            align-items: center;
             flex-wrap: wrap;
             width: 100%;
             height: fit-content;
@@ -102,7 +110,7 @@
             padding: 5px;
             border: 1px solid white;
             border-radius: 0.8em;
-            margin-left: 40px;
+            margin: 20px;
             color: #0029FF;
         }
         #page-container {
@@ -224,7 +232,10 @@
                         $author = $_GET["author"] ?? '';
 
                         // Search books by title, category (genre) or author
-                        $search_books = "SELECT * FROM books WHERE 1"; // Default query
+                        $search_books = "SELECT b.*, COUNT(br.book_id) AS borrow_count 
+                                        FROM books b
+                                        LEFT JOIN borrowed_book_details br ON b.acc_no = br.book_id
+                                        WHERE 1";
 
                         if ($title) {
                             $search_books .= " AND title LIKE '%$title%'";
@@ -235,39 +246,91 @@
                         if ($author) {
                             $search_books .= " AND author LIKE '%$author%'";
                         }
-                        
+
+                        // Group results by book and order by most borrowed
+                        $search_books .= " GROUP BY b.acc_no 
+                                        ORDER BY borrow_count DESC 
+                                        LIMIT 5"; 
+
                         $result_query = mysqli_query($conn,$search_books);
 
+                        // Counts the number of displayed books
+                        $count = 0;
+
                         if(mysqli_num_rows($result_query) > 0) {
-                            // $book_count = 2;
-                            // $displayed_books = 0;
-
+                            echo '<div id="book_display_container">';
+                        
                             while($fetch_book = mysqli_fetch_assoc($result_query)) {
-                                // if ($displayed_books >= $book_count) {
-                                //     break; // To stop displaying books
-                                // }
-
                                 echo '<div class="book_container">
                                         <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
                                         <a href="book_details.php?id=' . $fetch_book["acc_no"] . '" style="text-decoration:none; color: black;">
                                             <h3 id="book_title">' . $fetch_book["title"] . '</h3>
                                         </a>
-                                    </div>';
-
-                                // $displayed_books++;
+                                    </div>'; 
+                                
+                                $count++;
                             }
-                                                
-                            echo '<input type="button" value="More" name="view-more" class="view-more-btn">';
+                        
+                            echo '</div>';
+
+                            // Check if there are more books to show before displaying the "View More" button
+                            $check_more_books = "SELECT COUNT(*) AS total FROM books";
+                        
+                            $result_more_books = mysqli_query($conn, $check_more_books);
+                            $row_more_books = mysqli_fetch_assoc($result_more_books);
+                        
+                            $totalBooks = $row_more_books["total"] ?? 0;
+
+                            // Check if the total displayed books match the total available books
+                            if ($count < $totalBooks) {
+                                echo '<input type="button" value="More" name="view-more" id="view-more-btn" class="view-more-btn">';
+                            } else {
+                                echo '<style>#view-more-btn { display: none; }</style>';
+                            }
 
                         } else {
-                            echo '<p class="no-books-message"> 
-                                    No books available in this category 
-                                </p>';
-                        }
+                            echo '<p class="no-books-message"> No books available in this category </p>';
+                        }  
                     ?>
                 </div>
             </section>
 
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    let limit = 2; // Number of books per request
+
+                    $("#view-more-btn").click(function () {
+                        // Get the current offset by counting the number of displayed book containers
+                        const offset = $("#book_display_container .book_container").length;
+                        
+                        let title = "<?php echo $title; ?>";
+                        let author = "<?php echo $author; ?>";
+                        let category = "<?php echo $category; ?>";
+
+                        $.ajax({
+                            url: "fetchMoreBooks.php",
+                            type: "POST",
+                            data: { title, author, category, offset, limit },
+                            success: function (response) {
+                                if (response.trim() === "") {
+                                    $("#view-more-btn").hide(); // Hide button if no more books
+                                } else {
+                                    $("#book_display_container").append(response);
+                                    
+                                    // Check if the displayed books are equal to or greater than the totalBooks
+                                    const displayedBooks = $("#book_display_container .book_container").length;
+                                    const totalBooks = <?php echo $totalBooks; ?>;
+
+                                    if (displayedBooks >= totalBooks) {
+                                        $("#view-more-btn").hide();
+                                    }
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
         </div>
         
         <!-------------------------------Footer------------------------------->
