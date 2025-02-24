@@ -40,6 +40,28 @@
             width: 140px;
             font-size: large;
         }
+
+        .back-arrow {
+            display: inline-block;
+            padding: 4px;
+            background-color:#D09594; /* Bootstrap primary color */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 15px;
+            transition: background-color 0.3s;
+            z-index: 100;
+            margin: 10px;
+            position: fixed;
+        }
+
+        .back-arrow:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        .arrow {
+            font-size: 15px; /* Adjust size of the arrow */
+        }
     </style>
 </head>
 <body>
@@ -73,6 +95,10 @@
             </li>
         </ul>
     </nav>
+
+    <a href="javascript:history.back()" class="back-arrow">
+        <span class="arrow">&#8592;</span> Back
+    </a>
 
     <div id="page-container">
         <div id="content-wrap">
