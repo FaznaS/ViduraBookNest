@@ -31,6 +31,28 @@
             border-color: #E5C2BB;
             margin-top: 20px;
         }
+
+        .back-arrow {
+            display: inline-block;
+            padding: 4px;
+            background-color:#D09594; /* Bootstrap primary color */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 15px;
+            transition: background-color 0.3s;
+            z-index: 100;
+            margin: 10px;
+            position: fixed;
+        }
+
+        .back-arrow:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        .arrow {
+            font-size: 15px; /* Adjust size of the arrow */
+        }
     </style>
 </head>
 <body>
@@ -41,29 +63,33 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-home" aria-hidden="true"></i>
-                    <a href="home.html" class="header-links">Home</a>
+                    <a href="home.php" class="header-links">Home</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-book" aria-hidden="true"></i>
-                    <a href="books.html" class="header-links">Books</a>
+                    <a href="books.php" class="header-links">Books</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.html" class="header-links">Cart</a>
+                    <a href="cart.php" class="header-links">Cart</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
-                    <a href="payment.html" class="header-links">Payment</a>
+                    <a href="payment.php" class="header-links">Payment</a>
                 </div>
             </li>
         </ul>
     </nav>
+
+    <a href="javascript:history.back()" class="back-arrow">
+        <span class="arrow">&#8592;</span> Back
+    </a>
 
     <!--User Profile-->
     <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
