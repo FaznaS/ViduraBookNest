@@ -117,6 +117,10 @@ $conn->close();
         </ul>
     </nav>
 
+    <?php 
+        include "backbtn.php"
+    ?>
+    
     <section style="display: flex; justify-content: center;">
         <div class="content-container" style="display: flex; justify-content: center; align-items: center;">
             <img src="./Assets/logo.jpg" alt="logo" id="logo">
