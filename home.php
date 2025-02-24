@@ -89,14 +89,16 @@
         footer {
             position: relative;
         }
+        
     </style>
 </head>
 <body>
 
     <!--To display student name-->
     <?php 
-        include "index.php"
+        include "index.php";
     ?>
+
     
     <!-------------------------------Header Design------------------------------->
     <nav>
@@ -128,7 +130,9 @@
             </li>
         </ul>
     </nav>
-
+    <?php 
+        include "backbtn.php"
+    ?>
     <div id="page-container">
         <div id="content-wrap">
             <!-------------------------------User Profile------------------------------->
