@@ -54,7 +54,7 @@
             margin-right: 40px;
             justify-content: center;
         }
-        h2 {
+        #search_heading {
             display: block;
             background-color: #D9D9D9;
             border-radius: 20px;
@@ -130,7 +130,8 @@
 
     <!--To display student name-->
     <?php 
-        include "index.php"
+        include "index.php";
+        include "chatbot.php"
     ?>
 
     <!-------------------------------Header Design------------------------------->
