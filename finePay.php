@@ -56,19 +56,19 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-book" aria-hidden="true"></i>
-                    <a href="books.php" class="header-links">Books</a>
+                    <a href="books.html" class="header-links">Books</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.php" class="header-links">Cart</a>
+                    <a href="cart.html" class="header-links">Cart</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
-                    <a href="payment.php" class="header-links">Payment</a>
+                    <a href="payment.html" class="header-links">Payment</a>
                 </div>
             </li>
         </ul>
