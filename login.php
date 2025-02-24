@@ -113,9 +113,13 @@
                         $_SESSION['username'] = $row['user_id'];
                         $_SESSION['name'] = $row['name'];
                         
-                        header('Location: home.php');
+                        // Redirecting based on user role
+                        if ($row['user_id'] == "AAAA") {
+                            header('Location: admin.html');
+                        } else {
+                            header('Location: home.php');
+                        }
                         exit();
-                
                     } else {
                         $passwordErr = "Incorrect Password";
                     }
