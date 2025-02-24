@@ -37,13 +37,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<td>{$row['return_date']}</td>";
                 echo "<td>{$row['status']}</td>";
                 echo "<td>";
-                echo "<button class='return-book-btn'
-                    data-borrow-id='{$row['borrow_id']}' 
-                    data-book-id='{$row['book_id']}'>Return</button>";
-                echo "<button class='lost-book-btn'
-                    data-borrow-id='{$row['borrow_id']}' 
-                    data-book-id='{$row['book_id']}'
-                    data-user-id='{$row['user_id']}'>Lost</button>";
+                if($row['status'] == "Pending") {
+                    echo "<button class='return-book-btn'
+                        data-borrow-id='{$row['borrow_id']}' 
+                        data-book-id='{$row['book_id']}'>Return</button>";
+
+                    echo "<button class='lost-book-btn'
+                        data-borrow-id='{$row['borrow_id']}' 
+                        data-book-id='{$row['book_id']}'
+                        data-user-id='{$row['user_id']}'>Lost</button>";
+                } else {
+                    echo "<button class='return-book-btn' disabled style='background-color:rgb(125, 204, 125); color: #666;'>Return</button>";
+                    echo "<button class='lost-book-btn' disabled style='background-color:rgb(204, 167, 99); color: #666;'>Lost</button>";
+                }
                 echo "</td>";
                 echo "</tr>";
             }
