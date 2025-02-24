@@ -1,3 +1,8 @@
+<?php
+    include "config.php";
+    include "index.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,7 +107,7 @@
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <p>Student Full Name</p>
-                        <a href="viewProfile.html" style="text-decoration: none;">View Profile</a>
+                        <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
@@ -127,22 +132,55 @@
                 <div class="content-container">
                     <h2>Fine Payment</h2>
                     <p style="color: #2C0163; font-size: large;">Charges per day = LKR 5</p>
-                    <table align="center" style="text-align: center; margin-bottom: 30px;" cellspacing="0px">
-                        <tr>
-                            <th>Book</th>
-                            <th>Borrowed Date</th>
-                            <th>Return Date</th>
-                            <th>No. of days due</th>
-                            <th>Fee</th>
-                        </tr>
-                        <tr>
-                            <td>The Song of Achilles by Madeline Miller</td>
-                            <td>27.05.2024</td>
-                            <td>11.06.2024</td>
-                            <td>11</td>
-                            <td>LKR 55</td>
-                        </tr>
-                    </table>
+                    <?php 
+                        // Getting the user id of current user
+                        $user_id = $_SESSION["username"];
+                        
+                        // Getting the books where the return date is passed
+                        $search_books = "SELECT b.title, bb.borrowed_date, bb.return_date 
+                                            FROM books AS b 
+                                            JOIN borrowed_book_details AS bb
+                                            ON bb.book_id = b.acc_no
+                                            WHERE user_id = '$user_id' AND return_date < CURDATE()";
+                        $delayed_books_result = mysqli_query($conn, $search_books);
+
+                        // Calculating fine based on the number of days delayed
+                        if(mysqli_num_rows($delayed_books_result) > 0) {
+                            echo "<table align='center' style='text-align: center; margin-bottom: 30px;' cellspacing='0px'>
+                                <tr>
+                                    <th>Book</th>
+                                    <th>Borrowed Date</th>
+                                    <th>Return Date</th>
+                                    <th>No. of days due</th>
+                                    <th>Fee</th>
+                                </tr>";
+
+                            while ($fetch_delayed_books = mysqli_fetch_assoc($delayed_books_result)) {
+                                $current_date = date('Y-m-d');
+                                $return_date = $fetch_delayed_books["return_date"];
+
+                                // Convert dates to timestamps
+                                $diff_in_seconds = strtotime($current_date) - strtotime($return_date);
+
+                                // Convert seconds to days
+                                $due_days = floor($diff_in_seconds / (60 * 60 * 24));
+
+                                // Calculating fine
+                                $fine = $due_days * 5;
+                                
+                                echo "<tr>
+                                        <td>" . $fetch_delayed_books["title"] . "</td>
+                                        <td>" . $fetch_delayed_books["borrowed_date"] . "</td>
+                                        <td>" . $fetch_delayed_books["return_date"] . "</td>
+                                        <td>" . $due_days . "</td>
+                                        <td>LKR " . $fine . "</td>
+                                    </tr>";
+                            };
+                            
+                            echo "</table>";
+                        }
+                    ?>
+                    
                     <div style="display: flex; justify-content: flex-end;">
                         <button id="pay-btn">Pay Now</button>
                     </div>
