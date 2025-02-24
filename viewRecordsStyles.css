@@ -106,7 +106,7 @@ input[type="text"] {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin: 20px 0;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -136,39 +136,6 @@ table td {
     color: #333;
 }
 
-.update-btn {
-    width: 75px;
-    background-color: #008080;
-    color: white;
-    border: 1px solid navy;
-    padding: 5px 10px;
-    font-size: medium;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-right: 25px;
-    transition: background-color 0.3s ease;
-}
-
-.update-btn:hover {
-    background-color: blue;
-}
-
-.delete-btn {
-    width: 75px;
-    background-color: red;
-    color: white;
-    border: 1px solid rgb(128, 0, 0);
-    padding: 5px 10px;
-    font-size: medium;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.delete-btn:hover {
-    background-color: maroon;
-}
-
 .update-members {
     display: flex;
     flex-direction: column;
@@ -189,22 +156,20 @@ table td {
     margin-bottom: 15px;
 }
 
-.update-members button {
+form button {
     width: 100%;
     padding: 10px;
     font-size: 16px;
     border: 2px solid black;
-    border-radius: 10px;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     color: #ffffff;
 }
 
-.update-members button[type="submit"] {
-    background-color: green;
+button[type="submit"] {
+    background-color: #22c20d;
 }
-
-.update-members button#closeModal {
+form button#closeModal {
     background-color: #dc3545;
 }
 
@@ -215,4 +180,78 @@ table td {
     padding: 20px;
     text-align: center;
     margin: 33px;
+}
+
+table button {
+    width: 75px;
+    padding: 5px 10px;
+    font-size: medium;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    color: white;
+    border: 1px solid;
+    margin: 0px 10px;
+}
+
+/* Update Button */
+.update-btn {
+    background-color: #008080;
+    border-color: navy;
+}
+.update-btn:hover {
+    background-color: blue;
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: red;
+    border-color: rgb(128, 0, 0);
+}
+.delete-btn:hover {
+    background-color: maroon;
+}
+
+/* Return Button */
+.return-book-btn {
+    background-color: green;
+    border-color: darkgreen;
+}
+.return-book-btn:hover {
+    background-color: limegreen;
+}
+
+/* Lost Button */
+.lost-book-btn {
+    background-color: orange;
+    border-color: darkorange;
+}
+.lost-book-btn:hover {
+    background-color: gold;
+}
+
+/* Replace Button */
+.replace-btn {
+    width: 90px;
+    background-color: rgb(3, 205, 255);
+    border-color: rgb(2, 77, 100);
+}
+.replace-btn:hover {
+    background-color: rgb(106, 181, 204);
+}
+
+/* Pay Button */
+.pay-btn {
+    width: 90px;
+    background-color: rgb(255, 0, 200);
+    border-color: rgb(122, 4, 97);
+}
+.pay-btn:hover {
+    background-color: rgb(212, 84, 122);
+}
+
+.no-results {
+    color: red;
+    font-weight: bold;
+    margin-top: 20px;
 }

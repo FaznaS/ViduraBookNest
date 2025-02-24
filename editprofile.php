@@ -65,12 +65,12 @@
     <script src="index.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        body {
-            font-size: large;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+       
+       
+        ul {
+            list-style: none;
         }
+
         .content-container {
             background-color: #E5DAD8;
             border-radius: 15px;
@@ -79,6 +79,14 @@
             padding: 50px;
             margin: 40px;
             text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        section{
+            display: flex;
+            justify-content: center;
+
         }
         #form-container {
             background-color: #D09594;
@@ -88,6 +96,8 @@
             margin-bottom: 40px;
             height: 70%;
             width: fit-content;
+            justify-content: center;
+            align-items: center;
         }
         label {
             font-weight: bold;
@@ -112,6 +122,7 @@
             border-radius: 0.8em;
             margin-bottom: 8px;
             cursor: pointer;
+            border: 1px solid black;
         }
         #icon-eye,#confirm-icon-eye {
             position: absolute;
@@ -128,6 +139,11 @@
             border-radius: 0.8em;
             margin-bottom: 8px;
             cursor: pointer;
+            border: 1px solid black;
+        }
+
+        footer {
+            position: relative;
         }
     </style>
 </head>
@@ -140,6 +156,43 @@
             <p class="success"><?php echo $success_message; ?></p>
         <?php endif; 
     ?>
+
+    <!-------------------------------Header Design------------------------------->
+<nav>
+        <img src="./Assets/logo.jpg" alt="logo" style="width: 200px; padding: 10px;">
+        <ul style="display: flex;">
+            <li>
+                <div class="nav-element-container">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    <a href="home.php" class="header-links">Home</a>
+                </div>
+            </li>
+            <li>
+                <div class="nav-element-container">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                    <a href="books.php" class="header-links">Books</a>
+                </div>
+            </li>
+            <li>
+                <div class="nav-element-container">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <a href="cart.php" class="header-links">Cart</a>
+                </div>
+            </li>
+            <li>
+                <div class="nav-element-container">
+                    <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
+                    <a href="payment.php" class="header-links">Payment</a>
+                </div>
+            </li>
+        </ul>
+</nav>
+
+<?php 
+    include "backbtn.php"
+?>
+
+<section>
     <div class="content-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <img src="./Assets/logo.jpg" alt="logo" id="logo">
         <div id="form-container">
@@ -190,6 +243,51 @@
             <br>
             <input type="submit" id="add" name="add" value="Edit Profile" class="submit-btn" style="background-color: #AA9595;">
         </form>
+   
+        </div>
+
+        </div>
+        </section>
+        <!-------------------------------Footer------------------------------->
+        <footer>
+            <div id="footer-link-container">
+                <ul>
+                    <li><a href="home.php" class="footer-links">Home</a></li>
+                    <li><a href="books.php" class="footer-links">Books</a></li>
+                    <li><a href="cart.php" class="footer-links">Cart</a></li>
+                    <li><a href="payment.php" class="footer-links">Payment</a></li>
+                </ul>
+            </div>
+            <div id="contact-container">
+                <ul style="line-height: 1.5em;">
+                    <li>
+                        <div style="display: flex; flex-direction: row;">
+                            <i class="fa fa-map-marker" aria-hidden="true" style="margin-right: 42px; font-size: larger;"></i>
+                            <a href="https://www.google.com/maps/dir//Vidura+College,+742%2F16+Samagi+Mawatha,+Hokandara+10230/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x3ae250eed5064887:0x99747169de18801f?sa=X&ved=1t:57443&ictx=111"
+                            class="footer-links">
+                                742/16 Samagi Mawatha, Hokandara 10230
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="display: flex; flex-direction: row;">
+                            <i class="fa fa-phone" aria-hidden="true" style="font-size: larger;"></i>
+                            <ul style="display: flex; flex-direction: column;">
+                                <li>+94 11 286 6238</li>
+                                <li>+94 11 287 1861</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="social-media-container">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+            </div>
+        </footer>
+   
     </div>
+
 </body>
 </html>
