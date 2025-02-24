@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Back Arrow</title>
     <style>
+        body{
+            height: 100vh;
+        }
         .back-arrow {
-            display: inline-block;
             padding: 4px;
             background-color:#D09594; /* Bootstrap primary color */
             color: white;
@@ -16,7 +18,7 @@
             transition: background-color 0.3s;
             z-index: 100;
             margin: 10px;
-            position: fixed;
+            position: absolute;
         }
 
         .back-arrow:hover {
