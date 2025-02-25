@@ -11,6 +11,7 @@
         $image_tmp_name=$_FILES['book_image']['tmp_name'];
         $image_folder="Assets/uploaded_images/".$book_image;
         
+        $book_link = $_POST["book_link"];
         $category = $_POST["category"];
         $author = $_POST["author"];
         $copies = $_POST["book_copies"];
@@ -25,7 +26,7 @@
 
         if(!(empty($title) || empty($category) || empty($author) || empty($publisher) || empty($isbn))) {
             // Inserting a Book
-            $add_query = "INSERT INTO books (acc_no, title, image, category, author, copies, publisher, isbn, copyright_year, class_no, price, status, comment) VALUES (
+            $add_query = "INSERT INTO books (acc_no, title, image, category, author, copies, publisher, isbn, copyright_year, class_no, price, status, comment, file_path) VALUES (
                     '$acc_no',
                     '$title',
                     '$book_image',
@@ -38,7 +39,8 @@
                     '$class_no',
                     $price,
                     '$status',
-                    '$comment')";
+                    '$comment',
+                    '$book_link')";
             
             if (mysqli_query($conn, $add_query)) {
                 if ($image_size > 2000000) {
