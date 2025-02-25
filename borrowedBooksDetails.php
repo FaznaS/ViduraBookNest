@@ -37,8 +37,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<td>{$row['return_date']}</td>";
                 echo "<td>{$row['status']}</td>";
                 echo "<td>";
-                echo "<button class='return-book-btn'>Return</button>";
-                echo "<button class='lost-book-btn'>Lost</button>";
+                if($row['status'] == "Pending") {
+                    echo "<button class='return-book-btn'
+                        data-borrow-id='{$row['borrow_id']}' 
+                        data-book-id='{$row['book_id']}'>Return</button>";
+
+                    echo "<button class='lost-book-btn'
+                        data-borrow-id='{$row['borrow_id']}' 
+                        data-book-id='{$row['book_id']}'
+                        data-user-id='{$row['user_id']}'>Lost</button>";
+                } else {
+                    echo "<button class='return-book-btn' disabled style='background-color:rgb(125, 204, 125); color: #666;'>Return</button>";
+                    echo "<button class='lost-book-btn' disabled style='background-color:rgb(204, 167, 99); color: #666;'>Lost</button>";
+                }
                 echo "</td>";
                 echo "</tr>";
             }
@@ -47,5 +58,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<div class='no-results'>No records found for the search.</div>";
         }
     } 
+
+    //When Book is return, 
+    if ($action === "return_book") {
+        $borrowId = intval($_POST['borrow_id']);
+        $bookId = intval($_POST['book_id']);
+
+        // Update the borrowed book status to 'returned'
+        $updateBorrowed = "UPDATE borrowed_book_details SET status = 'Returned' WHERE borrow_id = $borrowId";
+
+        // Increment the book copies in the 'books' table
+        $updateBook = "UPDATE books SET copies = copies + 1 WHERE acc_no = $bookId";
+
+        if (mysqli_query($conn, $updateBorrowed) && mysqli_query($conn, $updateBook)) {
+            echo json_encode(["message" => "Book returned successfully."]);
+        } else {
+            echo json_encode(["message" => "Error updating book status: " . mysqli_error($conn)]);
+        }
+    }
+
+    // When Book is lost, add it into the lost books details table.
+    if ($action === "mark_as_lost") {
+        $borrowId = intval($_POST['borrow_id']);
+        $bookId = intval($_POST['book_id']);
+        $userId = $_POST['user_id'];
+        $lostDate = date('Y-m-d');
+
+        mysqli_begin_transaction($conn);
+
+        try {
+            // Insert into lost_book_details
+            $insertLost = "INSERT INTO lost_book_details (book_id, user_id, lost_date)
+                           VALUES ($bookId, '$userId', '$lostDate')";
+            mysqli_query($conn, $insertLost);
+
+            // Remove from borrowed_book_details
+            $deleteBorrowed = "DELETE FROM borrowed_book_details WHERE borrow_id = $borrowId";
+            mysqli_query($conn, $deleteBorrowed);
+
+            mysqli_commit($conn);
+            echo json_encode(["message" => "Book marked as lost successfully."]);
+        } catch (Exception $e) {
+            mysqli_rollback($conn);
+            echo json_encode(["message" => "Error processing request: " . $e->getMessage()]);
+        }
+    }
 }
 ?>
