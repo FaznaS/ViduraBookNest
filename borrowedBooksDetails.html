@@ -24,13 +24,13 @@
         $(document).ready(function () {
             displayBorrowedBooks(); // Display all borrowed books function initialize
 
-            // Search Books
+            // Search Borrowed Books
             $("#searchBtn").on("click", function () {
                 const query = $("#searchInput").val();
                 displayBorrowedBooks(query);
             });
 
-            // Search Books by pressing Enter key
+            // Search Borrowed Books by pressing Enter key
             $("#searchInput").on("keypress", function (e) {
                 if (e.key === "Enter") { 
                     const query = $(this).val();
@@ -50,6 +50,57 @@
                     },
                 });
             }
+
+            // When click Return Button, Change the status
+            $(document).on("click", ".return-book-btn", function () {
+                const borrowId = $(this).data("borrow-id");
+                const bookId = $(this).data("book-id");
+                
+                $.ajax({
+                    url: "borrowedBooksDetails.php",
+                    type: "POST",
+                    data: {
+                        action: "return_book",
+                        borrow_id: borrowId,
+                        book_id: bookId,
+                    },
+                    success: function (response) {
+                        const res = JSON.parse(response);
+                        alert(res.message);
+                        displayBorrowedBooks();
+                    },
+                    error: function () {
+                        alert("An error occurred while updating the status.");
+                    },
+                });
+            });
+
+            // Mark as Lost Book
+            $(document).on("click", ".lost-book-btn", function () {
+                const borrowId = $(this).data("borrow-id");
+                const bookId = $(this).data("book-id");
+                const userId = $(this).data("user-id"); 
+                
+                $.ajax({
+                    url: "borrowedBooksDetails.php",
+                    type: "POST",
+                    data: {
+                        action: "mark_as_lost",
+                        borrow_id: borrowId,
+                        book_id: bookId,
+                        user_id: userId,
+                    },
+    
+                    success: function (response) {
+                        const res = JSON.parse(response);
+                        alert(res.message);
+                        displayBorrowedBooks(); 
+                    },
+                    error: function () {alert("An error occurred while updating the status.");
+
+                    },
+                });
+            });
         });
     </script>
 </body>
