@@ -18,8 +18,8 @@ CREATE TABLE books (
   status VARCHAR(50) NOT NULL,
   comment VARCHAR(255) NOT NULL,
   file_path VARCHAR(255) DEFAULT NULL,
-  PRIMARY KEY (`acc_no`),
-  UNIQUE KEY `isbn` (`isbn`)
+  PRIMARY KEY (acc_no),
+  UNIQUE KEY isbn (isbn)
 );
 
 INSERT INTO books (acc_no, title, image, category, author, copies, publisher, isbn, copyright_year, class_no, price, status, comment, file_path) VALUES
@@ -40,7 +40,7 @@ CREATE TABLE members (
   grade_class VARCHAR(3) NOT NULL,
   user_id VARCHAR(10) NOT NULL,
   password VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (user_id)
 );
 
 INSERT INTO members (name, email, contact_no, grade_class, user_id, password) VALUES
