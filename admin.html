@@ -38,6 +38,12 @@
         function addBook() {
             window.location.href="addBook.html";
         }
+        function updateBook() {
+            window.location.href="updateBooks.html";
+        }
+        function deleteBook() {
+            window.location.href="bookDetails.html";
+        }
         function viewRecords() {
             window.location.href="viewRecords.html";
         }
@@ -47,6 +53,8 @@
 
         <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
             <button type="button" class="btn-option" onclick="addBook()">Add a new Book</button>
+            <button type="button" class="btn-option" onclick="updateBook()">Update Book</button>
+            <button type="button" class="btn-option" onclick="deleteBook()">Delete Book</button>
             <button type="button" class="btn-option" onclick="viewRecords()">View Records</button>
         </div>
     </div>
