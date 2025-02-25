@@ -10,119 +10,128 @@
     <script src="home.js"></script>
     <script src="books.js"></script>
     <style>
-        ul {
-            list-style: none;
-        }
-        .search-bar {
-            display: flex;
-            align-items: center;
-            margin-top: 20px;
-            width: fit-content;
-        }
-        .search-bar input {
-            border: none;
-            background-color: #E5C2BB;
-            padding: 10px 40px;
-            border-radius: 25px;
-            height: 25px;
-            width: 400px;
-        }
-        .fa-filter {
-            position: relative;
-            font-size: large;
-            left: 30px;
-        }
-        .fa-search {
-            position: relative;
-            font-size: large;
-            right: 30px;
-        }
-        #filter-options {
-            background-color: #E5DAD8;
-            width: 420px;
-            padding: 10px;
-            padding-bottom: 20px;
-            position: absolute;
-            z-index: 1;
-        }
-        .btn-genre, .btn-author {
-            padding: 5px 20px;
-            font-weight: bold;
-        }
-        .book_category_container {
-            margin-left: 40px;
-            margin-right: 40px;
-            justify-content: center;
-        }
-        h2 {
-            display: block;
-            background-color: #D9D9D9;
-            border-radius: 20px;
-            width: fit-content;
-            height: fit-content;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 25px;
-            padding-right: 25px;
-        }
-        #book_list_container {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            width: 100%;
-            height: fit-content;
-        }
-        .book_container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: fit-content;
-            height: fit-content;
-            margin-right: 10px;
-            padding: 8px;
-            margin: 10px;
-        }
-        #book_img {
-            height: 250px;
-            width: 170px;
-        }
-        #book_title {
-            background-color: #D9D9D9;
-            padding: 3px;
-            border-radius: 20px;
-            width: 200px;
-            text-align: center;
-            height: fit-content;
-        }
-        .view-more-btn {
-            width: 120px;
-            height: 40px;
-            font-size: large;
-            padding: 5px;
-            border: 1px solid white;
-            border-radius: 0.8em;
-            margin-left: 40px;
-            color: #0029FF;
-        }
-        #page-container {
-            background-color: rgba(204, 195, 195, 0.3);
-        }
-        .no-books-message {
-            background-color: #D9D9D9;
-            width: 100%;
-            justify-content: center;
-            text-align: center;
-            font-size: 20px;
-            padding: 5px;
-        }
+    ul {
+        list-style: none;
+    }
+    .search-bar {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        width: fit-content;
+    }
+    .search-bar input {
+        border: none;
+        background-color: #E5C2BB;
+        padding: 10px 40px;
+        border-radius: 25px;
+        height: 25px;
+        width: 400px;
+    }
+    .fa-filter {
+        position: relative;
+        font-size: large;
+        left: 30px;
+    }
+    .fa-search {
+        position: relative;
+        font-size: large;
+        right: 30px;
+    }
+    #filter-options {
+        background-color: #E5DAD8;
+        width: 420px;
+        padding: 10px;
+        padding-bottom: 20px;
+        position: absolute;
+        z-index: 1;
+    }
+    .btn-genre, .btn-author {
+        padding: 5px 20px;
+        font-weight: bold;
+    }
+    .book_category_container {
+        margin-left: 40px;
+        margin-right: 40px;
+        justify-content: center;
+    }
+    #search_heading {
+        display: block;
+        background-color: #D9D9D9;
+        border-radius: 20px;
+        width: fit-content;
+        height: fit-content;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    #book_list_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        height: fit-content;
+    }
+    #book_display_container {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+        height: fit-content;
+    }
+    .book_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        height: fit-content;
+        margin-right: 10px;
+        padding: 8px;
+        margin: 10px;
+    }
+    #book_img {
+        height: 250px;
+        width: 170px;
+    }
+    #book_title {
+        background-color: #D9D9D9;
+        padding: 3px;
+        border-radius: 20px;
+        width: 200px;
+        text-align: center;
+        height: fit-content;
+    }
+    .view-more-btn {
+        width: 120px;
+        height: 40px;
+        font-size: large;
+        padding: 5px;
+        border: 1px solid white;
+        border-radius: 0.8em;
+        margin: 20px;
+        color: #0029FF;
+    }
+    #page-container {
+        background-color: rgba(204, 195, 195, 0.3);
+    }
+    .no-books-message {
+        background-color: #D9D9D9;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        font-size: 20px;
+        padding: 5px;
+    }
     </style>
 </head>
 <body>
 
     <!--To display student name-->
     <?php 
-        include "index.php"
+        include "index.php";
+        include "chatbot.php"
     ?>
 
     <!-------------------------------Header Design------------------------------->
@@ -155,9 +164,11 @@
             </li>
         </ul>
     </nav>
-    <?php 
-        include "backbtn.php"
+    
+    <?php
+        include "backbtn.php";
     ?>
+
     <div id="page-container">
         <div id="content-wrap">
             <!--User Profile-->
@@ -165,7 +176,7 @@
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <p><?php echo htmlspecialchars($student_name); ?></p>
-                        <a href="viewProfile.html" style="text-decoration: none;">View Profile</a>
+                        <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
@@ -186,13 +197,15 @@
             </div>
 
             <!-------------------------------Search Bar------------------------------->
-            <div style="display: flex; justify-content: center;">
+            <form id="searchForm" action="books.php" method="GET" style="display: flex; justify-content: center;">
                 <div class="search-bar">
                     <i class="fa fa-filter" aria-hidden="true" onclick="showFilterOptions()"></i>
-                    <input id="search-bar" type="text" placeholder="Search" oninput="searchBook(this.value)">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <input id="search-bar" type="text" placeholder="Search" name="search">
+                    <button type="submit" style="background: none; border: none; padding: 0;">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                 </div>
-            </div>
+            </form>
 
             <!-------------------------------Filter Options------------------------------->
             <div id="filter-options-container" style="display: none; justify-content: center;">
@@ -220,13 +233,27 @@
                 <div id="book_list_container">
                     <?php 
                         include "config.php";
-                        
+
+                        // Retrieve search term from GET request
+                        $searchTerm = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
+
                         $title = $_GET["title"] ?? '';
                         $category = $_GET["genre"] ?? '';
                         $author = $_GET["author"] ?? '';
 
-                        // Search books by title, category (genre) or author
-                        $search_books = "SELECT * FROM books WHERE 1"; // Default query
+                        $limit = 5; // Consistent limit
+                        $offset = 0;
+
+                        // Build the SQL query based on filters
+                        $search_books = "SELECT b.*, COUNT(br.book_id) AS borrow_count 
+                                FROM books b
+                                LEFT JOIN borrowed_book_details br ON b.acc_no = br.book_id
+                                WHERE 1";
+                    
+                        // Add the search term condition
+                        if ($searchTerm) {
+                            $search_books .= " AND (b.title LIKE '%$searchTerm%' OR b.author LIKE '%$searchTerm%')";
+                        }
 
                         if ($title) {
                             $search_books .= " AND title LIKE '%$title%'";
@@ -237,39 +264,106 @@
                         if ($author) {
                             $search_books .= " AND author LIKE '%$author%'";
                         }
-                        
+
+                        // Group results by book and order by most borrowed
+                        $search_books .= " GROUP BY b.acc_no 
+                                ORDER BY borrow_count DESC 
+                                LIMIT $limit"; 
+
                         $result_query = mysqli_query($conn,$search_books);
 
-                        if(mysqli_num_rows($result_query) > 0) {
-                            // $book_count = 2;
-                            // $displayed_books = 0;
+                        // Build the query to check if there are more books AFTER applying filters
+                        $check_more_books = "SELECT COUNT(DISTINCT b.acc_no)
+                                            FROM books b
+                                            LEFT JOIN borrowed_book_details br ON b.acc_no = br.book_id
+                                            WHERE 1";
+                        
+                        //Add the search term condition to the total count query as well!
+                        if ($searchTerm) {
+                            $check_more_books .= " AND (b.title LIKE '%$searchTerm%' OR b.author LIKE '%$searchTerm%')";
+                        }
 
+                        if ($title) {
+                            $check_more_books .= " AND title LIKE '%$title%'";
+                        }
+                        if ($category) {
+                            $check_more_books .= " AND category = '$category'";
+                        }
+                        if ($author) {
+                            $check_more_books .= " AND author LIKE '%$author%'";
+                        }
+
+                        $check_more_books_result = mysqli_query($conn, $check_more_books);
+                        $check_more_books_row = mysqli_fetch_assoc($check_more_books_result);
+                        $totalBooks = $check_more_books_row["COUNT(DISTINCT b.acc_no)"] ?? 0;
+
+                        // Counts the number of displayed books
+                        $count = 0;
+
+                        if (mysqli_num_rows($result_query) > 0) {
+                            echo '<div id="book_display_container">';
+                        
                             while($fetch_book = mysqli_fetch_assoc($result_query)) {
-                                // if ($displayed_books >= $book_count) {
-                                //     break; // To stop displaying books
-                                // }
-
                                 echo '<div class="book_container">
                                         <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] .' ">
                                         <a href="book_details.php?id=' . $fetch_book["acc_no"] . '" style="text-decoration:none; color: black;">
                                             <h3 id="book_title">' . $fetch_book["title"] . '</h3>
                                         </a>
-                                    </div>';
-
-                                // $displayed_books++;
+                                    </div>'; 
+                                
+                                $count++;
                             }
-                                                
-                            echo '<input type="button" value="More" name="view-more" class="view-more-btn">';
+                        
+                            echo '</div>';
+
+                            // Display "View More" button only if there are more books to show
+                            if ($totalBooks > $count) {
+                                echo '<input type="button" value="More" name="view-more" id="view-more-btn" class="view-more-btn">';
+                            }
 
                         } else {
-                            echo '<p class="no-books-message"> 
-                                    No books available in this category 
-                                </p>';
-                        }
+                            echo '<p class="no-books-message">Sorry, No books available</p>';
+                        }  
                     ?>
                 </div>
             </section>
 
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    let limit = 2; // Number of books per request
+
+                    $("#view-more-btn").click(function () {
+                        // Get the current offset by counting the number of displayed book containers
+                        const offset = $("#book_display_container .book_container").length;
+                        
+                        let title = "<?php echo $title; ?>";
+                        let author = "<?php echo $author; ?>";
+                        let category = "<?php echo $category; ?>";
+
+                        $.ajax({
+                            url: "fetchMoreBooks.php",
+                            type: "POST",
+                            data: { title, author, category, offset, limit },
+                            success: function (response) {
+                                if (response.trim() === "") {
+                                    $("#view-more-btn").hide(); // Hide button if no more books
+                                } else {
+                                    $("#book_display_container").append(response);
+                                    
+                                    // Check if the displayed books are equal to or greater than the totalBooks
+                                    const displayedBooks = $("#book_display_container .book_container").length;
+                                    const totalBooks = <?php echo $totalBooks; ?>;
+
+                                    if (displayedBooks >= totalBooks) {
+                                        $("#view-more-btn").hide();
+                                    }
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
         </div>
         
         <!-------------------------------Footer------------------------------->
