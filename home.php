@@ -101,6 +101,7 @@
     <!--To display student name-->
     <?php 
         include "index.php";
+        include "chatbot.php"
     ?>
 
     

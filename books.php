@@ -130,7 +130,8 @@
 
     <!--To display student name-->
     <?php 
-        include "index.php"
+        include "index.php";
+        include "chatbot.php"
     ?>
 
     <!-------------------------------Header Design------------------------------->
