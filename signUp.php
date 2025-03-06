@@ -148,7 +148,7 @@
                 }
 
                 // check if the admission number already exists
-                $search_id = "SELECT * FROM student WHERE admission_no = '$_POST[admission_no]'";
+                $search_id = "SELECT * FROM members WHERE user_id = '$_POST[admission_no]'";
                 $result = mysqli_query($conn,$search_id);
 
                 if ($result->num_rows > 0) {
@@ -171,7 +171,7 @@
 
             // Inserting data to the database if all details are valid
             if($valid) {
-                $sql = "INSERT INTO student (student_name, email, contact_no, grade_class, admission_no, student_password) VALUES (
+                $sql = "INSERT INTO members (name, email, contact_no, grade_class, user_id, password) VALUES (
                     '$name',
                     '$email',
                     '$contact_no',
@@ -211,7 +211,7 @@
                     <tr>
                         <td><label for="email">Email</label></td>
                         <td>
-                            <input type="email" id="email" name="email" value="<?php echo $email;?>">
+                            <input type="email" id="email" name="email" value="<?php echo $email;?>" autocomplete="email">
                             <br>
                             <span class="error"><?php echo $emailErr; ?></span>
                         </td>
@@ -235,7 +235,7 @@
                     <tr>
                         <td><label for="admissionNo">Admission Number</label></td>
                         <td>
-                            <input type="number" id="admission_no" name="admission_no" value="<?php echo $admission_no; ?>">
+                            <input type="number" id="admission_no" name="admission_no" value="<?php echo $admission_no; ?>" autocomplete="off">
                             <br>
                             <span class="error"><?php echo $admissionNoErr; ?></span>
                         </td>
@@ -244,8 +244,8 @@
                         <td style="vertical-align: top;"><label for="password">Password</label></td>
                         <td>
                             <div style="position: relative; height: 15px;">
-                                <input type="password" id="password" name="password" value="<?php echo $password; ?>">
-                                <i id="icon-eye" class="fa fa-eye" aria-hidden="true" onclick="togglePassword()"></i>
+                                <input type="password" id="password" name="password" value="<?php echo $password; ?>" autocomplete="new-password">
+                                <i id="icon-eye" class="fa fa-eye-slash" aria-hidden="true" onclick="togglePassword()"></i>
                             </div>
                             <br>
                             <span class="error"><?php echo $passwordErr; ?></span>

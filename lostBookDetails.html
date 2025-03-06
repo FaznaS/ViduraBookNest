@@ -20,6 +20,18 @@
         <div id="resultsTable"></div>
     </div>
 
+    <!-- Replace Book Modal --> 
+    <div id="replaceBookModal" class="modal" style="display: none;">
+        <div style="margin-left: 210px;">
+            <button id="closeModal">X</button>
+        </div>
+        <div class="modal-content">
+            <p>Choose an option:</p>
+            <button id="sameBookBtn" data-book-id="">Same Book</button>
+            <button id="anotherBookBtn">Another Book</button>
+        </div>
+    </div>
+
     <script>
         $(document).ready(function () {
             displayLostBooks(); 
@@ -48,8 +60,84 @@
                     success: function (response) {
                         $("#resultsTable").html(response);
                     },
+                    error: function () {
+                        $("#resultsTable").html("<div class='error'>Failed to load data.</div>");
+                    }
                 });
             }
+
+            // When click Replace Button, Change the status to Replaced
+            $(document).on("click", ".replace-btn", function () {
+                const lostId = $(this).data("lost-id");
+                const bookId = $(this).data("book-id");
+                $("#sameBookBtn").data("lost-id", lostId);
+                $("#sameBookBtn").data("book-id", bookId); // Store book ID
+                $("#anotherBookBtn").data("lost-id", lostId);
+                $("#replaceBookModal").fadeIn();
+            });
+
+            // Close the modal
+            $("#closeModal").on("click", function() {
+                $("#replaceBookModal").fadeOut();
+            });
+
+            // Increase book copies when clicking "Same Book"
+            $(document).on("click", "#sameBookBtn", function() {
+                const lostId = $(this).data("lost-id");
+                const bookId = $(this).data("book-id");
+                
+                $.ajax({
+                    url: "lostBookDetails.php",
+                    type: "POST",
+                    data: {action: "same_book", lost_id: lostId, book_id: bookId },
+                    success: function () {                     
+                        alert(("Updated the status successfully."));
+                        $("#replaceBookModal").fadeOut();
+                        displayLostBooks();
+                    },
+                    error: function () {
+                        alert("An error occurred while updating the status.");
+                    },
+                });
+            });
+
+            // Handle Another Book option
+            $(document).on("click", "#anotherBookBtn", function () {
+                const lostId = $(this).data("lost-id");
+
+                $.ajax({
+                    url: "lostBookDetails.php",
+                    type: "POST",
+                    data: {action: "another_book", lost_id: lostId },
+                    success: function (response) {
+                        const res = JSON.parse(response);
+                        alert(res.message);
+                        $("#replaceBookModal").fadeOut();
+                        window.location.href = "addBook.html";
+                    },
+                    error: function () {
+                        alert("An error occurred while updating the status.");
+                    },
+                });
+            });
+            // When click paid Button, Change the status to paid
+            $(document).on("click", ".pay-btn", function () {
+                const lostId = $(this).data("lost-id");
+                
+                $.ajax({
+                    url: "lostBookDetails.php",
+                    type: "POST",
+                    data: {action: "pay_for_book", lost_id: lostId },
+                    success: function (response) {
+                        const res = JSON.parse(response);
+                        alert(res.message);
+                        displayLostBooks();
+                    },
+                    error: function () {
+                        alert("An error occurred while updating the status.");
+                    },
+                });
+            });
         });
     </script>
 </body>

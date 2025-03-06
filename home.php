@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="home.js"></script>
     <script src="index.js"></script>
+    <script src="books.js"></script>
     <style>
         ul {
             list-style: none;
@@ -68,6 +69,9 @@
             width: 44.375em;
             height: 35em;
         }
+        .mySlides {
+            border: 2px solid rgb(160, 81, 81);
+        }
         .btn-left{
             font-size: xx-large;
             top: 380px;
@@ -89,6 +93,7 @@
         footer {
             position: relative;
         }
+        
     </style>
 </head>
 <body>
@@ -98,6 +103,7 @@
         include "index.php";
         include "chatbot.php"
     ?>
+
     
     <!-------------------------------Header Design------------------------------->
     <nav>
@@ -129,7 +135,9 @@
             </li>
         </ul>
     </nav>
-
+    <?php 
+        include "backbtn.php"
+    ?>
     <div id="page-container">
         <div id="content-wrap">
             <!-------------------------------User Profile------------------------------->
@@ -158,33 +166,37 @@
             </div>
 
             <!-------------------------------Search Bar------------------------------->
-            <div style="display: flex; justify-content: center;">
+            <form id="searchForm" action="books.php" method="GET" style="display: flex; justify-content: center;">
                 <div class="search-bar">
                     <i class="fa fa-filter" aria-hidden="true" onclick="showFilterOptions()"></i>
-                    <input type="text" placeholder="Search">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <input id="search-bar" type="text" placeholder="Search" name="search">
+                    <button type="submit" style="background: none; border: none; padding: 0;">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                 </div>
-            </div>
+            </form>
 
             <!-------------------------------Filter Options------------------------------->
             <div id="filter-options-container" style="display: none; justify-content: center;">
                 <div id="filter-options">
                     <h4>Genre</h4>
                     <div style="padding: 5px;">
-                        <button type="button" class="btn-genre">Fiction</button>
-                        <button type="button" class="btn-genre">Non-Fiction</button>
-                        <button type="button" class="btn-genre">Science</button>
-                        <button type="button" class="btn-genre">History</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('English Fiction')">Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Non Fiction')">Non-Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Science')">Science</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('History')">History</button>
                     </div>
                     <div style="padding: 5px;">
-                        <button type="button" class="btn-genre">Language</button>
-                        <button type="button" class="btn-genre">Literature</button>
-                        <button type="button" class="btn-genre">Technology</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Language')">Language</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('English Literature')">Literature</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Technology')">Technology</button>
                     </div>
                     <h4>Author</h4>
-                    <input type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;">
+                    <form action="books.php" method="GET">
+                        <input id="author-filter" type="text" placeholder="Type" name="author" style="width: 350px; height: 20px; padding: 5px;">
+                    </form>
                 </div>
-            </div>      
+            </div>    
 
             <!-------------------------------About Section------------------------------->
             <section id="about-section">
@@ -192,12 +204,12 @@
                 <div id="gallerybox">  
                     <div class="imagegallery"> 
                         <div class="slide">
-                            <img class="mySlides" src="Assets/A court for ravens.jpg">
-                            <img class="mySlides" src="Assets/City of Orange.jpeg">
-                            <img class="mySlides" src="Assets/Princess Freedom.jpeg">
-                            <img class="mySlides" src="Assets/River Sing Me Home.jpeg">
-                            <img class="mySlides" src="Assets/The Harry Potter.jpg">
-                            <img class="mySlides" src="Assets/Twisted.jpg">
+                            <img class="mySlides" src="Assets/library1.jpg">
+                            <img class="mySlides" src="Assets/library2.jpg">
+                            <img class="mySlides" src="Assets/lib3.png">
+                            <img class="mySlides" src="Assets/lib4.jpeg">
+                            <img class="mySlides" src="Assets/lib5.jpeg">
+                            <img class="mySlides" src="Assets/lib6.jpeg">
                             
                             <i class="fa fa-angle-right btn-right" aria-hidden="true" onclick="plusDivs(-1)"></i>
                             <i class="fa fa-angle-left btn-left" aria-hidden="true" onclick="plusDivs(1)"></i>
