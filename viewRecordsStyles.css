@@ -49,23 +49,11 @@ body {
     font-size: medium;
 }
 
-.view-details{
-    background-color: #E5DAD8;
-    border-radius: 15px;
-    height: 500px;
-    width: 100%;
-    padding: 20px;
-    margin: 33px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
 .view-results{
     background-color: #E5DAD8;
     border-radius: 15px;
     height: max-content;
-    width: 100%;
+    width: 90%;
     padding: 20px;
     margin: 33px;
     display: flex;
