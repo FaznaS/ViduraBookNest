@@ -40,6 +40,28 @@
             width: 140px;
             font-size: large;
         }
+
+        .back-arrow {
+            display: inline-block;
+            padding: 4px;
+            background-color:#D09594; /* Bootstrap primary color */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 15px;
+            transition: background-color 0.3s;
+            z-index: 100;
+            margin: 10px;
+            position: fixed;
+        }
+
+        .back-arrow:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        .arrow {
+            font-size: 15px; /* Adjust size of the arrow */
+        }
     </style>
 </head>
 <body>
@@ -68,11 +90,15 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
-                    <a href="payment.php" class="header-links">Payment</a>
+                    <a href="payment.html" class="header-links">Payment</a>
                 </div>
             </li>
         </ul>
     </nav>
+
+    <a href="javascript:history.back()" class="back-arrow">
+        <span class="arrow">&#8592;</span> Back
+    </a>
 
     <div id="page-container">
         <div id="content-wrap">
@@ -111,11 +137,11 @@
                         $user_id = $_SESSION["username"];
                         
                         // Getting the books where the return date is passed
-                        $search_books = "SELECT b.title, bb.borrowed_date, bb.return_date 
+                        $search_books = "SELECT b.title, bb.borrowed_date, bb.return_date, bb.status 
                                             FROM books AS b 
                                             JOIN borrowed_book_details AS bb
                                             ON bb.book_id = b.acc_no
-                                            WHERE user_id = '$user_id' AND return_date < CURDATE()";
+                                            WHERE user_id = '$user_id' AND return_date < CURDATE() AND bb.status != 'Returned'";
                         $delayed_books_result = mysqli_query($conn, $search_books);
 
                         // Calculating fine based on the number of days delayed
@@ -166,9 +192,9 @@
         <footer>
             <div id="footer-link-container">
                 <ul>
-                    <li><a href="home.html" class="footer-links">Home</a></li>
-                    <li><a href="books.html" class="footer-links">Books</a></li>
-                    <li><a href="cart.html" class="footer-links">Cart</a></li>
+                    <li><a href="home.php" class="footer-links">Home</a></li>
+                    <li><a href="books.php" class="footer-links">Books</a></li>
+                    <li><a href="cart.php" class="footer-links">Cart</a></li>
                     <li><a href="payment.html" class="footer-links">Payment</a></li>
                 </ul>
             </div>
