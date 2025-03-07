@@ -64,6 +64,10 @@
         </ul>
     </nav>
 
+    <?php 
+        include "backbtn.php"
+    ?>
+    
     <div id="page-container">
         <div id="content-wrap">
             <!-------------------------------User Profile------------------------------->
@@ -117,7 +121,7 @@
                     <li><a href="home.php" class="footer-links">Home</a></li>
                     <li><a href="books.php" class="footer-links">Books</a></li>
                     <li><a href="cart.php" class="footer-links">Cart</a></li>
-                    <li><a href="payment.html" class="footer-links">Payment</a></li>
+                    <li><a href="payment.php" class="footer-links">Payment</a></li>
                 </ul>
             </div>
             <div id="contact-container">

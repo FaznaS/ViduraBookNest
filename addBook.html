@@ -73,7 +73,7 @@
                 <tr>
                     <td><label for="title">Book Title</label></td>
                     <td>
-                        <input type="text" id="title" name="title">
+                        <input type="text" id="title" name="title" required>
                     </td>
                 </tr>
                 <tr>
@@ -83,20 +83,30 @@
                     </td>
                 </tr>
                 <tr>
+                    <td><label for="book_link">Online Reading Link</label></td>
+                    <td>
+                        <input type="text" id="book_link" name="book_link">
+                    </td>
+                </tr>
+                <tr>
                     <td><label for="category">Category</label></td>
                     <td>
                         <select name="category" style="width: 100%;">
                             <option value="select">Select</option>
                             <option value="English Fiction">English Fiction</option>
+                            <option value="Non Fiction">Non Fiction</option>
+                            <option value="Science">Science</option>
+                            <option value="History">History</option>
+                            <option value="Language">Language</option>
                             <option value="English Literature">English Literature</option>
-                            <option value="General Knowledge">General Knowledge</option>
+                            <option value="Technology">Technology</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="author">Author</label></td>
                     <td>
-                        <input type="text" id="author" name="author">
+                        <input type="text" id="author" name="author" required>
                     </td>
                 </tr>
                 <tr>
@@ -108,13 +118,13 @@
                 <tr>
                     <td><label for="publisher">Publisher Name</label></td>
                     <td>
-                        <input type="text" id="publisher" name="publisher">
+                        <input type="text" id="publisher" name="publisher" required>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="isbn">ISBN</label></td>
                     <td>
-                        <input type="text" id="isbn" name="isbn">
+                        <input type="text" id="isbn" name="isbn" required>
                     </td>
                 </tr>
                 <tr>
