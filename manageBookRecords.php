@@ -11,6 +11,7 @@
         $image_tmp_name=$_FILES['book_image']['tmp_name'];
         $image_folder="Assets/uploaded_images/".$book_image;
         
+        $book_link = $_POST["book_link"];
         $category = $_POST["category"];
         $author = $_POST["author"];
         $copies = $_POST["book_copies"];
@@ -24,8 +25,22 @@
         
 
         if(!(empty($title) || empty($category) || empty($author) || empty($publisher) || empty($isbn))) {
-            // Inserting a Book
-            $add_query = "INSERT INTO books (acc_no, title, image, category, author, copies, publisher, isbn, copyright_year, class_no, price, status, comment) VALUES (
+            // To check if the image size exceeds 5MB
+            if ($image_size > 5000000) {
+                echo 
+                "<script type=\"text/javascript\"> 
+                    window.alert('Image size is too large');
+                    window.location.href = 'addBook.html';
+                </script>";
+            } elseif (!move_uploaded_file($image_tmp_name, $image_folder)) {
+                echo 
+                "<script type=\"text/javascript\"> 
+                    window.alert('Failed to upload image. Please try again.');
+                    window.location.href = 'addBook.html';
+                </script>";
+            } else {
+                // Inserting a Book
+                $add_query = "INSERT INTO books (acc_no, title, image, category, author, copies, publisher, isbn, copyright_year, class_no, price, status, comment, file_path) VALUES (
                     '$acc_no',
                     '$title',
                     '$book_image',
@@ -38,34 +53,22 @@
                     '$class_no',
                     $price,
                     '$status',
-                    '$comment')";
-            
-            if (mysqli_query($conn, $add_query)) {
-                if ($image_size > 2000000) {
-                    echo 
-                    "<script type=\"text/javascript\"> 
-                        window.alert('Image size is too large');
-                        window.location.href = 'addBook.html';
-                    </script>";
-                } elseif (!move_uploaded_file($image_tmp_name, $image_folder)) {
-                    echo 
-                    "<script type=\"text/javascript\"> 
-                        window.alert('Failed to upload image. Please try again.');
-                        window.location.href = 'addBook.html';
-                    </script>";
-                } else {
+                    '$comment',
+                    '$book_link')";
+                
+                if (mysqli_query($conn, $add_query)) {
                     echo 
                     "<script type=\"text/javascript\"> 
                         window.alert('Book added successfully');
                         window.location.href = 'addBook.html';
                     </script>";
+                } else {
+                    echo 
+                    "<script type=\"text/javascript\"> 
+                        window.alert('Sorry! Failed to add book'); 
+                        window.location.href = 'addBook.html';
+                    </script>";
                 }
-            } else {
-                echo 
-                "<script type=\"text/javascript\"> 
-                    window.alert('Sorry! Failed to add book'); 
-                    window.location.href = 'addBook.html';
-                </script>";
             }
         }
     }
