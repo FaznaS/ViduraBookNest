@@ -11,12 +11,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: url("./Assets/background.jpg");
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            background-attachment: fixed;
-            background-color: rgba(204, 195, 195, 0.3);
-            background-blend-mode: overlay;
         }
         .btn-option {
             background-color: #D09594;
@@ -31,8 +25,8 @@
         .content-container {
             background-color: #E5DAD8;
             border-radius: 15px;
-            height: 450px;
-            width: 600px;
+            height: max-content;
+            width: 500px;
             padding: 50px;
             margin: 40px;
             text-align: center;
@@ -45,12 +39,12 @@
             window.location.href="addBook.html";
         }
         function updateBook() {
-            window.location.href="updateBook.html";
+            window.location.href="updateBooks.html";
         }
         function deleteBook() {
             window.location.href="bookDetails.html";
         }
-        function viewBook() {
+        function viewRecords() {
             window.location.href="viewRecords.html";
         }
     </script>
@@ -59,9 +53,9 @@
 
         <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
             <button type="button" class="btn-option" onclick="addBook()">Add a new Book</button>
-            <button type="button" class="btn-option" onclick="updateBook()">Update a Book</button>
-            <button type="button" class="btn-option" onclick="deleteBook()">Delete a Book</button>
-            <button type="button" class="btn-option" onclick="viewBook()">View Records</button>
+            <button type="button" class="btn-option" onclick="updateBook()">Update Book</button>
+            <button type="button" class="btn-option" onclick="deleteBook()">Delete Book</button>
+            <button type="button" class="btn-option" onclick="viewRecords()">View Records</button>
         </div>
     </div>
 </body>

@@ -1,6 +1,6 @@
 function membership() {
-    window.location.href="membershipPay.html";
+    window.location.href="membershipPay.php";
 }
 function fine() {
-    window.location.href="finePay.html";
+    window.location.href="finePay.php";
 }
