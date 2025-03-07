@@ -84,11 +84,11 @@
         }
 
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add"])) {
-            $name = $_POST["student_name"];
+            $name = $_POST["name"];
             $email = $_POST["email"];
             $contact_no = $_POST["contact_no"];
             $grade_class = $_POST["grade_class"];
-            $admission_no = $_POST["admission_no"];
+            $admission_no = $_POST["user_id"];
             $password = $_POST["password"];
 
             // Validate student name
@@ -96,7 +96,7 @@
                 $nameErr = "Name is required";
                 $valid = false;
             } else {
-                $name = test_input($_POST["student_name"]);
+                $name = test_input($_POST["name"]);
                 // check if name only contains letters and whitespace
                 if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
                     $nameErr = "Only letters and white space allowed";
@@ -140,7 +140,7 @@
                 $admissionNoErr = "Admission Number is required";
                 $valid = false;
             } else {
-                $admission_no = test_input($_POST["admission_no"]);
+                $admission_no = test_input($_POST["user_id"]);
                 // check if admission number has 4 digits
                 if(!preg_match("/^[0-9]{4}+$/",$admission_no)) {
                     $admissionNoErr = "Invalid number format";
@@ -148,7 +148,7 @@
                 }
 
                 // check if the admission number already exists
-                $search_id = "SELECT * FROM student WHERE admission_no = '$_POST[admission_no]'";
+                $search_id = "SELECT * FROM members WHERE user_id = '$_POST[user_id]'";
                 $result = mysqli_query($conn,$search_id);
 
                 if ($result->num_rows > 0) {
@@ -171,7 +171,7 @@
 
             // Inserting data to the database if all details are valid
             if($valid) {
-                $sql = "INSERT INTO student (student_name, email, contact_no, grade_class, admission_no, student_password) VALUES (
+                $sql = "INSERT INTO members (name, email, contact_no, grade_class, user_id , password) VALUES (
                     '$name',
                     '$email',
                     '$contact_no',
@@ -201,9 +201,9 @@
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <table align="center" cellpadding="3px" style="text-align: left;">
                     <tr>
-                        <td><label for="student_name">Name</label></td>
+                        <td><label for="name">Name</label></td>
                         <td>
-                            <input type="text" id="student_name" name="student_name" value="<?php echo $name; ?>">
+                            <input type="text" id="name" name="name" value="<?php echo $name; ?>">
                             <br>
                             <span class="error"><?php echo $nameErr; ?></span>
                         </td>
@@ -233,9 +233,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="admissionNo">Admission Number</label></td>
+                        <td><label for="userid">Admission Number</label></td>
                         <td>
-                            <input type="number" id="admission_no" name="admission_no" value="<?php echo $admission_no; ?>">
+                            <input type="number" id="user_id" name="user_id" value="<?php echo $admission_no; ?>">
                             <br>
                             <span class="error"><?php echo $admissionNoErr; ?></span>
                         </td>
@@ -245,7 +245,7 @@
                         <td>
                             <div style="position: relative; height: 15px;">
                                 <input type="password" id="password" name="password" value="<?php echo $password; ?>">
-                                <i id="icon-eye" class="fa fa-eye" aria-hidden="true" onclick="togglePassword()"></i>
+                                <i id="icon-eye" class="fa fa-eye-slash" aria-hidden="true" onclick="togglePassword()"></i>
                             </div>
                             <br>
                             <span class="error"><?php echo $passwordErr; ?></span>
