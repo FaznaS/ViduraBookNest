@@ -20,6 +20,7 @@
     $success_message = "";
 
     // Handle form submission
+    // Checking for POST request before processing form data.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'];
         $contact_no = $_POST['contact_no'];

@@ -9,23 +9,62 @@ document.getElementById('close-chat').addEventListener('click', function() {
 document.getElementById('send-button').addEventListener('click', function() {
     const userInput = document.getElementById('user-input').value;
     if (userInput) {
-        addMessage('You: ' + userInput);
+        addMessage(userInput, 'user');
         document.getElementById('user-input').value = '';
         getBotResponse(userInput);
     }
 });
 
-function addMessage(message) {
-    const messageElement = document.createElement('p');
-    messageElement.textContent = message;
-    document.getElementById('chat-messages').appendChild(messageElement);
+// Allow sending messages by pressing Enter
+document.getElementById('user-input').addEventListener('keypress', function (event) {
+    const userInput = document.getElementById('user-input').value;
+    if (event.key === 'Enter') {  // Checks if Enter key is pressed
+        addMessage(userInput, 'user');
+        event.preventDefault();  // Prevents default form submission (if any)
+        getBotResponse(userInput);  // Calls the send function
+    }
+});
+
+function addMessage(message, sender) {
+    // Creating message container
+    const messageContainer = document.createElement('div');
+    messageContainer.classList.add('chat-message');
+    
+    // Creating icon
+    const icon = document.createElement('i');
+    icon.classList.add('fa'); // Base FA class
+
+    // Creating message text
+    const messageText = document.createElement('div');
+    messageText.classList.add(sender);
+    messageText.textContent = message;
+
+    // Append elements in the correct order
+    if (sender === 'user') {
+        messageContainer.classList.add('user');
+        icon.classList.add('fa-user-circle'); // User icon
+        messageContainer.appendChild(messageText);
+        messageContainer.appendChild(icon); // User icon on the right
+    } else {
+        messageContainer.classList.add('bot');
+        icon.classList.add('fa-user-circle-o'); // Bot User icon
+        messageContainer.appendChild(icon);
+        messageContainer.appendChild(messageText); // Bot icon on the left
+    }
+
+    document.querySelector('.chat-message-container').appendChild(messageContainer);
 }
+
 
 function getBotResponse(input) {
     let response = "I'm sorry, I didn't understand that.";
     
     // Simple keyword-based responses
-    if (input.toLowerCase().includes('search book')) {
+    if (input.toLowerCase().includes('hello')) {
+        response = "Hello";
+    } else if (input.toLowerCase().includes('hi')) {
+        response = "Hi";
+    } else if (input.toLowerCase().includes('search book')) {
         response = "You can search for books in our catalog.";
     } else if (input.toLowerCase().includes('library hours')) {
         response = "Our library is open from 8 AM to 1.30 PM.";
@@ -43,7 +82,7 @@ function getBotResponse(input) {
         response = "You can replace the lost book with the same book, different book or you can pay for the book.";
     }
 
-    addMessage('Bot: ' + response);
+    addMessage(response, 'bot');
 }
 
 
