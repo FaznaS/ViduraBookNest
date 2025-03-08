@@ -1,14 +1,22 @@
 <?php
 
+//Includes configuration and main index file
 include 'config.php';
 include 'index.php';
 
 // Fetch user details from the database
+
+
 $user = [];
+//Initialize user array and retrieve session username
 $user_id = $_SESSION['username'];
 $stmt = $conn->prepare("SELECT user_id, name, email, contact_no, grade_class FROM members WHERE user_id = ?");
+// ensures the query is securely parameterized.
 $stmt->bind_param("i", $user_id);
+
+//runs the SQL query.
 $stmt->execute();
+//fetches the query result.
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
@@ -136,6 +144,7 @@ $conn->close();
                         </tr>
                         <tr>
                             <td><label>User ID:</label></td>
+                            <!---Uses htmlspecialchars() for security-->
                             <td><?php echo htmlspecialchars($user['user_id']); ?></td>
                         </tr>
                         <tr>
