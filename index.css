@@ -7,9 +7,9 @@ body {
     background-color: rgba(204, 195, 195, 0.3);
     background-blend-mode: overlay;
 }
+
 #page-container {
     position: relative;
-    min-height: 100vh;
 }
 #content-wrap {
     padding-bottom: 7.5em; /*Footer*/
@@ -32,6 +32,7 @@ nav {
     z-index: 1;
     position: sticky;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     padding-left: 20px;
@@ -39,18 +40,21 @@ nav {
     height: fit-content;
     background-color:  #E5DAD8;
 }
+
 footer {
     display: flex; 
+    flex-wrap: wrap;
     justify-content: space-between; 
     align-items: center;
     background-color: #E5DAD8; 
     bottom: 0; 
     width: 100%; 
     position: absolute;
-    height: 7.5em;
+    height: fit-content;
 }
 .nav-element-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
     padding-left: 30px;
