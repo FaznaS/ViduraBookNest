@@ -15,5 +15,5 @@
     $student_name = $_SESSION['name'];
 
     // To retrieve from admin side
-    json_encode(["name" => $_SESSION['name']]);
+    echo json_encode(["name" => $_SESSION['name']]);
 ?>
