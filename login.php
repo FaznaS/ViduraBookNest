@@ -115,7 +115,7 @@
                         
                         // Redirecting based on user role
                         if ($row['user_id'] == "AAAA") {
-                            header('Location: admin.html');
+                            header('Location: admin.php');
                         } else {
                             header('Location: home.php');
                         }
