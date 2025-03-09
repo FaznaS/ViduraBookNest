@@ -20,12 +20,35 @@
     $success_message = "";
 
     // Handle form submission
+    // Checking for POST request before processing form data.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'];
         $contact_no = $_POST['contact_no'];
         $grade_class = $_POST['grade_class'];
         $password = $_POST['password'];
         $confirm_password = $_POST['confirm_password'];
+
+        // Defines the target directory for file uploads
+        $target_dir = "uploads/";
+        // constructs the full file path using the uploaded file's original name.
+        $target_file = $target_dir . basename($_FILES["profile_image"]["name"]);
+        // Extracts the file extension of the uploaded image and converts it to lowercase 
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        // Defines an array of allowed file types to restrict the types of images
+        $allowed_types = array("jpg", "jpeg", "png", "gif");
+
+        // Checks if the uploaded file's extension is in the list of allowed types
+        if (in_array($imageFileType, $allowed_types)) {
+            // Attempts to move the uploaded file from its temporary location to the specified target directory
+            if (move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file)) {
+                $profile_image = $target_file;
+            } else {
+                $error_message = "Error uploading image.";
+            }
+        } else {
+            // If the file extension is not allowed, sets an error message informing the user about the allowed file types.
+            $error_message = "Invalid file type. Only JPG, JPEG, PNG, and GIF allowed.";
+        }
 
         // Validation
         if (empty($email) || empty($contact_no) || empty($grade_class) || empty($password) || empty($confirm_password)) {
@@ -36,8 +59,8 @@
             $error_message = "Invalid contact number format!";
         } else {
             // Update the database
-            $stmt = $conn->prepare("UPDATE members SET email = ?, contact_no = ?, grade_class = ?, password = ? WHERE user_id = ?");
-            $stmt->bind_param("ssssi", $email, $contact_no, $grade_class, $password, $username);
+            $stmt = $conn->prepare("UPDATE members SET email = ?, contact_no = ?, grade_class = ?, password = ?, profile_image = ? WHERE user_id = ?");
+            $stmt->bind_param("sssssi", $email, $contact_no, $grade_class, $password, $profile_image, $username);
 
             if ($stmt->execute()) {
                 $success_message = "Profile updated successfully!";
@@ -102,6 +125,8 @@
         label {
             font-weight: bold;
         }
+
+         /* Styling for input fields */
         input {
             width: 300px; 
             height: 15px; 
@@ -109,10 +134,14 @@
             border-color: #D09594;
             padding: 5px;
         }
+
+        /* Styling error messages */
         .error {
             color: #FF0000;
             font-size: 1.0em;
         }
+
+        /* Styling for submit button */
         .submit-btn {
             width: 120px;
             height: 40px;
@@ -124,6 +153,8 @@
             cursor: pointer;
             border: 1px solid black;
         }
+
+          /* Styling for password visibility toggle icons */
         #icon-eye,#confirm-icon-eye {
             position: absolute;
             right: 10px; 
@@ -148,7 +179,7 @@
     </style>
 </head>
 <body>
-    <!-- Display messages -->
+    <!-- Display error or success messages -->
     <?php if (!empty($error_message)): ?>
             <p class="error"><?php echo $error_message; ?></p>
         <?php endif; ?>
@@ -158,35 +189,14 @@
     ?>
 
     <!-------------------------------Header Design------------------------------->
+
+     <!-- Navigation Bar -->
 <nav>
         <img src="./Assets/logo.jpg" alt="logo" style="width: 200px; padding: 10px;">
-        <ul style="display: flex;">
-            <li>
-                <div class="nav-element-container">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    <a href="home.php" class="header-links">Home</a>
-                </div>
-            </li>
-            <li>
-                <div class="nav-element-container">
-                    <i class="fa fa-book" aria-hidden="true"></i>
-                    <a href="books.php" class="header-links">Books</a>
-                </div>
-            </li>
-            <li>
-                <div class="nav-element-container">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.php" class="header-links">Cart</a>
-                </div>
-            </li>
-            <li>
-                <div class="nav-element-container">
-                    <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
-                    <a href="payment.php" class="header-links">Payment</a>
-                </div>
-            </li>
-        </ul>
+       
 </nav>
+
+
 
 <?php 
     include "backbtn.php"
@@ -197,11 +207,12 @@
         <img src="./Assets/logo.jpg" alt="logo" id="logo">
         <div id="form-container">
         <!-- Profile Edit Form -->
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
             <table align="center" cellpadding="3px" style="text-align: left;">
                 <tr>
                     <td><i class="fa fa-user" aria-hidden="true" style="font-size:40px;"> </i></td>
-                    <td><input type="submit" id="add" name="add" value="Choose Image" class="submit1" style="background-color: #AA9595;"></td>
+                    <td> <input type="file" id="profile_image" name="profile_image" value="profile_image" accept=".jpg, .jpeg, .png, .pdf"> </td>
+                   
                 </tr>
                 <tr>
                     <td><label for="student_name">Name:</label></td>
@@ -223,8 +234,8 @@
                     <td><label for="password">Password:</label></td>
                     <td>
                         <div style="position: relative; height: 15px; margin-bottom: 10px;">
-                            <input type="password" id="password" name="password" placeholder="New Password" required>
-                            <i id="icon-eye" class="fa fa-eye" aria-hidden="true" onclick="togglePassword()"></i>
+                            <input type="password" id="password" name="password" placeholder="New Password">
+                            <i id="icon-eye" class="fa fa-eye-slash" aria-hidden="true" onclick="togglePassword()"></i>
                         </div>
                     </td>
                 </tr>
@@ -234,8 +245,8 @@
                     </td>
                     <td> 
                         <div style="position: relative; height: 15px;">
-                            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
-                            <i id="confirm-icon-eye" class="fa fa-eye" aria-hidden="true" onclick="toggleConfirmPassword()"></i>
+                            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+                            <i id="confirm-icon-eye" class="fa fa-eye-slash" aria-hidden="true" onclick="toggleConfirmPassword()"></i>
                         </div>
                     </td>
                 </tr>
