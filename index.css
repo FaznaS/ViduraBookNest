@@ -10,6 +10,7 @@ body {
 
 #page-container {
     position: relative;
+    min-height: 100vh;
 }
 #content-wrap {
     padding-bottom: 7.5em; /*Footer*/
