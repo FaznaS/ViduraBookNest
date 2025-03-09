@@ -163,7 +163,6 @@ function displayBorrowedBooks($conn, $user_id) {
             font-size: 20px;
             padding: 5px;
         }
-
         .read-now-btn {
             border-radius: 0.9em;
             border-color: #D9D9D9;
@@ -174,6 +173,18 @@ function displayBorrowedBooks($conn, $user_id) {
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+        @media screen and (max-width: 768px) {
+            #cart_card {
+                flex-wrap: wrap;
+                width: fit-content;
+            }
+            #book_img {
+                margin-top: 10px;
+            }
+            footer {
+                position: relative;
+            }
         }
     </style>
 </head>
@@ -224,7 +235,7 @@ function displayBorrowedBooks($conn, $user_id) {
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
-                    <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+                    <i class="fa fa-user" aria-hidden="true" onclick="showMore()"></i>
                 </button>
             </div>
 
