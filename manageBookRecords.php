@@ -33,7 +33,7 @@
                     if (confirm('This book already exists! Do you want to update the existing record?')) {
                         window.location.href = 'updateBook.php?isbn=$isbn';
                     } else {
-                        window.location.href = 'addBook.html';
+                        window.location.href = 'addBook.php';
                     }
                   </script>";
         } else {
@@ -72,13 +72,13 @@
                     echo 
                     "<script type=\"text/javascript\"> 
                         window.alert('Book added successfully');
-                        window.location.href = 'addBook.html';
+                        window.location.href = 'addBook.php';
                     </script>";
                 } else {
                     echo 
                     "<script type=\"text/javascript\"> 
                         window.alert('Sorry! Failed to add book'); 
-                        window.location.href = 'addBook.html';
+                        window.location.href = 'addBook.php';
                     </script>";
                 }
             }
@@ -88,11 +88,22 @@
     // Update Book
     if (isset($_GET['isbn'])) {
         $isbn = $_GET['isbn'];
-
+        
         // Getting existing book details
         $query = "SELECT * FROM books WHERE isbn = '$isbn'";
         $result = mysqli_query($conn, $query);
-        $book = mysqli_fetch_assoc($result);
+
+        // Displays based on the book availability
+        if($result && mysqli_num_rows($result) > 0) {
+            $book = mysqli_fetch_assoc($result);
+        } else {
+            echo 
+                "<script type=\"text/javascript\"> 
+                    window.alert('Sorry! No Books Available with ISBN: $isbn'); 
+                    window.location.href = 'updateBook.php';
+                </script>";
+        }
+        
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update"])) {
