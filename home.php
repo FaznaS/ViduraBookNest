@@ -51,7 +51,6 @@
         }
         #about-section {
             display: flex;
-            justify-content: space-between;
             margin-top: 40px;
             margin-left: 30px;
             margin-right: 30px;
@@ -93,17 +92,41 @@
         footer {
             position: relative;
         }
-        
+        @media screen and (max-width: 768px) {
+            .search-bar {
+                margin-top: 40px;
+            }
+            .search-bar input {
+                padding: 5px 35px;
+                height: 25px;
+                width: 300px;
+            }
+            #about-section {
+                flex-wrap: wrap;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .imagegallery, .mySlides{
+                width: 25em;
+                height: 20em;
+            }
+            .btn-left{
+                top: 300px;
+                margin-left: 20px;
+            }
+            .btn-right{
+                top: 300px;
+                margin-left: 370px;
+            }
+        }
     </style>
 </head>
 <body>
-
     <!--To display student name-->
     <?php 
         include "index.php";
         include "chatbot.php"
     ?>
-
     
     <!-------------------------------Header Design------------------------------->
     <nav>
@@ -149,7 +172,7 @@
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
-                    <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+                    <i class="fa fa-user" aria-hidden="true" onclick="showMore()"></i>
                 </button>
             </div>
 
