@@ -144,13 +144,13 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.html" class="header-links">Cart</a>
+                    <a href="cart.php" class="header-links">Cart</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
-                    <a href="payment.html" class="header-links">Payment</a>
+                    <a href="payment.php" class="header-links">Payment</a>
                 </div>
             </li>
         </ul>
@@ -163,7 +163,7 @@
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <p><?php echo htmlspecialchars($student_name); ?></p>
-                        <a href="viewProfile.html" style="text-decoration: none;">View Profile</a>
+                        <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
@@ -172,7 +172,7 @@
             </div>
 
             <div id="more-options">
-                <a href="editProfile.html" class="more-options-links">Edit Profile</a>
+                <a href="editProfile.php" class="more-options-links">Edit Profile</a>
                 <a href="help.html" class="more-options-links">Help and Support</a>
                 <a href="settings.html" class="more-options-links">Settings</a>
                 <br>
@@ -263,10 +263,10 @@
         <footer>
             <div id="footer-link-container">
                 <ul>
-                    <li><a href="home.html" class="footer-links">Home</a></li>
-                    <li><a href="books.html" class="footer-links">Books</a></li>
-                    <li><a href="cart.html" class="footer-links">Cart</a></li>
-                    <li><a href="payment.html" class="footer-links">Payment</a></li>
+                    <li><a href="home.php" class="footer-links">Home</a></li>
+                    <li><a href="books.php" class="footer-links">Books</a></li>
+                    <li><a href="cart.php" class="footer-links">Cart</a></li>
+                    <li><a href="payment.php" class="footer-links">Payment</a></li>
                 </ul>
             </div>
             <div id="contact-container">

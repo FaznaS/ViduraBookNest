@@ -1,3 +1,8 @@
+<?php
+    include "config.php";
+    include "index.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +12,57 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         ul {
             list-style: none;
         }
+        .payment-content-container {
+            background-color: #E5DAD8;
+            border-radius: 15px;
+            height: 350px;
+            width: 300px;
+            padding: 20px;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-bottom: 40px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .btn-start {
+            background-color: #E5C2BB;
+            padding: 8px 18px;
+            font-size: large;
+            font-weight: bold;
+            border-color: #E5C2BB;
+            margin-top: 20px;
+        }
+
+        .back-arrow {
+            display: inline-block;
+            padding: 4px;
+            background-color:#D09594; /* Bootstrap primary color */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 15px;
+            transition: background-color 0.3s;
+            z-index: 100;
+            margin: 10px;
+            position: fixed;
+        }
+
+        .back-arrow:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        .arrow {
+            font-size: 15px; /* Adjust size of the arrow */
+        }
     </style>
 </head>
 <body>
-    <!-------------------------------Header Design------------------------------->
+    <!--Header Design-->
     <nav>
         <img src="./Assets/logo.jpg" alt="logo" style="width: 200px; padding: 10px;">
         <ul style="display: flex;">
@@ -27,32 +75,36 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-book" aria-hidden="true"></i>
-                    <a href="books.html" class="header-links">Books</a>
+                    <a href="books.php" class="header-links">Books</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.html" class="header-links">Cart</a>
+                    <a href="cart.php" class="header-links">Cart</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
-                    <a href="payment.html" class="header-links">Payment</a>
+                    <a href="payment.php" class="header-links">Payment</a>
                 </div>
             </li>
         </ul>
     </nav>
 
-    <div id="page-container">
+    <a href="javascript:history.back()" class="back-arrow">
+        <span class="arrow">&#8592;</span> Back
+    </a>
+
+    <div id="page-container" style="min-height: 40vh;">
         <div id="content-wrap">
-            <!--User Profile-->
+            <!-------------------------------User Profile------------------------------->
             <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
-                        <p>Student Full Name</p>
-                        <a href="viewProfile.html" style="text-decoration: none;">View Profile</a>
+                        <p><?php echo htmlspecialchars($student_name); ?></p>
+                        <a href="viewprofile.php" style="text-decoration: none;">View Profile</a>
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
@@ -61,7 +113,7 @@
             </div>
 
             <div id="more-options">
-                <a href="editProfile.html" class="more-options-links">Edit Profile</a>
+                <a href="editprofile.php" class="more-options-links">Edit Profile</a>
                 <a href="help.html" class="more-options-links">Help and Support</a>
                 <a href="settings.html" class="more-options-links">Settings</a>
                 <br>
@@ -71,9 +123,52 @@
                     <a href="welcome.html" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
                 </button>
             </div>
+
+            <!--Content-->
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">
+                <div class="payment-content-container" id="membership-plan">
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <h1>1 Year Plan</h1>
+                        <h2 style="color: #0E0C52;">
+                            LKR 250 <br>
+                            for every two years
+                        </h2>
+                        <p style="color: #2C852B;">
+                            Add up to 2 books per month <br>
+                            Can read up to 2 weeks time
+                        </p>
+                        <button type="button" class="btn-start" id="oneyr" data-plan="One Year" data-price=250>GET STARTED</button>
+                    </div>
+                </div>
+                <div class="payment-content-container" id="fine-payment">
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <h1 style="font-family: 'Lobster Two';">2 Year Plan</h1>
+                        <h2 style="color: #0E0C52;">
+                            LKR 650 <br>
+                            for every four years 
+                        </h2>
+                        <p style="color: #2C852B;">
+                            Add up to 4 books per month<br>
+                            Can read up to a month
+                        </p>
+                        <button type="button" class="btn-start" id="twoyr" data-plan="Two Years" data-price=650>GET STARTED</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <!-------------------------------Footer------------------------------->
+        <script>
+            $(document).on("click", "#oneyr, #twoyr", function() {
+                const plan = $(this).data("plan");
+                const price = $(this).data("price");
+
+                // Store data in localStorage
+                localStorage.setItem("plan", plan);
+                localStorage.setItem("price", price);
+
+                window.location.href = "uploadSlip.html";
+            });
+        </script>
+        <!-----------------------------------Footer---------------------------------------------------->
         <footer>
             <div id="footer-link-container">
                 <ul>
@@ -94,7 +189,7 @@
                             </a>
                         </div>
                     </li>
-                    <li>
+                    <li> 
                         <div style="display: flex; flex-direction: row;">
                             <i class="fa fa-phone" aria-hidden="true" style="font-size: larger;"></i>
                             <ul style="display: flex; flex-direction: column;">
@@ -112,5 +207,7 @@
             </div>
         </footer>
     </div>
+</body>
+</html>
 </body>
 </html>
