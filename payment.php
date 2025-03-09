@@ -30,6 +30,11 @@
             margin-top: 0%;
             text-align: center;
         }
+        @media screen and (max-width: 768px) {
+            footer {
+                position: relative;
+            }
+        }
     </style>
 </head>
 <body>
@@ -79,7 +84,7 @@
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
-                    <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+                    <i class="fa fa-user" aria-hidden="true" onclick="showMore()"></i>
                 </button>
             </div>
 
@@ -97,7 +102,7 @@
 
             <!-------------------------------Content------------------------------->
             <section style="padding: 40px;">
-                <div style="display: flex; justify-content: center; align-items: center; margin-top: 4rem;">
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 4rem; flex-wrap: wrap">
                     <div class="payment-content-container" onclick="membership()">
                         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
                             <h1>Membership Fee Plans</h1>

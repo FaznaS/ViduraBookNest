@@ -13,7 +13,4 @@
     // Retrieve user details from session
     $username = $_SESSION['username'];
     $student_name = $_SESSION['name'];
-
-    // To retrieve from admin side
-    json_encode(["name" => $_SESSION['name']]);
 ?>
