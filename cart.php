@@ -189,6 +189,9 @@ function displayBorrowedBooks($conn, $user_id) {
     </style>
 </head>
 <body>
+    <?php 
+        include "chatbot.php"
+    ?>
     <!-------------------------------Header Design------------------------------->
     <nav>
         <img src="./Assets/logo.jpg" alt="logo" style="width: 200px; padding: 10px;">
@@ -257,7 +260,7 @@ function displayBorrowedBooks($conn, $user_id) {
                     $search_books = "SELECT b.title, b.image, bb.borrow_id, bb.borrowed_date, bb.return_date, bb.status, b.file_path 
                                      FROM borrowed_book_details bb
                                      JOIN books b ON bb.book_id = b.acc_no
-                                     WHERE bb.user_id = '$user_id'
+                                     WHERE bb.user_id = '$user_id' AND bb.status != 'Returned'
                                      ORDER BY bb.borrow_id DESC";
 
                     $result_query = mysqli_query($conn, $search_books);

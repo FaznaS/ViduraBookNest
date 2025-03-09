@@ -182,17 +182,23 @@
                                             <td>LKR " . $fine . "</td>
                                         </tr>";
                                 };
+                                echo "</table>";   
+                                // Display the payment reminder
                                 
-                                echo "</table>";
+                                echo 
+                                "<div style='display: flex; justify-content: center; font-weight:bold; font-size:larger; color: red;'>
+                                <p>Kindly complete the payment to the Librarian</p>
+                                </div>";                            
+
                             } else {
                                 echo 
-                                "<h3>You are upto date</h3>";
+                                "<h3 style='text-align: center;'>You are upto date</h3>";
                             }
                         ?>
                         
-                        <div style="display: flex; justify-content: flex-end;">
-                            <button id="pay-btn">Pay Now</button>
-                        </div>
+                        <!-- <div style="display: flex; justify-content: center; font-weight:bold; font-size:larger; color: red; ">
+                            <p>Kindly complete the payment to the Librarian</p>
+                        </div> -->
                     </div>
                 </div>
             </section>
