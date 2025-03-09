@@ -1,3 +1,7 @@
+<?php
+    // To display student name
+    include "index.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,127 +14,137 @@
     <script src="home.js"></script>
     <script src="books.js"></script>
     <style>
-    ul {
-        list-style: none;
-    }
-    .search-bar {
-        display: flex;
-        align-items: center;
-        margin-top: 20px;
-        width: fit-content;
-    }
-    .search-bar input {
-        border: none;
-        background-color: #E5C2BB;
-        padding: 10px 40px;
-        border-radius: 25px;
-        height: 25px;
-        width: 400px;
-    }
-    .fa-filter {
-        position: relative;
-        font-size: large;
-        left: 30px;
-    }
-    .fa-search {
-        position: relative;
-        font-size: large;
-        right: 30px;
-    }
-    #filter-options {
-        background-color: #E5DAD8;
-        width: 420px;
-        padding: 10px;
-        padding-bottom: 20px;
-        position: absolute;
-        z-index: 1;
-    }
-    .btn-genre, .btn-author {
-        padding: 5px 20px;
-        font-weight: bold;
-    }
-    .book_category_container {
-        margin-left: 40px;
-        margin-right: 40px;
-        justify-content: center;
-    }
-    #search_heading {
-        display: block;
-        background-color: #D9D9D9;
-        border-radius: 20px;
-        width: fit-content;
-        height: fit-content;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 25px;
-        padding-right: 25px;
-    }
-    #book_list_container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        width: 100%;
-        height: fit-content;
-    }
-    #book_display_container {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        width: 100%;
-        height: fit-content;
-    }
-    .book_container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: fit-content;
-        height: fit-content;
-        margin-right: 10px;
-        padding: 8px;
-        margin: 10px;
-    }
-    #book_img {
-        height: 250px;
-        width: 170px;
-    }
-    #book_title {
-        background-color: #D9D9D9;
-        padding: 3px;
-        border-radius: 20px;
-        width: 200px;
-        text-align: center;
-        height: fit-content;
-    }
-    .view-more-btn {
-        width: 120px;
-        height: 40px;
-        font-size: large;
-        padding: 5px;
-        border: 1px solid white;
-        border-radius: 0.8em;
-        margin: 20px;
-        color: #0029FF;
-    }
-    #page-container {
-        background-color: rgba(204, 195, 195, 0.3);
-    }
-    .no-books-message {
-        background-color: #D9D9D9;
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-        font-size: 20px;
-        padding: 5px;
-    }
+        ul {
+            list-style: none;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            width: fit-content;
+        }
+        .search-bar input {
+            border: none;
+            background-color: #E5C2BB;
+            padding: 10px 40px;
+            border-radius: 25px;
+            height: 25px;
+            width: 400px;
+        }
+        .fa-filter {
+            position: relative;
+            font-size: large;
+            left: 30px;
+        }
+        .fa-search {
+            position: relative;
+            font-size: large;
+            right: 30px;
+        }
+        #filter-options {
+            background-color: #E5DAD8;
+            width: 420px;
+            padding: 10px;
+            padding-bottom: 20px;
+            position: absolute;
+            z-index: 1;
+        }
+        .btn-genre, .btn-author {
+            padding: 5px 20px;
+            font-weight: bold;
+        }
+        .book_category_container {
+            margin-left: 40px;
+            margin-right: 40px;
+            justify-content: center;
+        }
+        #search_heading {
+            display: block;
+            background-color: #D9D9D9;
+            border-radius: 20px;
+            width: fit-content;
+            height: fit-content;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+        #book_list_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
+        }
+        #book_display_container {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
+        }
+        .book_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            height: fit-content;
+            margin-right: 10px;
+            padding: 8px;
+            margin: 10px;
+        }
+        #book_img {
+            height: 250px;
+            width: 170px;
+        }
+        #book_title {
+            background-color: #D9D9D9;
+            padding: 3px;
+            border-radius: 20px;
+            width: 200px;
+            text-align: center;
+            height: fit-content;
+        }
+        .view-more-btn {
+            width: 120px;
+            height: 40px;
+            font-size: large;
+            padding: 5px;
+            border: 1px solid white;
+            border-radius: 0.8em;
+            margin: 20px;
+            color: #0029FF;
+        }
+        #page-container {
+            background-color: rgba(204, 195, 195, 0.3);
+        }
+        .no-books-message {
+            background-color: #D9D9D9;
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+            font-size: 20px;
+            padding: 5px;
+        }
+        footer {
+            position: relative;
+        }
+        @media screen and (max-width: 768px) {
+            .search-bar {
+                margin-top: 45px;
+            }
+            .search-bar input {
+                padding: 5px 35px;
+                height: 25px;
+                width: 300px;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <!--To display student name-->
     <?php 
-        include "index.php";
         include "chatbot.php"
     ?>
 
@@ -180,7 +194,7 @@
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
-                    <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+                    <i class="fa fa-user" aria-hidden="true" onclick="showMore()"></i>
                 </button>
             </div>
 
