@@ -98,6 +98,18 @@
             </button>
         </div>
 
+        <div id="more-options">
+            <a href="editprofile.php" class="more-options-links">Edit Profile</a>
+            <a href="help.html" class="more-options-links">Help and Support</a>
+            <a href="settings.html" class="more-options-links">Settings</a>
+            <br>
+            <br>
+            <button type="button" class="btn" style="margin-left: 13px;">
+                <i class="fa fa-external-link" aria-hidden="true" style="color: blue; text-align: center;"></i>
+                <a href="logout.php" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
+            </button>
+        </div>
+
         <!--------------Displaying Search Bar Only Get is not set-------------->
         <?php
             if (!isset($_GET['isbn'])) {
