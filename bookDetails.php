@@ -1,5 +1,6 @@
 <?php
 include "config.php";
+include "index.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'];
