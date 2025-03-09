@@ -29,7 +29,7 @@
 }
 
 .chat-header {
-    background-color: #cf8483;;
+    background-color: #cf8483;
     padding: 5px;
     padding-left: 40px;
     display: flex;
@@ -40,27 +40,69 @@
     color: black;
 }
 
-.chat-messages {
-    background-color: #ccc;
-    height: 300px;
-    overflow-y: auto;
-    padding: 10px;
-    border: 1px solid black;
-
+.chat-header button {
+    background-color: #cf8483;
+    border: 0px;
+    font-size: 24px;
 }
 
-.chat-messages p {
-    margin: 5px 0;
+.chat-message-container {
+    background-color: #cab4b4;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;  /* Messages appear one below the other */
+}
+
+.chat-message{
+    display: flex; 
+    flex-direction:row; 
+    align-items:center;
+    margin: 5px 5px;
+    text-align: left;
+}
+
+.chat-message .bot{
+    background-color: #cf8483;
+    color: black;
+    max-width: 70%;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.chat-message .user{
+    background-color:#f1f1f1;
+    color: black;
+    max-width: 70%;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.user {
+    align-self: flex-end;
+}
+
+.fa-user-circle, .fa-user-circle-o {
+    font-size: 25px;
 }
 
 #user-input {
-    width: calc(100% - 22px);
+    width: 90%;
     padding: 10px;
-    border: 1px solid black;
+    background-color: #cab4b4;
+    border: 1px solid #000000;
+}
 
+.message-input {
+    display: flex;
+    flex-direction: row;
 }
 
 #send-button {
     padding: 10px;
     align-content: center;
+    background-color: #cf8483;
 }

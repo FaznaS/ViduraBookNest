@@ -16,10 +16,12 @@ body {
 .content-container {
     background-color: #E5DAD8;
     border-radius: 15px;
-    height: 500px;
+    height: 450px;
     width: 600px;
     display: flex;
     flex-direction: column;
+    position: fixed;
+    top: 58px;
     padding: 20px;
     margin: 50px;
     justify-content: center;
@@ -50,12 +52,12 @@ body {
 }
 
 .view-results{
-    background-color: #E5DAD8;
+    background-color: #ebd0cc;
     border-radius: 15px;
     height: max-content;
-    width: 90%;
+    width: max-content;
+    margin: 160px 50px;
     padding: 20px;
-    margin: 33px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -242,4 +244,24 @@ table button {
     color: red;
     font-weight: bold;
     margin-top: 20px;
+}
+
+.approved-btn {
+    width: 90px;
+    background-color: rgb(7, 126, 90);
+    border: 1px solid rgb(0, 100, 78);
+}
+
+.approved-btn:hover {
+    background-color: rgb(32, 223, 165);
+}
+
+.rejected-btn {
+    width: 90px;
+    background-color: rgb(211, 5, 39);
+    border: 1px solid rgb(153, 3, 28);
+}
+
+.rejected-btn:hover {
+    background-color: rgb(230, 28, 61);
 }
