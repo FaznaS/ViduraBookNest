@@ -179,7 +179,7 @@
                 <br>
                 <button type="button" class="btn" style="margin-left: 13px;">
                     <i class="fa fa-external-link" aria-hidden="true" style="color: blue; text-align: center;"></i>
-                    <a href="welcome.html" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
+                    <a href="logout.php" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
                 </button>
             </div>
 
