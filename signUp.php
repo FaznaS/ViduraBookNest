@@ -8,6 +8,20 @@
     <script src="index.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: medium;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+
+
         body {
             font-size: large;
             display: flex;

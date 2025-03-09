@@ -80,6 +80,15 @@
             justify-content: center;
             align-items: center;
         }
+     
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .content-container {
+        width: 90%;
+        padding: 30px;
+        margin: 20px;
+    }
+}
         .content-container {
             background-color: #E5DAD8;
             border-radius: 15px;
