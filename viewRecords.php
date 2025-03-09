@@ -1,3 +1,7 @@
+<?php
+   include "index.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,7 +76,7 @@
             </button>
         </div>
     </div>
-
+    
     <script type="text/javascript">
         function bookDetails() {
             window.location.href="bookDetails.html";

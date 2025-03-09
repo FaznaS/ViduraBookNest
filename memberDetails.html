@@ -51,8 +51,7 @@
         <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
             <div id="view-profile-option">
                 <div style="display: flex; flex-direction: column; align-items: center;">
-                    <p><?php echo htmlspecialchars($student_name); ?></p>
-                    <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
+                    <p id="user-name"></p>                    <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
                 </div>
             </div>
             <button type="button" id="user-profile-icon">
@@ -73,43 +72,58 @@
         </div>
     </div>
 
-    <div class="member-view">
-        <div class="view-results">
-            <h1>Member Details</h1>
-            <!-- Search Bar -->
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search Member Details Here...">
-                <button id="searchBtn">Search</button>
-            </div>
-    
-            <!-- Table to Display Results -->
-            <div id="resultsTable"></div>
+    <div class="view-results">
+        <h1>Member Details</h1>
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search Member Details Here...">
+            <button id="searchBtn">Search</button>
         </div>
-    
-        <!-- Update Member Details -->
-        <div id="updateModal" class="update-details" style="display: none;">
-            <div class="details-container">
-                <h2>Update Member Details</h2>
-                <form id="updateForm" class="update-members">
-                    <input type="hidden" id="updateUserId" name="user_id">
-                    <label for="name">Name:</label>
-                    <input type="text" id="updateName" name="name" required>
-                    <label for="email">Email:</label>
-                    <input type="email" id="updateEmail" name="email" required>
-                    <label for="contact">Contact Number:</label>
-                    <input type="text" id="updateContact" name="contact_no" required>
-                    <label for="class">Class:</label>
-                    <input type="text" id="updateClass" name="grade_class" required>
-                    <button type="submit">Update</button>
-                    <button type="button" id="closeModal">Cancel</button>
-                </form>
-            </div>
+
+        <!-- Table to Display Results -->
+        <div id="resultsTable"></div>
+    </div>
+
+    <div id="overlay" style="display: none;"></div>
+    <!-- Update Member Details -->
+    <div id="updateModal" class="update-member-details" style="display: none;">
+        <div class="details-container">
+            <h2>Update Member Details</h2>
+            <form id="updateForm" class="update-members">
+                <input type="hidden" id="updateUserId" name="user_id">
+                <label for="name">Name:</label>
+                <input type="text" id="updateName" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="updateEmail" name="email" required>
+                <label for="contact">Contact Number:</label>
+                <input type="text" id="updateContact" name="contact_no" required>
+                <label for="class">Class:</label>
+                <input type="text" id="updateClass" name="grade_class" required>
+                <button type="submit">Update</button>
+                <button type="button" id="closeModal">Cancel</button>
+            </form>
         </div>
     </div>
 
     <script>
         $(document).ready(function () {
             displayMembers(); // Display all members function initialize
+
+            $.ajax({
+                url: "adminCommon.php",
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    if (response.name) {
+                        $("#user-name").text(response.name);
+                    } else {
+                        $("#user-name").text("Guest");
+                    }
+                },
+                error: function () {
+                    $("#user-name").text("Error fetching name");
+                }
+            });
 
             // Search Members
             $("#searchBtn").on("click", function () {
@@ -169,11 +183,13 @@
                 $("#updateClass").val(gradeClass);
 
                 $("#updateModal").show();
+                $("#overlay").show();
             });
 
             // Close update details
             $("#closeModal").on("click", function () {
                 $("#updateModal").hide();
+                $("#overlay").hide();
             });
 
             // Handle update form submission
@@ -188,6 +204,7 @@
                     success: function () {
                         displayMembers();
                         $("#updateModal").hide();
+                        $("#overlay").hide();
                     },
                 });
             });
