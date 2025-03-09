@@ -42,6 +42,12 @@ $conn->close();
         ul {
             list-style: none;
         }
+ 
+        @media screen and (max-width: 480px) {
+    .content-container {
+        padding: 15px;
+    }
+}
         .content-container {
             background-color: #E5DAD8;
             border-radius: 15px;
@@ -88,9 +94,14 @@ $conn->close();
             margin-bottom: 8px;
             cursor: pointer;
         }
+
+
         footer {
             position: relative;
         }
+
+
+      
     </style>
 </head>
 <body>
