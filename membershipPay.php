@@ -49,7 +49,7 @@
             transition: background-color 0.3s;
             z-index: 100;
             margin: 10px;
-            position: fixed;
+            position: absolute;
         }
 
         .back-arrow:hover {
@@ -58,6 +58,12 @@
 
         .arrow {
             font-size: 15px; /* Adjust size of the arrow */
+        }
+
+        @media screen and (max-width: 768px) {
+            footer {
+                position: relative;
+            }
         }
     </style>
 </head>
@@ -108,7 +114,7 @@
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
-                    <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+                    <i class="fa fa-user" aria-hidden="true" onclick="showMore()"></i>
                 </button>
             </div>
 
@@ -125,36 +131,38 @@
             </div>
 
             <!--Content-->
-            <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">
-                <div class="payment-content-container" id="membership-plan">
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <h1>1 Year Plan</h1>
-                        <h2 style="color: #0E0C52;">
-                            LKR 250 <br>
-                            for every two years
-                        </h2>
-                        <p style="color: #2C852B;">
-                            Add up to 2 books per month <br>
-                            Can read up to 2 weeks time
-                        </p>
-                        <button type="button" class="btn-start" id="oneyr" data-plan="One Year" data-price=250>GET STARTED</button>
+            <section style="padding: 40px;">
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px; flex-wrap: wrap;">
+                    <div class="payment-content-container" id="membership-plan">
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <h1>1 Year Plan</h1>
+                            <h2 style="color: #0E0C52;">
+                                LKR 250 <br>
+                                for every two years
+                            </h2>
+                            <p style="color: #2C852B;">
+                                Add up to 2 books per month <br>
+                                Can read up to 2 weeks time
+                            </p>
+                            <button type="button" class="btn-start" id="oneyr" data-plan="One Year" data-price=250>GET STARTED</button>
+                        </div>
+                    </div>
+                    <div class="payment-content-container" id="fine-payment">
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <h1 style="font-family: 'Lobster Two';">2 Year Plan</h1>
+                            <h2 style="color: #0E0C52;">
+                                LKR 650 <br>
+                                for every four years 
+                            </h2>
+                            <p style="color: #2C852B;">
+                                Add up to 4 books per month<br>
+                                Can read up to a month
+                            </p>
+                            <button type="button" class="btn-start" id="twoyr" data-plan="Two Years" data-price=650>GET STARTED</button>
+                        </div>
                     </div>
                 </div>
-                <div class="payment-content-container" id="fine-payment">
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <h1 style="font-family: 'Lobster Two';">2 Year Plan</h1>
-                        <h2 style="color: #0E0C52;">
-                            LKR 650 <br>
-                            for every four years 
-                        </h2>
-                        <p style="color: #2C852B;">
-                            Add up to 4 books per month<br>
-                            Can read up to a month
-                        </p>
-                        <button type="button" class="btn-start" id="twoyr" data-plan="Two Years" data-price=650>GET STARTED</button>
-                    </div>
-                </div>
-            </div>
+            </section>
         </div>
         <script>
             $(document).on("click", "#oneyr, #twoyr", function() {
