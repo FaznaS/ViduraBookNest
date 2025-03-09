@@ -181,8 +181,8 @@
                         }
                     ?>
                     
-                    <div style="display: flex; justify-content: flex-end;">
-                        <button id="pay-btn">Pay Now</button>
+                    <div style="display: flex; justify-content: center; font-size:larger; font-weight:bold; color: red; ">
+                        <p> Kindly settle the payment with the Librarian. </p>
                     </div>
                 </div>
             </div>
