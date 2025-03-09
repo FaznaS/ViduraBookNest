@@ -34,7 +34,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<td>{$row['user_id']}</td>";
                 echo "<td>{$row['payment_type']}</td>";
                 echo "<td>{$row['price']}</td>";
-                echo "<td>{$row['payment_slip']}</td>";
+                
+                // Display the payment slip with a preview
+                echo "<td>";
+                if (!empty($row['payment_slip'])) {
+                    echo "<a href='{$row['payment_slip']}' target='_blank'>View Slip</a><br>";
+                    echo "<img src='{$row['payment_slip']}' alt='Payment Slip' style='width:100px; height:auto;'/>";
+                } else {
+                    echo "No slip uploaded";
+                }
+                echo "</td>";
                 echo "<td>{$row['status']}</td>";
                 echo "<td>";
                 if($row['status'] == "Pending") {
@@ -44,8 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<button class='rejected-btn'
                         data-payment-id='{$row['payment_id']}'>Rejected</button>";
                 } else {
-                    echo "<button class='approved-btn' disabled style='background-color:rgb(125, 204, 125); color: #666;'>Return</button>";
-                    echo "<button class='rejected-btn' disabled style='background-color:rgb(214, 54, 81); color: #666;'>Lost</button>";
+                    echo "<button class='approved-btn' disabled style='background-color: rgb(82, 192, 150); color: #666;'>Approved</button>";
+                    echo "<button class='rejected-btn' disabled style='background-color:rgb(224, 126, 142); color: #666;'>Rejected</button>";
                 }
                 echo "</td>";
                 echo "</tr>";

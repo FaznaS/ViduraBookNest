@@ -1,6 +1,7 @@
 body {
     font-size: large;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -51,12 +52,116 @@ body {
     font-size: medium;
 }
 
+.view-details{
+    background-color: #E5DAD8;
+    border-radius: 15px;
+    height: 500px;
+    width: 100%;
+    padding: 20px;
+    margin: 33px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#content-wrap {
+    width: 100%;
+}
+
+#user-profile-container {
+    background-color: #E5C2BB;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 25px;
+    margin-top: 15px;
+    margin-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+}
+
+#view-profile-option {
+    display: none;
+    width: fit-content;
+    height: fit-content; 
+    margin-right: 10px; 
+    line-height: 0.5em;
+    padding-bottom: 8px;
+}
+
+#user-profile-icon {
+    background-color: #E5C2BB;
+    border: 2px solid #E5C2BB;
+    padding: 5px;
+}
+
+#more-options {
+    display: none;
+    flex-direction: column;
+    background-color: #E5C2BB;
+    width: 175px;
+    position: absolute;
+    right: 22px;
+    margin-top: 60px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 15px;
+}
+
+.more-options-links {
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+}
+
+.header {
+    width: 100%;
+}
+
+nav {
+    z-index: 1;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: fit-content;
+    background-color:#E5DAD8;
+}
+
+.nav-element-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.nav-element-container i {
+    font-size: x-large;
+}
+
+.header-links {
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    font-size: larger;
+    color: rgb(0, 0, 0);
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .view-results{
     background-color: #ebd0cc;
     border-radius: 15px;
     height: max-content;
     width: max-content;
-    margin: 160px 50px;
+    margin: 70px 50px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -126,6 +231,38 @@ table td {
     color: #333;
 }
 
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99; 
+}
+
+.update-book-details {
+    display: none;
+    position: absolute;
+    margin-top: 390px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #e78685;
+    padding: 5px;
+    box-shadow: 0px 0px 10px gray;
+    border-radius: 5px;
+    z-index: 999; 
+}
+
+.member-view {
+    display: flex; 
+    flex-direction: 
+    row; width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
 .update-members {
     display: flex;
     flex-direction: column;
@@ -159,7 +296,7 @@ form button {
 button[type="submit"] {
     background-color: #22c20d;
 }
-form button#closeModal {
+#closeModal {
     background-color: #dc3545;
 }
 
@@ -246,6 +383,34 @@ table button {
     margin-top: 20px;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #e78685;
+    padding: 5px;
+    box-shadow: 0px 0px 10px gray;
+    border-radius: 5px;
+    z-index: 999;
+}
+
+.modal-content {
+    text-align: center;
+    margin: 5px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.modal button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #40dbba;
+}
+
 .approved-btn {
     width: 90px;
     background-color: rgb(7, 126, 90);
@@ -264,4 +429,25 @@ table button {
 
 .rejected-btn:hover {
     background-color: rgb(230, 28, 61);
+}
+
+.back-arrow {
+    padding: 4px;
+    background-color:#D09594; 
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 15px;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    position: absolute;
+    left: 25px;
+}
+
+.back-arrow:hover {
+    background-color: #0056b3;
+}
+
+.arrow {
+    font-size: 15px; 
 }
