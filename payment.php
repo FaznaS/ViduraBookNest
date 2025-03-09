@@ -1,6 +1,7 @@
 <?php
     include "config.php";
     include "index.php";
+    include "chatbot.php";
 ?>
 
 <!DOCTYPE html>
