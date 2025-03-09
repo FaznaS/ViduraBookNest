@@ -93,6 +93,14 @@
         ul {
             list-style: none;
         }
+        @media screen and (max-width: 380px) {
+    .content-container {
+        padding: 15px;
+        margin: 10px;
+    }
+}
+
+
 
         .content-container {
             background-color: #E5DAD8;
