@@ -35,6 +35,10 @@
             margin: 40px;
             text-align: center;
         }
+
+        #page-container {
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -43,7 +47,7 @@
             window.location.href="addBook.php";
         }
         function updateBook() {
-            window.location.href="updateBooks.html";
+            window.location.href="updateBook.php";
         }
         function deleteBook() {
             window.location.href="bookDetails.html";
@@ -58,43 +62,42 @@
         </a>
         
     </nav>
-    <div id="page-container">
-        <!-------------------------------User Profile------------------------------->
-        <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
-            <div id="view-profile-option">
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <p><?php echo htmlspecialchars($student_name); ?></p>
-                    <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
-                    </div>
-                </div>
-                <button type="button" id="user-profile-icon">
-                    <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
-                </button>
-            </div>
-
-            <div id="more-options">
-                <a href="editprofile.php" class="more-options-links">Edit Profile</a>
-                <a href="help.html" class="more-options-links">Help and Support</a>
-                <a href="settings.html" class="more-options-links">Settings</a>
-                <br>
-                <br>
-                <button type="button" class="btn" style="margin-left: 13px;">
-                    <i class="fa fa-external-link" aria-hidden="true" style="color: blue; text-align: center;"></i>
-                    <a href="welcome.html" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
-                </button>
+    
+    <!-------------------------------User Profile------------------------------->
+    <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
+        <div id="view-profile-option">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <p><?php echo htmlspecialchars($student_name); ?></p>
+                <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
             </div>
         </div>
+            <button type="button" id="user-profile-icon">
+                <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+            </button>
+        </div>
 
-        <div style="display: flex; justify-content:center; align-items:center;">
-            <div class="content-container">
-                <img src="./Assets/logo.jpg" alt="logo" style="height: 100px;">
+        <div id="more-options">
+            <a href="editprofile.php" class="more-options-links">Edit Profile</a>
+            <a href="help.html" class="more-options-links">Help and Support</a>
+            <a href="settings.html" class="more-options-links">Settings</a>
+            <br>
+            <br>
+            <button type="button" class="btn" style="margin-left: 13px;">
+                <i class="fa fa-external-link" aria-hidden="true" style="color: blue; text-align: center;"></i>
+                <a href="welcome.html" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
+            </button>
+        </div>
+    </div>
 
-                <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-                    <button type="button" class="btn-option" onclick="addBook()">Add a new Book</button>
-                    <button type="button" class="btn-option" onclick="updateBook()">Update Book</button>
-                    <button type="button" class="btn-option" onclick="deleteBook()">Delete Book</button>
-                    <button type="button" class="btn-option" onclick="viewRecords()">View Records</button>
-                </div>
+    <div style="display: flex; justify-content:center; align-items:center;">
+        <div class="content-container">
+            <img src="./Assets/logo.jpg" alt="logo" style="height: 100px;">
+
+            <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                <button type="button" class="btn-option" onclick="addBook()">Add a new Book</button>
+                <button type="button" class="btn-option" onclick="updateBook()">Update Book</button>
+                <button type="button" class="btn-option" onclick="deleteBook()">Delete Book</button>
+                <button type="button" class="btn-option" onclick="viewRecords()">View Records</button>
             </div>
         </div>
     </div>

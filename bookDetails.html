@@ -5,10 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vidura College BookNest</title>
     <link rel="stylesheet" href="viewRecordsStyles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="index.js"></script>
 </head>
 <body>
-    <div class="view-results">
+    <div class="header">
+        <nav>
+            <a href="admin.php">
+                <img src="./Assets/logo.jpg" alt="logo" style="width: 200px; padding: 10px;">
+            </a>
+    
+            <ul style="display: flex; list-style: none;">
+                <li>
+                    <div class="nav-element-container">
+                        <a href="addBook.php" class="header-links">Add Book</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="nav-element-container">
+                        <a href="updateBooks.html" class="header-links">Update Books</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="nav-element-container">
+                        <a href="bookDetails.html" class="header-links">Delete Books</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="nav-element-container">
+                        <a href="viewRecords.php" class="header-links">View Records</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="content-wrap">
+        <div>
+            <a href="javascript:history.back()" class="back-arrow">
+                <span class="arrow">&#8592;</span> Back
+            </a>
+        </div>
+        <!-------------------------------User Profile------------------------------->
+        <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
+            <div id="view-profile-option">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <p><?php echo htmlspecialchars($student_name); ?></p>
+                    <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
+                </div>
+            </div>
+            <button type="button" id="user-profile-icon">
+                <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+            </button>
+        </div>
+
+        <div id="more-options">
+            <a href="editprofile.php" class="more-options-links">Edit Profile</a>
+            <a href="help.html" class="more-options-links">Help and Support</a>
+            <a href="settings.html" class="more-options-links">Settings</a>
+            <br>
+            <br>
+            <button type="button" class="btn" style="margin-left: 13px;">
+                <i class="fa fa-external-link" aria-hidden="true" style="color: blue; text-align: center;"></i>
+                <a href="logout.php" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
+            </button>
+        </div>
+    </div>
+    <div class="view-results" style="margin-top: 70px; width: 95%;">
         <h1>Books Details</h1>
         <!-- Search Bar -->
         <div class="search-bar">
@@ -17,11 +81,12 @@
         </div>
 
         <!-- Table to Display Results -->
-        <div id="resultsTable"></div>
+        <div id="resultsTable" style="width: 85%;"></div>
     </div>
 
+    <div id="overlay" style="display: none;"></div>
     <!-- Update Books Details -->
-    <div id="updateModal" class="update-details" style="display: none;">
+    <div id="updateModal" class="update-book-details" style="display: none;">
         <div class="details-container">
             <h2>Update Book Details</h2>
             <form id="updateForm" class="update-books">
@@ -69,13 +134,13 @@
                     <tr>
                         <td><label for="book_copies">Book Copies</label></td>
                         <td>
-                            <input type="number" id="updateCopies" name="copies">
+                            <input type="number" id="updateCopies" name="copies" required>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="publisher">Publisher Name</label></td>
                         <td>
-                            <input type="text" id="updatePublisher" name="publisher">
+                            <input type="text" id="updatePublisher" name="publisher" required>
                         </td>
                     </tr>
                     <tr>
@@ -87,19 +152,19 @@
                     <tr>
                         <td><label for="copyrightYear">Copyright Year</label></td>
                         <td>
-                            <input type="text" id="updateCopyrightYear" name="copyrightYear">
+                            <input type="text" id="updateCopyrightYear" name="copyrightYear" required>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="class_no">Class No</label></td>
                         <td>
-                            <input type="text" id="updateClassNo" name="class_no">
+                            <input type="text" id="updateClassNo" name="class_no" required>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="book_price">Book Price</label></td>
                         <td>
-                            <input type="number" id="updatePrice" name="price">
+                            <input type="number" id="updatePrice" name="price" required>
                         </td>
                     </tr>
                     <tr>
@@ -203,11 +268,13 @@
                 $("#updateComment").val(comment);
 
                 $("#updateModal").show();
+                $("#overlay").show();
             });
 
             // Close update details
             $("#closeModal").on("click", function () {
                 $("#updateModal").hide();
+                $("#overlay").hide();
             });
 
             // Handle update form submission
@@ -223,6 +290,7 @@
                         displayBooks();
                         alert("Updated Successfully.")
                         $("#updateModal").hide();
+                        $("#overlay").hide();
                     },
                 });
             });
