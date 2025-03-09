@@ -1,6 +1,5 @@
 <?php
 include "config.php";
-include "index.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'];
@@ -27,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<th>Author</th>";
             echo "<th>ISBN Number</th>";
             echo "<th>Category</th>";
-            echo "<th>Number Of Coppies</th>";
+            echo "<th>Number Of Copies</th>";
             echo "<th>Publisher Name</th>";
             echo "<th>Copyright Year</th>";
             echo "<th>Class No</th>";
