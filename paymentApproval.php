@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } 
 
     //When Payment is Approved, 
-    if ($action === "aprove_payment") {
+    if ($action === "approve_payment") {
         $paymentId = intval($_POST['payment_id']);
 
         $updatePayment = "UPDATE payment_details SET status = 'Approved' WHERE payment_id = $paymentId";
