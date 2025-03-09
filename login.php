@@ -113,9 +113,13 @@
                         $_SESSION['username'] = $row['user_id'];
                         $_SESSION['name'] = $row['name'];
                         
-                        header('Location: home.php');
+                        // Redirecting based on user role
+                        if ($row['user_id'] == "AAAA") {
+                            header('Location: admin.php');
+                        } else {
+                            header('Location: home.php');
+                        }
                         exit();
-                
                     } else {
                         $passwordErr = "Incorrect Password";
                     }
@@ -146,7 +150,7 @@
                     <br>
                     <div style="position: relative; height: 20px;">
                         <input type="password" id="password" name="password" value="<?php echo $password; ?>" placeholder="Password">
-                        <i id="icon-eye" class="fa fa-eye" aria-hidden="true" onclick="togglePassword()"></i>
+                        <i id="icon-eye" class="fa fa-eye-slash" aria-hidden="true" onclick="togglePassword()"></i>
                     </div>
                     <div style="display: flex; justify-content:space-between; margin-top: 10px">
                         <span class="error"><?php echo $passwordErr; ?></span>

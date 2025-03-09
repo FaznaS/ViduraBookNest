@@ -1,5 +1,6 @@
 <?php
 include "config.php";
+include "adminCommon.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'];
@@ -37,13 +38,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<td>{$row['return_date']}</td>";
                 echo "<td>{$row['status']}</td>";
                 echo "<td>";
-                echo "<button class='return-book-btn'
-                    data-borrow-id='{$row['borrow_id']}' 
-                    data-book-id='{$row['book_id']}'>Return</button>";
-                echo "<button class='lost-book-btn'
-                    data-borrow-id='{$row['borrow_id']}' 
-                    data-book-id='{$row['book_id']}'
-                    data-user-id='{$row['user_id']}'>Lost</button>";
+                if($row['status'] == "Pending") {
+                    echo "<button class='return-book-btn'
+                        data-borrow-id='{$row['borrow_id']}' 
+                        data-book-id='{$row['book_id']}'>Return</button>";
+
+                    echo "<button class='lost-book-btn'
+                        data-borrow-id='{$row['borrow_id']}' 
+                        data-book-id='{$row['book_id']}'
+                        data-user-id='{$row['user_id']}'>Lost</button>";
+                } else {
+                    echo "<button class='return-book-btn' disabled style='background-color:rgb(125, 204, 125); color: #666;'>Return</button>";
+                    echo "<button class='lost-book-btn' disabled style='background-color:rgb(204, 167, 99); color: #666;'>Lost</button>";
+                }
                 echo "</td>";
                 echo "</tr>";
             }
@@ -64,8 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Increment the book copies in the 'books' table
         $updateBook = "UPDATE books SET copies = copies + 1 WHERE acc_no = $bookId";
 
-        if (mysqli_query($conn, $updateBorrowed) && mysqli_query($conn, $updateBook)) {
-            echo json_encode(["message" => "Book returned successfully."]);
+        // Delete the book from the cart
+        $deleteFromCart = "DELETE FROM borrowed_book_details WHERE borrow_id = $borrowId";
+        
+        if (mysqli_query($conn, $updateBorrowed) && mysqli_query($conn, $updateBook) && mysqli_query($conn, $deleteFromCart)) {
+            echo json_encode(["message" => "Book returned successfully and removed from cart."]);
         } else {
             echo json_encode(["message" => "Error updating book status: " . mysqli_error($conn)]);
         }

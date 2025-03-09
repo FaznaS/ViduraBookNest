@@ -6,12 +6,12 @@
     <title>Vidura College BookNest</title>
     <link rel="stylesheet" href="index.css">
     <style>
-        body {
+        /* body {
             font-size: large;
             display: flex;
             justify-content: center;
             align-items: center;
-        }
+        } */
 
         .content-container {
             background-color: #E5DAD8;
@@ -59,102 +59,146 @@
     </style>
 </head>
 <body>
-    <div class="content-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <img src="./Assets/logo.jpg" alt="logo" style="height: 100px; padding-top: 10px;">
-        <h2>Add New Book</h2>
-        <form id="form-container" action="manageBookRecords.php" method="POST" enctype="multipart/form-data">
-            <table align="center" cellpadding="3px" style="text-align: left;">
-                <tr>
-                    <td><label for="acc_no">ACC.No</label></td>
-                    <td>
-                        <input type="text" id="acc_no" name="acc_no">
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="title">Book Title</label></td>
-                    <td>
-                        <input type="text" id="title" name="title">
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="book_image">Book Cover Page</label></td>
-                    <td>
-                        <input type="file" id="book_image" name="book_image" accept="image/jpg, image/jpeg, image/png" style="padding-left: 0%;" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="category">Category</label></td>
-                    <td>
-                        <select name="category" style="width: 100%;">
-                            <option value="select">Select</option>
-                            <option value="English Fiction">English Fiction</option>
-                            <option value="English Literature">English Literature</option>
-                            <option value="General Knowledge">General Knowledge</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="author">Author</label></td>
-                    <td>
-                        <input type="text" id="author" name="author">
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="book_copies">Book Copies</label></td>
-                    <td>
-                        <input type="number" id="book_copies" name="book_copies">
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="publisher">Publisher Name</label></td>
-                    <td>
-                        <input type="text" id="publisher" name="publisher">
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="isbn">ISBN</label></td>
-                    <td>
-                        <input type="text" id="isbn" name="isbn">
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="copyright_year">Copyright Year</label></td>
-                    <td>
-                        <input type="text" id="copyright_year" name="copyright_year">
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="class_no">Class No</label></td>
-                    <td>
-                        <input type="text" id="class_no" name="class_no">
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="book_price">Book Price</label></td>
-                    <td>
-                        <input type="number" id="book_price" name="book_price">
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="status">Status</label></td>
-                    <td>
-                        <select name="status" style="width: 100%;">
-                            <option value="select">Select</option>
-                            <option value="Old">Old</option>
-                            <option value="New">New</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="comment">Comment</label></td>
-                    <td>
-                        <textarea id="comment" name="comment" style="height: 70px;"></textarea>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <input type="submit" id="insert" name="insert" value="INSERT" class="submit-btn" style="background-color: #AA9595;">
-        </form>
+    <nav>
+        <a href="admin.php">
+            <img src="./Assets/logo.jpg" alt="logo" style="width: 200px; padding: 10px;">
+        </a>
+        
+        <!-- <ul style="display: flex;">
+            <li>
+                <div class="nav-element-container">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    <a href="home.php" class="header-links">Home</a>
+                </div>
+            </li>
+            <li>
+                <div class="nav-element-container">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                    <a href="books.php" class="header-links">Books</a>
+                </div>
+            </li>
+            <li>
+                <div class="nav-element-container">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <a href="cart.php" class="header-links">Cart</a>
+                </div>
+            </li>
+            <li>
+                <div class="nav-element-container">
+                    <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
+                    <a href="payment.php" class="header-links">Payment</a>
+                </div>
+            </li>
+        </ul> -->
+    </nav>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <div class="content-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <img src="./Assets/logo.jpg" alt="logo" style="height: 100px; padding-top: 10px;">
+            <h2>Add New Book</h2>
+            <form id="form-container" action="manageBookRecords.php" method="POST" enctype="multipart/form-data">
+                <table align="center" cellpadding="3px" style="text-align: left;">
+                    <tr>
+                        <td><label for="acc_no">ACC.No</label></td>
+                        <td>
+                            <input type="text" id="acc_no" name="acc_no">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="title">Book Title</label></td>
+                        <td>
+                            <input type="text" id="title" name="title" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="book_image">Book Cover Page</label></td>
+                        <td>
+                            <input type="file" id="book_image" name="book_image" accept="image/jpg, image/jpeg, image/png" style="padding-left: 0%;" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="book_link">Online Reading Link</label></td>
+                        <td>
+                            <input type="text" id="book_link" name="book_link">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="category">Category</label></td>
+                        <td>
+                            <select name="category" style="width: 100%;">
+                                <option value="select">Select</option>
+                                <option value="English Fiction">English Fiction</option>
+                                <option value="Non Fiction">Non Fiction</option>
+                                <option value="Science">Science</option>
+                                <option value="History">History</option>
+                                <option value="Language">Language</option>
+                                <option value="English Literature">English Literature</option>
+                                <option value="Technology">Technology</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="author">Author</label></td>
+                        <td>
+                            <input type="text" id="author" name="author" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="book_copies">Book Copies</label></td>
+                        <td>
+                            <input type="number" id="book_copies" name="book_copies">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="publisher">Publisher Name</label></td>
+                        <td>
+                            <input type="text" id="publisher" name="publisher" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="isbn">ISBN</label></td>
+                        <td>
+                            <input type="text" id="isbn" name="isbn" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="copyright_year">Copyright Year</label></td>
+                        <td>
+                            <input type="text" id="copyright_year" name="copyright_year">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="class_no">Class No</label></td>
+                        <td>
+                            <input type="text" id="class_no" name="class_no">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="book_price">Book Price</label></td>
+                        <td>
+                            <input type="number" id="book_price" name="book_price">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="status">Status</label></td>
+                        <td>
+                            <select name="status" style="width: 100%;">
+                                <option value="select">Select</option>
+                                <option value="Old">Old</option>
+                                <option value="New">New</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="comment">Comment</label></td>
+                        <td>
+                            <textarea id="comment" name="comment" style="height: 70px;"></textarea>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <input type="submit" id="insert" name="insert" value="INSERT" class="submit-btn" style="background-color: #AA9595;">
+            </form>
+        </div>
     </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Vidura College BookNest</title>
     <link rel="stylesheet" href="index.css">
     <script src="index.js"></script>
@@ -66,24 +66,37 @@
 </head>
 <body>
     <?php
+
         // Setting up the connection
+        //Includes the database configuration file (config.php) to establish a connection.
         include "config.php";
 
-        // Initializing variables
+        //Declares variables to store form input values and error messages.
         $nameErr = $emailErr = $contactNoErr = $gradeClassErr = $admissionNoErr = $passwordErr = "";
         $name = $email = $contact_no = $grade_class = $admission_no = $password = "";
 
         // Validation of Input 
         $valid = true;
 
+
         function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
+            $data = trim($data);      // Remove spaces from beginning and end
+            $data = stripslashes($data);  // Remove backslashes
+            $data = htmlspecialchars($data); // Convert special characters to HTML entities
             return $data;
         }
+    
+        // Importing PHPMailer for Email Notifications
+        use PHPMailer\PHPMailer\PHPMailer;
+        use PHPMailer\PHPMailer\Exception;
 
+        require 'phpmailer/src/Exception.php';
+        require 'phpmailer/src/PHPMailer.php';
+        require 'phpmailer/src/SMTP.php';
+
+        //Checks if the form is submitted using the POST method.
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add"])) {
+        //Retrieves user input values.
             $name = $_POST["student_name"];
             $email = $_POST["email"];
             $contact_no = $_POST["contact_no"];
@@ -91,6 +104,7 @@
             $admission_no = $_POST["admission_no"];
             $password = $_POST["password"];
 
+            //Input Validation
             // Validate student name
             if(empty($name)) {
                 $nameErr = "Name is required";
@@ -141,14 +155,14 @@
                 $valid = false;
             } else {
                 $admission_no = test_input($_POST["admission_no"]);
-                // check if admission number has 4 digits
+            // check if admission number has 4 digits
                 if(!preg_match("/^[0-9]{4}+$/",$admission_no)) {
                     $admissionNoErr = "Invalid number format";
                     $valid = false;
                 }
 
-                // check if the admission number already exists
-                $search_id = "SELECT * FROM student WHERE admission_no = '$_POST[admission_no]'";
+            // check if the admission number already exists
+                $search_id = "SELECT * FROM members WHERE user_id = '$_POST[admission_no]'";
                 $result = mysqli_query($conn,$search_id);
 
                 if ($result->num_rows > 0) {
@@ -171,14 +185,37 @@
 
             // Inserting data to the database if all details are valid
             if($valid) {
-                $sql = "INSERT INTO student (student_name, email, contact_no, grade_class, admission_no, student_password) VALUES (
+                $sql = "INSERT INTO members (name, email, contact_no, grade_class, user_id, password) VALUES (
                     '$name',
                     '$email',
                     '$contact_no',
                     '$grade_class',
                     '$admission_no',
                     '$password' )";
+              
+            //Configures PHPMailer to send emails using Gmail SMTP.
+                $mail = new PHPMailer(true);
+                $mail->isSMTP();
+                $mail->Host = "smtp.gmail.com"; 
+                $mail->SMTPAuth = true;
+                $mail->SMTPSecure = 'ssl';
+                $mail->Port = 465;
+                $mail->Username = "vidurabooknest@gmail.com"; 
+            // App Password via GMAIL
+                $mail->Password = "***REMOVED***"; 
+                $mail->setFrom("vidurabooknest@gmail.com"); 
+                $mail->addAddress($email); 
+                $mail->isHTML(true);
+                // Email content for Admin
+                $mail->Subject = 'Welcome to ViduraBookNest';
+                $mail->Body = "Dear  $name<br><br>" 
+                    . "Thank you for registering at Vidura BookNest. You can now log in and access our book collection.<br><br>"
+                    . "Best Regards,<br>"
+                    . "Vidura BookNest Team";
+
+                $mail->send();
                 
+                //Redirects user to the login page after successful registration.
                 if(mysqli_query($conn,$sql)) {
                     echo 
                     "<script type=\"text/javascript\"> 
@@ -211,7 +248,7 @@
                     <tr>
                         <td><label for="email">Email</label></td>
                         <td>
-                            <input type="email" id="email" name="email" value="<?php echo $email;?>">
+                            <input type="email" id="email" name="email" value="<?php echo $email;?>" autocomplete="email">
                             <br>
                             <span class="error"><?php echo $emailErr; ?></span>
                         </td>
@@ -235,7 +272,7 @@
                     <tr>
                         <td><label for="admissionNo">Admission Number</label></td>
                         <td>
-                            <input type="number" id="admission_no" name="admission_no" value="<?php echo $admission_no; ?>">
+                            <input type="number" id="admission_no" name="admission_no" value="<?php echo $admission_no; ?>" autocomplete="off">
                             <br>
                             <span class="error"><?php echo $admissionNoErr; ?></span>
                         </td>
@@ -244,8 +281,8 @@
                         <td style="vertical-align: top;"><label for="password">Password</label></td>
                         <td>
                             <div style="position: relative; height: 15px;">
-                                <input type="password" id="password" name="password" value="<?php echo $password; ?>">
-                                <i id="icon-eye" class="fa fa-eye" aria-hidden="true" onclick="togglePassword()"></i>
+                                <input type="password" id="password" name="password" value="<?php echo $password; ?>" autocomplete="new-password">
+                                <i id="icon-eye" class="fa fa-eye-slash" aria-hidden="true" onclick="togglePassword()"></i>
                             </div>
                             <br>
                             <span class="error"><?php echo $passwordErr; ?></span>
