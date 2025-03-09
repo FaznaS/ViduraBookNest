@@ -4,22 +4,24 @@
 
 
     // Initialize error message variables
+    // Initializes error message variables for email, new password, and confirm password
     $emailError = $newPassError = $confirmPassError = "";
     $email = $new_password = $confirm_password = "";
     $valid = true;
 
-    // Check if the form is submitted
-
+    // Check if the form is submitted using the POST method and if the update button was clicked.
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update"])) {
 
-        // Retrieve form inputs
+        // Retrieve form inputs (email, new password, and confirm password) from the POST request.
         $email = $_POST['email'];
         $new_password = $_POST['password'];
         $confirm_password = $_POST['confirm_password'];
 
         // Validate email input
+        // Checks if the email field is empty.
         if (empty($email)) {
             $emailError = "Email is required.";
+            // If empty, sets an error message and marks form validation as false.
             $valid = false;
         }
 
@@ -63,7 +65,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!---Specifies character encoding as UTF-8-->
     <meta charset="UTF-8">
+    <!---Sets viewport for responsiveness-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
     <link rel="stylesheet" href="index.css">
