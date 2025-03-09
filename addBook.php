@@ -50,28 +50,6 @@
             padding: 8px;
             border-radius: 0.8em;
         }
-
-        .search-bar {
-            display: flex;
-            align-items: center;
-            margin-top: 20px;
-            width: fit-content;
-        }
-
-        .search-bar input {
-            border: none;
-            background-color: #E5C2BB;
-            padding: 10px 40px;
-            border-radius: 25px;
-            height: 25px;
-            width: 400px;
-        }
-
-        .fa-search {
-            position: relative;
-            font-size: large;
-            right: 30px;
-        }
     </style>
 </head>
 <body>
@@ -83,7 +61,6 @@
     <div id="page-container">
         <?php
             include "backbtn.php";
-            include "manageBookRecords.php";
         ?>
         <!-------------------------------User Profile------------------------------->
         <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
@@ -98,50 +75,47 @@
             </button>
         </div>
 
-        <!--------------Displaying Search Bar Only Get is not set-------------->
-        <?php
-            if (!isset($_GET['isbn'])) {
-                echo "
-                    <form id='searchForm' action='updateBook.php' method='GET' style='display: flex; justify-content: center;'>
-                        <div class='search-bar'>
-                            <input id='search-bar' type='text' placeholder='Search by isbn' name='isbn'>
-                            <button type='submit' style='background: none; border: none; padding: 0;'>
-                                <i class='fa fa-search' aria-hidden='true'></i>
-                            </button>
-                        </div>
-                    </form>";
-            }
-        ?>
-        
+        <div id="more-options">
+            <a href="editprofile.php" class="more-options-links">Edit Profile</a>
+            <a href="help.html" class="more-options-links">Help and Support</a>
+            <a href="settings.html" class="more-options-links">Settings</a>
+            <br>
+            <br>
+            <button type="button" class="btn" style="margin-left: 13px;">
+                <i class="fa fa-external-link" aria-hidden="true" style="color: blue; text-align: center;"></i>
+                <a href="logout.php" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
+            </button>
+        </div>
+
         <!-------------------------------Content------------------------------->
         <div style="display: flex; justify-content: center; align-items: center;">
             <div class="content-container">
                 <img src="./Assets/logo.jpg" alt="logo" style="height: 100px; padding-top: 10px;">
-                <h2>Update Book</h2>
+                <h2>Add New Book</h2>
                 <form id="form-container" action="manageBookRecords.php" method="POST" enctype="multipart/form-data">
                     <table align="center" cellpadding="3px" style="text-align: left;">
                         <tr>
                             <td><label for="acc_no">ACC.No</label></td>
                             <td>
-                                <input type="text" id="acc_no" name="acc_no" value="<?php echo isset($book['acc_no']) ? $book['acc_no'] : ''; ?>">
+                                <input type="text" id="acc_no" name="acc_no">
                             </td>
                         </tr>
                         <tr>
                             <td><label for="title">Book Title</label></td>
                             <td>
-                                <input type="text" id="title" name="title" value="<?php echo isset($book['title']) ? $book['title'] : ''; ?>" required>
+                                <input type="text" id="title" name="title" required>
                             </td>
                         </tr>
                         <tr>
                             <td><label for="book_image">Book Cover Page</label></td>
                             <td>
-                                <input type="file" id="book_image" name="book_image" accept="image/jpg, image/jpeg, image/png" style="padding-left: 0%;">
+                                <input type="file" id="book_image" name="book_image" accept="image/jpg, image/jpeg, image/png" style="padding-left: 0%;" required>
                             </td>
                         </tr>
                         <tr>
                             <td><label for="book_link">Online Reading Link</label></td>
                             <td>
-                                <input type="text" id="book_link" name="book_link" value="<?php echo isset($book['file_path']) ? $book['file_path'] : ''; ?>">
+                                <input type="text" id="book_link" name="book_link">
                             </td>
                         </tr>
                         <tr>
@@ -149,56 +123,56 @@
                             <td>
                                 <select name="category" style="width: 100%;">
                                     <option value="select">Select</option>
-                                    <option value="English Fiction" <?php if (isset($book['category']) && $book['category'] == "English Fiction") echo "selected"; ?>>English Fiction</option>
-                                    <option value="Non Fiction" <?php if (isset($book['category']) && $book['category'] == "Non Fiction") echo "selected"; ?>>Non Fiction</option>
-                                    <option value="Science" <?php if (isset($book['category']) && $book['category'] == "Science") echo "selected"; ?>>Science</option>
-                                    <option value="History" <?php if (isset($book['category']) && $book['category'] == "History") echo "selected"; ?>>History</option>
-                                    <option value="Language" <?php if (isset($book['category']) && $book['category'] == "Language") echo "selected"; ?>>Language</option>
-                                    <option value="English Literature" <?php if (isset($book['category']) && $book['category'] == "English Literature") echo "selected"; ?>>English Literature</option>
-                                    <option value="Technology" <?php if (isset($book['category']) && $book['category'] == "Technology") echo "selected"; ?>>Technology</option>
+                                    <option value="English Fiction">English Fiction</option>
+                                    <option value="Non Fiction">Non Fiction</option>
+                                    <option value="Science">Science</option>
+                                    <option value="History">History</option>
+                                    <option value="Language">Language</option>
+                                    <option value="English Literature">English Literature</option>
+                                    <option value="Technology">Technology</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td><label for="author">Author</label></td>
                             <td>
-                                <input type="text" id="author" name="author" value="<?php isset($book['author']) ? $book['author'] : ''; ?>" required>
+                                <input type="text" id="author" name="author" required>
                             </td>
                         </tr>
                         <tr>
                             <td><label for="book_copies">Book Copies</label></td>
                             <td>
-                                <input type="number" id="book_copies" name="book_copies" value="<?php echo isset($book['copies']) ? $book['copies'] : ''; ?>">
+                                <input type="number" id="book_copies" name="book_copies">
                             </td>
                         </tr>
                         <tr>
                             <td><label for="publisher">Publisher Name</label></td>
                             <td>
-                                <input type="text" id="publisher" name="publisher" value="<?php echo isset($book['publisher']) ? $book['publisher'] : ''; ?>" required>
+                                <input type="text" id="publisher" name="publisher" required>
                             </td>
                         </tr>
                         <tr>
                             <td><label for="isbn">ISBN</label></td>
                             <td>
-                                <input type="text" id="isbn" name="isbn" value="<?php echo isset($book['isbn']) ? $book['isbn'] : ''; ?>" required>
+                                <input type="text" id="isbn" name="isbn" required>
                             </td>
                         </tr>
                         <tr>
                             <td><label for="copyright_year">Copyright Year</label></td>
                             <td>
-                                <input type="text" id="copyright_year" name="copyright_year" value="<?php echo isset($book['copyright_year']) ? $book['copyright_year'] : ''; ?>">
+                                <input type="text" id="copyright_year" name="copyright_year">
                             </td>
                         </tr>
                         <tr>
                             <td><label for="class_no">Class No</label></td>
                             <td>
-                                <input type="text" id="class_no" name="class_no" value="<?php echo isset($book['class_no']) ? $book['class_no'] : ''; ?>">
+                                <input type="text" id="class_no" name="class_no">
                             </td>
                         </tr>
                         <tr>
                             <td><label for="book_price">Book Price</label></td>
                             <td>
-                                <input type="number" id="book_price" name="book_price" value="<?php echo isset($book['price']) ? $book['price'] : ''; ?>">
+                                <input type="number" id="book_price" name="book_price">
                             </td>
                         </tr>
                         <tr>
@@ -206,23 +180,23 @@
                             <td>
                                 <select name="status" style="width: 100%;">
                                     <option value="select">Select</option>
-                                    <option value="Old" <?php if (isset($book['status']) && $book['status'] == "Old") echo "selected"; ?>>Old</option>
-                                    <option value="New" <?php if (isset($book['status']) && $book['status'] == "New") echo "selected"; ?>>New</option>
+                                    <option value="Old">Old</option>
+                                    <option value="New">New</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td><label for="comment">Comment</label></td>
                             <td>
-                                <textarea id="comment" name="comment" style="height: 70px;"><?php echo isset($book['comment']) ? $book['comment'] : ''; ?></textarea>
+                                <textarea id="comment" name="comment" style="height: 70px;"></textarea>
                             </td>
                         </tr>
                     </table>
                     <br>
-                    <input type="submit" id="update" name="update" value="UPDATE" class="submit-btn" style="background-color: #AA9595;">
+                    <input type="submit" id="insert" name="insert" value="INSERT" class="submit-btn" style="background-color: #AA9595;">
                 </form>
             </div>
-        </div>
+        </div>        
     </div>
 </body>
 </html>
