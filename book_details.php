@@ -5,6 +5,9 @@
     // To display student name
     include "index.php";
 
+    // To display chatbot
+    include "chatbot.php";
+
     if(isset($_GET['id'])) {
         $book_id = $_GET['id'];
         $search_query = "SELECT * FROM books WHERE acc_no = $book_id";
