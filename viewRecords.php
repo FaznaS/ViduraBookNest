@@ -1,3 +1,7 @@
+<?php
+   include "adminCommon.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +24,9 @@
         function lostBookDetails() {
             window.location.href="lostBookDetails.html";
         }
+        function paymentApproval() {
+            window.location.href="paymentApproval.html";
+        }
     </script>
     <div class="content-container">
         <img src="./Assets/logo.jpg" alt="logo" style="height: 100px;">
@@ -29,6 +36,7 @@
             <button type="button" class="details-btn" onclick="memberDetails()">View Member Details</button>
             <button type="button" class="details-btn" onclick="borrowedBooksDetails()">View Borrowed Book Details</button>
             <button type="button" class="details-btn" onclick="lostBookDetails()">View Lost Book Details</button>
+            <button type="button" class="details-btn" onclick="paymentApproval()()">View Payment Details</button>
         </div >
     </div>
 </body>

@@ -67,6 +67,18 @@
             margin-top: 20px;
             cursor: pointer;
         }
+        .read-now-btn {
+            border-radius: 0.8em;
+            border-color: #D9D9D9;
+            padding: 8px;
+            width: 120px;
+            font-size: 20px;
+            color: black;
+            text-decoration: none;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -89,17 +101,21 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.html" class="header-links">Cart</a>
+                    <a href="cart.php" class="header-links">Cart</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
-                    <a href="payment.html" class="header-links">Payment</a>
+                    <a href="payment.php" class="header-links">Payment</a>
                 </div>
             </li>
         </ul>
     </nav>
+    
+    <?php 
+        include "backbtn.php"
+    ?>
 
     <div id="page-container">
         <div id="content-wrap">
@@ -117,7 +133,7 @@
             </div>
 
             <div id="more-options">
-                <a href="editProfile.html" class="more-options-links">Edit Profile</a>
+                <a href="editProfile.php" class="more-options-links">Edit Profile</a>
                 <a href="help.html" class="more-options-links">Help and Support</a>
                 <a href="settings.html" class="more-options-links">Settings</a>
                 <br>
@@ -136,6 +152,13 @@
                     <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($book['acc_no']); ?>">
                     <input class="add-cart-btn" type="submit" name="addCart" value="Add to Cart">
                 </form>
+                <?php if (!empty($book['file_path'])): ?>
+                    <button type="button" class="read-now-btn">
+                        <a href="<?php echo htmlspecialchars($book['file_path']); ?>" style="color: black; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">
+                            Read Now
+                        </a>
+                    </button>
+                <?php endif; ?>
             </div>
         </div>
         
@@ -143,10 +166,10 @@
         <footer>
             <div id="footer-link-container">
                 <ul>
-                    <li><a href="home.html" class="footer-links">Home</a></li>
-                    <li><a href="books.html" class="footer-links">Books</a></li>
-                    <li><a href="cart.html" class="footer-links">Cart</a></li>
-                    <li><a href="payment.html" class="footer-links">Payment</a></li>
+                    <li><a href="home.php" class="footer-links">Home</a></li>
+                    <li><a href="books.php" class="footer-links">Books</a></li>
+                    <li><a href="cart.php" class="footer-links">Cart</a></li>
+                    <li><a href="payment.php" class="footer-links">Payment</a></li>
                 </ul>
             </div>
             <div id="contact-container">
