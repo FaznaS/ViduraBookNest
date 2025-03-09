@@ -1,6 +1,5 @@
 <?php
 include "config.php";
-include "adminCommon.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'];
@@ -38,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<td>{$row['title']}</td>";
                 echo "<td>{$row['price']}</td>";
                 echo "<td>{$row['user_id']}</td>";
-                echo "<td>{$row['status']}</td>";
+                echo "<td style='word-wrap: break-word; max-width: 100px'>{$row['status']}</td>";
                 echo "<td>";
                 if ($row['status'] == "Pending") {
                     echo "<button class='replace-btn' 
