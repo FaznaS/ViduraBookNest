@@ -51,8 +51,7 @@
         <div id="user-profile-container" onmouseover="showViewProfile()" onmouseleave="hideViewProfile()">
             <div id="view-profile-option">
                 <div style="display: flex; flex-direction: column; align-items: center;">
-                    <p><?php echo htmlspecialchars($student_name); ?></p>
-                    <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
+                    <p id="user-name"></p>                    <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
                 </div>
             </div>
             <button type="button" id="user-profile-icon">
@@ -87,6 +86,22 @@
     <script>
         $(document).ready(function () {
             displayPayments(); // Display all payments initialize
+
+            $.ajax({
+                url: "adminCommon.php",
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    if (response.name) {
+                        $("#user-name").text(response.name);
+                    } else {
+                        $("#user-name").text("Guest");
+                    }
+                },
+                error: function () {
+                    $("#user-name").text("Error fetching name");
+                }
+            });
 
             // Search Payments
             $("#searchBtn").on("click", function () {
