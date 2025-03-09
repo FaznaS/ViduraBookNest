@@ -120,7 +120,7 @@
                 <br>
                 <button type="button" class="btn" style="margin-left: 13px;">
                     <i class="fa fa-external-link" aria-hidden="true" style="color: blue; text-align: center;"></i>
-                    <a href="welcome.html" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
+                    <a href="logout.php" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
                 </button>
             </div>
 
@@ -172,10 +172,10 @@
         <footer>
             <div id="footer-link-container">
                 <ul>
-                    <li><a href="home.html" class="footer-links">Home</a></li>
-                    <li><a href="books.html" class="footer-links">Books</a></li>
-                    <li><a href="cart.html" class="footer-links">Cart</a></li>
-                    <li><a href="payment.html" class="footer-links">Payment</a></li>
+                    <li><a href="home.php" class="footer-links">Home</a></li>
+                    <li><a href="books.php" class="footer-links">Books</a></li>
+                    <li><a href="cart.php" class="footer-links">Cart</a></li>
+                    <li><a href="payment.php" class="footer-links">Payment</a></li>
                 </ul>
             </div>
             <div id="contact-container">

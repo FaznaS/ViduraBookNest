@@ -1,17 +1,27 @@
 <?php
+    //Include the database connection file
     include "config.php";
 
+
+    // Initialize error message variables
+    // Initializes error message variables for email, new password, and confirm password
     $emailError = $newPassError = $confirmPassError = "";
     $email = $new_password = $confirm_password = "";
     $valid = true;
 
+    // Check if the form is submitted using the POST method and if the update button was clicked.
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update"])) {
+
+        // Retrieve form inputs (email, new password, and confirm password) from the POST request.
         $email = $_POST['email'];
         $new_password = $_POST['password'];
         $confirm_password = $_POST['confirm_password'];
 
+        // Validate email input
+        // Checks if the email field is empty.
         if (empty($email)) {
             $emailError = "Email is required.";
+            // If empty, sets an error message and marks form validation as false.
             $valid = false;
         }
 
@@ -21,11 +31,13 @@
             $valid = false;
         }
 
+         // Validate password confirmation
         if ($new_password !== $confirm_password) {
             $confirmPassError = "Passwords do not match.";
             $valid = false;
         }
 
+        // If all inputs are valid, update the password in the database
         if ($valid) {
             // Update the password in the database
             $sql = "UPDATE members SET password=? WHERE email=?";
@@ -33,6 +45,8 @@
             $stmt->bind_param("ss", $confirm_password, $email);
             $stmt->execute();
             $stmt->close();
+
+            // Display success message and redirect to login page
             echo 
                 "<script type=\"text/javascript\"> 
                     window.alert('Password reset successfully');
@@ -40,6 +54,8 @@
                 </script>";
         }     
     }
+
+     // Close the database connection
 
     $conn->close();
 ?>
@@ -49,7 +65,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!---Specifies character encoding as UTF-8-->
     <meta charset="UTF-8">
+    <!---Sets viewport for responsiveness-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
     <link rel="stylesheet" href="index.css">
@@ -108,6 +126,8 @@
             color: #FF0000;
             font-size: 1.0em;
         }
+
+        
         .fa {
             position: absolute; 
             right: 10px; 
@@ -144,6 +164,7 @@
                     <label for="confirm-password">Confirm Password</label>
                     <br>
                     <div style="position: relative; height: 20px;">
+                        <!---Includes an eye icon for toggling visibility-->
                         <input type="password" id="confirm_password" name="confirm_password" value="<?php echo $confirm_password;?>" placeholder="Confirm new password" autocomplete="off">
                         <i id="confirm-icon-eye" class="fa fa-eye-slash" aria-hidden="true" onclick="toggleConfirmPassword()"></i>
                     </div>
