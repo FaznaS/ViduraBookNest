@@ -97,34 +97,11 @@ $conn->close();
     <!-------------------------------Header Design------------------------------->
     <nav>
         <img src="./Assets/logo.jpg" alt="logo" style="width: 200px; padding: 10px;">
-        <ul style="display: flex;">
-            <li>
-                <div class="nav-element-container">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    <a href="home.php" class="header-links">Home</a>
-                </div>
-            </li>
-            <li>
-                <div class="nav-element-container">
-                    <i class="fa fa-book" aria-hidden="true"></i>
-                    <a href="books.php" class="header-links">Books</a>
-                </div>
-            </li>
-            <li>
-                <div class="nav-element-container">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.php" class="header-links">Cart</a>
-                </div>
-            </li>
-            <li>
-                <div class="nav-element-container">
-                    <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
-                    <a href="payment.php" class="header-links">Payment</a>
-                </div>
-            </li>
-        </ul>
+       
     </nav>
 
+
+    
     <?php 
         include "backbtn.php"
     ?>
@@ -175,10 +152,10 @@ $conn->close();
         <footer>
             <div id="footer-link-container">
                 <ul>
-                    <li><a href="home.html" class="footer-links">Home</a></li>
-                    <li><a href="books.html" class="footer-links">Books</a></li>
-                    <li><a href="cart.html" class="footer-links">Cart</a></li>
-                    <li><a href="payment.html" class="footer-links">Payment</a></li>
+                    <li><a href="home.php" class="footer-links">Home</a></li>
+                    <li><a href="books.php" class="footer-links">Books</a></li>
+                    <li><a href="cart.php" class="footer-links">Cart</a></li>
+                    <li><a href="payment.php" class="footer-links">Payment</a></li>
                 </ul>
             </div>
             <div id="contact-container">

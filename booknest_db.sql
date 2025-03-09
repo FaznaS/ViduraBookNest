@@ -1,4 +1,4 @@
-DROP DATABASE booknest_db;
+DROP DATABASE IF EXISTS booknest_db;
 CREATE DATABASE booknest_db;
 USE booknest_db;
 
@@ -112,3 +112,17 @@ FROM
     lost_book_details l
 JOIN 
     books b ON l.book_id = b.acc_no;
+
+
+DROP TABLE IF EXISTS payment_details;
+CREATE TABLE IF NOT EXISTS payment_details (
+  payment_id INT AUTO_INCREMENT NOT NULL,
+  user_id VARCHAR(10) NOT NULL,
+  payment_type VARCHAR(20) NOT NULL,
+  payment_slip VARCHAR(255) NOT NULL,
+  price DECIMAL NOT NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'Pending',
+  KEY (payment_id,user_id),
+  PRIMARY KEY(payment_id),
+  CONSTRAINT user_id_payment_fk FOREIGN KEY(user_id) REFERENCES members(user_id)
+);

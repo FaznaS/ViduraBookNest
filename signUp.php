@@ -178,7 +178,7 @@
             } 
 
             // To ensure that the password is strong enough
-            if (!preg_match("#^(?=.[A-Z])(?=.[a-z])(?=.*[0-9]).{8,}$#", $password)) {
+            if (!preg_match("#^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$#", $password)) {
                 $passwordErr = "Password must contain at least 1 uppercase <br> letter, 1 lowercase letter, 1 digit, and be at <br> least 8 characters long";
                 $valid = false;
             }
