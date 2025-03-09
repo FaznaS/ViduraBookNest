@@ -9,10 +9,10 @@
 </head>
 <body>
     <div class="view-results">
-        <h1>Borrowed Books Details</h1>
+        <h1>Payment Details</h1>
         <!-- Search Bar -->
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search Borrowed Book Details Here...">
+            <input type="text" id="searchInput" placeholder="Search Payment Details Here...">
             <button id="searchBtn">Search</button>
         </div>
 
@@ -22,27 +22,27 @@
 
     <script>
         $(document).ready(function () {
-            displayBorrowedBooks(); // Display all borrowed books function initialize
+            displayPayments(); // Display all payments initialize
 
-            // Search Borrowed Books
+            // Search Payments
             $("#searchBtn").on("click", function () {
                 const query = $("#searchInput").val();
-                displayBorrowedBooks(query);
+                displayPayments(query);
             });
 
-            // Search Borrowed Books by pressing Enter key
+            // Search Payments by pressing Enter key
             $("#searchInput").on("keypress", function (e) {
                 if (e.key === "Enter") { 
                     const query = $(this).val();
-                    displayBorrowedBooks(query);
+                    displayPayments(query);
                     e.preventDefault(); 
                 }
             });
 
-            // Function to display borrowed books
-            function displayBorrowedBooks(query = "") {
+            // Function to display payments
+            function displayPayments(query = "") {
                 $.ajax({
-                    url: "borrowedBooksDetails.php",
+                    url: "paymentApproval.php",
                     type: "POST",
                     data: { action: "fetch", query: query },
                     success: function (response) {
@@ -51,23 +51,21 @@
                 });
             }
 
-            // When click Return Button, Change the status
-            $(document).on("click", ".return-book-btn", function () {
-                const borrowId = $(this).data("borrow-id");
-                const bookId = $(this).data("book-id");
+            // When click Approved Button, Change the status
+            $(document).on("click", ".approved-btn", function () {
+                const paymentId = $(this).data("payment-id");
                 
                 $.ajax({
-                    url: "borrowedBooksDetails.php",
+                    url: "paymentApproval.php",
                     type: "POST",
                     data: {
-                        action: "return_book",
-                        borrow_id: borrowId,
-                        book_id: bookId,
+                        action: "approve_payment",
+                        payment_id: paymentId,
                     },
                     success: function (response) {
                         const res = JSON.parse(response);
                         alert(res.message);
-                        displayBorrowedBooks();
+                        displayPayments();
                     },
                     error: function () {
                         alert("An error occurred while updating the status.");
@@ -75,34 +73,28 @@
                 });
             });
 
-            // Mark as Lost Book
-            $(document).on("click", ".lost-book-btn", function () {
-                const borrowId = $(this).data("borrow-id");
-                const bookId = $(this).data("book-id");
-                const userId = $(this).data("user-id"); 
+            // When click Rejected Button, Change the status
+            $(document).on("click", ".rejected-btn", function () {
+                const paymentId = $(this).data("payment-id");
                 
                 $.ajax({
-                    url: "borrowedBooksDetails.php",
+                    url: "paymentApproval.php",
                     type: "POST",
                     data: {
-                        action: "mark_as_lost",
-                        borrow_id: borrowId,
-                        book_id: bookId,
-                        user_id: userId,
+                        action: "reject_payment",
+                        payment_id: paymentId,
                     },
-    
                     success: function (response) {
                         const res = JSON.parse(response);
                         alert(res.message);
-                        displayBorrowedBooks(); 
+                        displayPayments();
                     },
-                    error: function () {alert("An error occurred while updating the status.");
-
+                    error: function () {
+                        alert("An error occurred while updating the status.");
                     },
                 });
             });
         });
     </script>
-    
 </body>
 </html>
