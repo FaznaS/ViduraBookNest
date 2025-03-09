@@ -1,106 +1,95 @@
 <?php
-include "config.php";
-include "index.php";
+    include "config.php";
+    include "index.php";
 
-// Ensure the session is started only if not already active
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+    $user_id = $_SESSION['username']; // Define user_id from session
 
-// Check if the user is logged in
-if (!isset($_SESSION['username'])) {
-    echo "<script>alert('You need to log in first.'); window.location.href='login.php';</script>";
-    exit();
-}
+    if (isset($_POST['book_id'])) {
+        $book_id = $_POST['book_id'];
 
-$user_id = $_SESSION['username']; // Define user_id from session
+        // Checking if the book is already available in the cart 
+        $check_query = "SELECT * FROM borrowed_book_details WHERE user_id = '$user_id' AND book_id = $book_id";
+        $check_query_result = mysqli_query($conn, $check_query);
 
-if (isset($_POST['book_id'])) {
-    $book_id = $_POST['book_id'];
+        // Checking if there are book copies
+        $check_book_availability = "SELECT * FROM books WHERE acc_no = $book_id AND copies > 0";
+        $books_available = mysqli_query($conn, $check_book_availability);
 
-    // Checking if the book is already available in the cart 
-    $check_query = "SELECT * FROM borrowed_book_details WHERE user_id = '$user_id' AND book_id = $book_id";
-    $check_query_result = mysqli_query($conn, $check_query);
+        // Checking the activated membership plan
+        $check_membership_plan = "SELECT payment_type, status FROM payment_details WHERE user_id = $user_id";
+        $membership_result = mysqli_query($conn, $check_membership_plan);
 
-    // Checking if there are book copies
-    $check_book_availability = "SELECT * FROM books WHERE acc_no = $book_id AND copies > 0";
-    $books_available = mysqli_query($conn, $check_book_availability);
+        $borrowed_date = date('Y-m-d'); // Current date
 
-    if (mysqli_num_rows($books_available) > 0) {
-        if (mysqli_num_rows($check_query_result) > 0) {
-            echo "<script>
-                    alert('This Book is already available in your cart')
-                </script>";
-        } else {
-            // Calculate the return date (7 days later from borrowed date)
-            $borrowed_date = date('Y-m-d'); // Current date
-            $return_date = date('Y-m-d', strtotime('+7 days')); // Current date + 7 days
+        // Calculating the number of days given when borrowing the book
+        if ($membership_row = mysqli_fetch_assoc($membership_result)) {
+            $payment_type = $membership_row['payment_type'];
+            $payment_status = $membership_row['status'];
 
-            // Inserting the book to the cart with status pending
-            $insert_query = "INSERT INTO borrowed_book_details(user_id, book_id, borrowed_date, return_date, status) VALUES
-            ('$user_id', $book_id, '$borrowed_date', '$return_date', 'Pending')";
-
-            if (mysqli_query($conn, $insert_query)) {
-                echo "<script>
-                        alert('Book added to cart successfully')
-                    </script>";
-
-                // Number of copies is deducted by 1
-                $update_query = "UPDATE books SET copies = copies - 1 WHERE acc_no = $book_id";
-                mysqli_query($conn, $update_query);
+            if($payment_type == 'One Year' && $payment_status == 'Approved') {
+                $return_date = date('Y-m-d', strtotime('+14 days')); // Current date + 14 days
+            } else if($payment_type == 'Two Year' && $payment_status == 'Approved'){
+                $return_date = date('Y-m-d', strtotime('+30 days')); // Current date + 30 days
             } else {
-                echo "<script>
-                        alert('Sorry! Something went wrong')
+                $return_date = date('Y-m-d', strtotime('+7 days')); // Current date + 7 days
+            }
+        } else {
+            $return_date = date('Y-m-d', strtotime('+7 days')); // Current date + 7 days
+        }
+
+        if (mysqli_num_rows($books_available) > 0) {
+            if (mysqli_num_rows($check_query_result) > 0) {
+                // Getting the row associated with the book already available in the cart
+                $row = mysqli_fetch_assoc($check_query_result);
+
+                if($row['status'] == 'Returned') {
+                    // Instead of inserting a new row, update the old record
+                    $update_query = "UPDATE borrowed_book_details 
+                                        SET borrowed_date = '$borrowed_date', 
+                                            return_date = '$return_date', 
+                                            status = 'Pending' 
+                                        WHERE user_id = '$user_id' 
+                                        AND book_id = $book_id";
+                    
+                    if (mysqli_query($conn, $update_query)) {
+                        echo "<script>alert('Book re-added to cart successfully')</script>";
+            
+                        // Deduct one copy from books
+                        $update_copies_query = "UPDATE books SET copies = copies - 1 WHERE acc_no = $book_id";
+                        mysqli_query($conn, $update_copies_query);
+                    } else {
+                        echo "<script>alert('Error updating book record')</script>";
+                    }
+                } else {
+                    echo "<script>
+                        alert('This Book is already available in your cart')
                     </script>";
+                }
+            } else {
+                // Inserting the book to the cart with status pending
+                $insert_query = "INSERT INTO borrowed_book_details(user_id, book_id, borrowed_date, return_date, status) VALUES
+                ('$user_id', $book_id, '$borrowed_date', '$return_date', 'Pending')";
+
+                if (mysqli_query($conn, $insert_query)) {
+                    echo "<script>
+                            alert('Book added to cart successfully')
+                        </script>";
+
+                    // Number of copies is deducted by 1
+                    $update_query = "UPDATE books SET copies = copies - 1 WHERE acc_no = $book_id";
+                    mysqli_query($conn, $update_query);
+                } else {
+                    echo "<script>
+                            alert('Sorry! Something went wrong')
+                        </script>";
+                }
             }
+        } else {
+            echo "<script>
+                    alert('Sorry! All copies have been borrowed')
+                </script>";
         }
-    } else {
-        echo "<script>
-                alert('Sorry! All copies have been borrowed')
-            </script>";
     }
-}
-
-// Function to display borrowed books for the user
-function displayBorrowedBooks($conn, $user_id) {
-    $search_books = "SELECT b.title, b.image, bb.borrow_id, bb.borrowed_date, bb.return_date, bb.status, b.file_path 
-                     FROM borrowed_book_details bb
-                     JOIN books b ON bb.book_id = b.acc_no
-                     WHERE bb.user_id = '$user_id' AND bb.status != 'Returned'
-                     ORDER BY bb.borrow_id DESC";
-
-    $result_query = mysqli_query($conn, $search_books);
-
-    if (mysqli_num_rows($result_query) > 0) {
-        while ($fetch_book = mysqli_fetch_assoc($result_query)) {
-            echo '<div id="cart_card">
-                    <img id="book_img" src="Assets/uploaded_images/' . $fetch_book["image"] . '">
-                    <div id="borrow_details_container">
-                        <h3 id="book_title">' . $fetch_book["title"] . '</h3>
-                        <div id="borrow_details">
-                            <p>Borrowed Date: ' . $fetch_book["borrowed_date"] . '</p>
-                            <p>Return Date: ' . $fetch_book["return_date"] . '</p>
-                            <p>Status: ' . $fetch_book["status"] . '</p>';
-
-            // Check if the book has a "Read Now" option
-            if (!empty($fetch_book["file_path"])) {
-                echo '<button type="button" class="read-now-btn">
-                        <a href="' . htmlspecialchars($fetch_book["file_path"]) . '" style="color: black; text-decoration: none;">
-                            Read Now
-                        </a>
-                      </button>';
-            }
-
-            echo '  </div>
-                    </div>
-                </div>';
-        }
-    } else {
-        echo '<p class="no-books-message"> 
-                No books available in the cart 
-            </p>';
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -257,7 +246,7 @@ function displayBorrowedBooks($conn, $user_id) {
                     $search_books = "SELECT b.title, b.image, bb.borrow_id, bb.borrowed_date, bb.return_date, bb.status, b.file_path 
                                      FROM borrowed_book_details bb
                                      JOIN books b ON bb.book_id = b.acc_no
-                                     WHERE bb.user_id = '$user_id'
+                                     WHERE bb.user_id = '$user_id' AND bb.status != 'Returned'
                                      ORDER BY bb.borrow_id DESC";
 
                     $result_query = mysqli_query($conn, $search_books);
