@@ -39,6 +39,12 @@
         #page-container {
             position: relative;
         }
+        /* Mobile Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .content-container {
+                margin-top: 50px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -72,7 +78,7 @@
             </div>
         </div>
             <button type="button" id="user-profile-icon">
-                <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+                <i class="fa fa-user" aria-hidden="true" onclick="showMore()"></i>
             </button>
         </div>
 

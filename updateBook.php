@@ -72,6 +72,27 @@
             font-size: large;
             right: 30px;
         }
+
+        @media screen and (max-width: 768px) {
+            .content-container {
+                width: 400px;
+                padding: 30px;
+                margin-top: 50px;
+            }
+            .search-bar {
+                margin-top: 45px;
+            }
+            .search-bar input {
+                padding: 5px 35px;
+                height: 25px;
+                width: 300px;
+            }
+            input,
+            select,
+            textarea {
+                width: 280px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -94,7 +115,7 @@
                 </div>
             </div>
             <button type="button" id="user-profile-icon">
-                <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+                <i class="fa fa-user" aria-hidden="true" onclick="showMore()"></i>
             </button>
         </div>
 

@@ -24,7 +24,7 @@
                 </li>
                 <li>
                     <div class="nav-element-container">
-                        <a href="updateBooks.html" class="header-links">Update Books</a>
+                        <a href="updateBook.php" class="header-links">Update Books</a>
                     </div>
                 </li>
                 <li>
@@ -199,7 +199,7 @@
                         alert(res.message);
                         $("#replaceBookModal").fadeOut();
                         $("#overlay").hide();
-                        window.location.href = "addBook.html";
+                        window.location.href = "addBook.php";
                     },
                     error: function () {
                         alert("An error occurred while updating the status.");
