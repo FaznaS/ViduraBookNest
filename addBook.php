@@ -50,6 +50,18 @@
             padding: 8px;
             border-radius: 0.8em;
         }
+        @media screen and (max-width: 768px) {
+            .content-container {
+                width: 400px;
+                padding: 30px;
+                margin-top: 50px;
+            }
+            input,
+            select,
+            textarea {
+                width: 280px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -71,7 +83,7 @@
                 </div>
             </div>
             <button type="button" id="user-profile-icon">
-                <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+                <i class="fa fa-user" aria-hidden="true" onclick="showMore()"></i>
             </button>
         </div>
 
