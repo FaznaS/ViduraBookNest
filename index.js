@@ -3,15 +3,29 @@ function togglePassword() {
     var icon = document.getElementById('icon-eye');
     var password = document.getElementById('password');
     if(icon.className == "fa fa-eye") {
-        password.type = "text";
+        password.type = "password";
         icon.className = "fa fa-eye-slash";
     } else {
-        password.type = "password";
+        password.type = "text";
         icon.className = "fa fa-eye";
     }
 }
 
+function toggleConfirmPassword() {
+    var icon = document.getElementById('confirm-icon-eye');
+    var confirm_password = document.getElementById('confirm_password');
+    if(icon.className == "fa fa-eye") {
+        confirm_password.type = "password";
+        icon.className = "fa fa-eye-slash";
+    } else {
+        confirm_password.type = "text";
+        icon.className = "fa fa-eye";
+    }
+}
+
+
 // Belongs to all pages after login
+
 function showViewProfile() {
     var user_profile_options = document.getElementById('view-profile-option');
     var user_profile_icon = document.getElementById('user-profile-icon');
@@ -34,3 +48,4 @@ function showMore() {
         more_options_container.style.display = 'none';
     }
 }
+

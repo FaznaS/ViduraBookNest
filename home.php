@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="home.js"></script>
     <script src="index.js"></script>
+    <script src="books.js"></script>
     <style>
         ul {
             list-style: none;
@@ -50,7 +51,6 @@
         }
         #about-section {
             display: flex;
-            justify-content: space-between;
             margin-top: 40px;
             margin-left: 30px;
             margin-right: 30px;
@@ -67,6 +67,9 @@
         .imagegallery, .mySlides{
             width: 44.375em;
             height: 35em;
+        }
+        .mySlides {
+            border: 2px solid rgb(160, 81, 81);
         }
         .btn-left{
             font-size: xx-large;
@@ -89,13 +92,40 @@
         footer {
             position: relative;
         }
+        @media screen and (max-width: 768px) {
+            .search-bar {
+                margin-top: 40px;
+            }
+            .search-bar input {
+                padding: 5px 35px;
+                height: 25px;
+                width: 300px;
+            }
+            #about-section {
+                flex-wrap: wrap;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .imagegallery, .mySlides{
+                width: 25em;
+                height: 20em;
+            }
+            .btn-left{
+                top: 300px;
+                margin-left: 20px;
+            }
+            .btn-right{
+                top: 300px;
+                margin-left: 370px;
+            }
+        }
     </style>
 </head>
 <body>
-
     <!--To display student name-->
     <?php 
-        include "index.php"
+        include "index.php";
+        include "chatbot.php"
     ?>
     
     <!-------------------------------Header Design------------------------------->
@@ -117,18 +147,20 @@
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <a href="cart.html" class="header-links">Cart</a>
+                    <a href="cart.php" class="header-links">Cart</a>
                 </div>
             </li>
             <li>
                 <div class="nav-element-container">
                     <i class="fa fa-credit-card-alt" aria-hidden="true" style="font-size: larger; padding-top: 3px;"></i>
-                    <a href="payment.html" class="header-links">Payment</a>
+                    <a href="payment.php" class="header-links">Payment</a>
                 </div>
             </li>
         </ul>
     </nav>
-
+    <?php 
+        include "backbtn.php"
+    ?>
     <div id="page-container">
         <div id="content-wrap">
             <!-------------------------------User Profile------------------------------->
@@ -136,54 +168,58 @@
                 <div id="view-profile-option">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <p><?php echo htmlspecialchars($student_name); ?></p>
-                        <a href="viewProfile.html" style="text-decoration: none;">View Profile</a>
+                        <a href="viewProfile.php" style="text-decoration: none;">View Profile</a>
                     </div>
                 </div>
                 <button type="button" id="user-profile-icon">
-                    <i class="fa fa-user" aria-hidden="true" style="font-size: xx-large;" onclick="showMore()"></i>
+                    <i class="fa fa-user" aria-hidden="true" onclick="showMore()"></i>
                 </button>
             </div>
 
             <div id="more-options">
-                <a href="editProfile.html" class="more-options-links">Edit Profile</a>
+                <a href="editprofile.php" class="more-options-links">Edit Profile</a>
                 <a href="help.html" class="more-options-links">Help and Support</a>
                 <a href="settings.html" class="more-options-links">Settings</a>
                 <br>
                 <br>
                 <button type="button" class="btn" style="margin-left: 13px;">
                     <i class="fa fa-external-link" aria-hidden="true" style="color: blue; text-align: center;"></i>
-                    <a href="welcome.html" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
+                    <a href="logout.php" style="color: blue; text-decoration: none;font-weight: normal;font-family: 'Times New Roman', Times, serif;">Log Out</a>
                 </button>
             </div>
 
             <!-------------------------------Search Bar------------------------------->
-            <div style="display: flex; justify-content: center;">
+            <form id="searchForm" action="books.php" method="GET" style="display: flex; justify-content: center;">
                 <div class="search-bar">
                     <i class="fa fa-filter" aria-hidden="true" onclick="showFilterOptions()"></i>
-                    <input type="text" placeholder="Search">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <input id="search-bar" type="text" placeholder="Search" name="search">
+                    <button type="submit" style="background: none; border: none; padding: 0;">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                 </div>
-            </div>
+            </form>
 
             <!-------------------------------Filter Options------------------------------->
             <div id="filter-options-container" style="display: none; justify-content: center;">
                 <div id="filter-options">
                     <h4>Genre</h4>
                     <div style="padding: 5px;">
-                        <button type="button" class="btn-genre">Fiction</button>
-                        <button type="button" class="btn-genre">Non-Fiction</button>
-                        <button type="button" class="btn-genre">Science</button>
-                        <button type="button" class="btn-genre">History</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('English Fiction')">Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Non Fiction')">Non-Fiction</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Science')">Science</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('History')">History</button>
                     </div>
                     <div style="padding: 5px;">
-                        <button type="button" class="btn-genre">Language</button>
-                        <button type="button" class="btn-genre">Literature</button>
-                        <button type="button" class="btn-genre">Technology</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Language')">Language</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('English Literature')">Literature</button>
+                        <button type="button" class="btn-genre" onclick="filterBooks('Technology')">Technology</button>
                     </div>
                     <h4>Author</h4>
-                    <input type="text" placeholder="Type" style="width: 350px; height: 20px; padding: 5px;">
+                    <form action="books.php" method="GET">
+                        <input id="author-filter" type="text" placeholder="Type" name="author" style="width: 350px; height: 20px; padding: 5px;">
+                    </form>
                 </div>
-            </div>      
+            </div>    
 
             <!-------------------------------About Section------------------------------->
             <section id="about-section">
@@ -191,12 +227,12 @@
                 <div id="gallerybox">  
                     <div class="imagegallery"> 
                         <div class="slide">
-                            <img class="mySlides" src="Assets/A court for ravens.jpg">
-                            <img class="mySlides" src="Assets/City of Orange.jpeg">
-                            <img class="mySlides" src="Assets/Princess Freedom.jpeg">
-                            <img class="mySlides" src="Assets/River Sing Me Home.jpeg">
-                            <img class="mySlides" src="Assets/The Harry Potter.jpg">
-                            <img class="mySlides" src="Assets/Twisted.jpg">
+                            <img class="mySlides" src="Assets/library1.jpg">
+                            <img class="mySlides" src="Assets/library2.jpg">
+                            <img class="mySlides" src="Assets/lib3.png">
+                            <img class="mySlides" src="Assets/lib4.jpeg">
+                            <img class="mySlides" src="Assets/lib5.jpeg">
+                            <img class="mySlides" src="Assets/lib6.jpeg">
                             
                             <i class="fa fa-angle-right btn-right" aria-hidden="true" onclick="plusDivs(-1)"></i>
                             <i class="fa fa-angle-left btn-left" aria-hidden="true" onclick="plusDivs(1)"></i>
@@ -268,10 +304,10 @@
         <footer>
             <div id="footer-link-container">
                 <ul>
-                    <li><a href="home.html" class="footer-links">Home</a></li>
-                    <li><a href="books.html" class="footer-links">Books</a></li>
-                    <li><a href="cart.html" class="footer-links">Cart</a></li>
-                    <li><a href="payment.html" class="footer-links">Payment</a></li>
+                    <li><a href="home.php" class="footer-links">Home</a></li>
+                    <li><a href="books.php" class="footer-links">Books</a></li>
+                    <li><a href="cart.php" class="footer-links">Cart</a></li>
+                    <li><a href="payment.php" class="footer-links">Payment</a></li>
                 </ul>
             </div>
             <div id="contact-container">
