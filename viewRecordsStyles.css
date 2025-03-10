@@ -24,7 +24,7 @@ body {
     position: fixed;
     top: 58px;
     padding: 20px;
-    margin: 50px;
+    margin: 90px 50px;
     justify-content: center;
     text-align: center;
     align-items: center;
@@ -470,4 +470,105 @@ table button {
 
 .arrow {
     font-size: 15px; 
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: small;
+        flex-direction: column;
+    }
+
+    .content-container {
+        display: flex;
+        width: 80%;
+        height: auto;
+        margin: 200px 20px;
+        position: absolute;
+    }
+    .content-container img {
+        height: 30px;
+    }
+
+    .details-container {
+        width: 100%;
+        padding: 10px;
+        font-size: small;
+    }
+
+    .view-details {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .header {
+        width: 100%;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .nav-element-container {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .view-results {
+        width: 90%;
+    }
+
+    .search-bar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    input[type="text"] {
+        width: 80%;
+    }
+
+    #searchBtn {
+        width: 80%;
+    }
+
+    table, table th, table td {
+        width: auto;
+        font-size: x-small;
+        padding: 8px;
+    }
+
+    table button {
+        width: 60px;
+        font-size: small;
+    }
+
+    .update-book-details,
+    .update-member-details {
+        position: absolute;
+        width: 210px;
+        padding: 5px;
+    }
+
+    .update-book-details input,
+    .update-member-details input {
+        width: 200px;
+        font-size: small;
+        padding: 5px;
+    }
+
+    .update-book-details label,
+    .update-member-details label {
+        width: 150px;
+        font-size: 0.9rem;
+    }
+
+    form {
+        width: 190px;
+    }
+
+    form button {
+        width: 200px;
+    }
 }

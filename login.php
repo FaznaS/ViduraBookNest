@@ -74,6 +74,19 @@
             top: 50%;
             cursor: pointer;
         }
+        /* Mobile Responsive Styles */
+        @media screen and (max-width: 768px) {
+            body {
+                font-size: medium;
+            }
+            .content-container {
+                width: 500px;
+                padding: 30px;
+            }
+            input {
+                width: 250px;
+            }
+        }
     </style>
 </head>
 <body>

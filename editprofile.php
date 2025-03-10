@@ -51,13 +51,18 @@
         }
 
         // Validation
-        if (empty($email) || empty($contact_no) || empty($grade_class) || empty($password) || empty($confirm_password)) {
+        if (empty($email) || empty($contact_no) || empty($grade_class)) {
             $error_message = "All fields are required!";
         } elseif ($password !== $confirm_password) {
             $error_message = "Passwords do not match!";
         } elseif (!preg_match("/^[0-9]{10}$/", $contact_no)) {
             $error_message = "Invalid contact number format!";
         } else {
+            // If password field is empty, retain the current password
+            if (empty($password)) {
+                $password = $user['password'];
+            }
+            
             // Update the database
             $stmt = $conn->prepare("UPDATE members SET email = ?, contact_no = ?, grade_class = ?, password = ?, profile_image = ? WHERE user_id = ?");
             $stmt->bind_param("sssssi", $email, $contact_no, $grade_class, $password, $profile_image, $username);
