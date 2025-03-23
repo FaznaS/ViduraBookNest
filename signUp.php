@@ -215,7 +215,7 @@
                 $mail->Port = 465;
                 $mail->Username = "vidurabooknest@gmail.com"; 
             // App Password via GMAIL
-                $mail->Password = "***REMOVED***"; 
+                $mail->Password = "YOUR_APP_PASSWORD"; 
                 $mail->setFrom("vidurabooknest@gmail.com"); 
                 $mail->addAddress($email); 
                 $mail->isHTML(true);
